@@ -1,0 +1,30 @@
+@import './styles/breakpoints.scss';
+
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vh: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.5s 0s cubic-bezier(0.76, 0, 0.24, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* OVERRIDE MUI */
+.MuiBox-root {
+  font-size: 14px;
+}

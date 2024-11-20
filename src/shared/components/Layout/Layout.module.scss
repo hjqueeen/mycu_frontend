@@ -1,0 +1,37 @@
+@import '../../../styles/breakpoints.scss';
+
+.page-layout-grid {
+  height: calc(100vh - 56px);
+  @apply overflow-x-hidden relative;
+}
+
+.page-layout-grid-left {
+  @apply h-full p-0;
+}
+
+.page-layout-grid-right {
+  transition: margin-left 0.3s ease;
+  @apply flex flex-row overflow-x-hidden p-4;
+  &-end {
+    @apply hidden lg:flex;
+  }
+}
+
+.swipe-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 2em;
+}
+
+.toggle-button {
+  @apply min-w-[24px] w-6 h-6 p-0 absolute top-5 rounded-2xl z-50;
+  // z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+}

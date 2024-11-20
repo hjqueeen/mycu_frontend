@@ -1,7 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
+import { Layout, PageType } from '../../shared/components/Layout/Layout';
 
-const DashboardPage = () => {
+type DashboarProps = {};
+const Dashboar = ({}: DashboarProps) => {
+  console.log('Dashboar');
+
   return <div>Dashboard</div>;
 };
 
-export default DashboardPage;
+export default Dashboar;

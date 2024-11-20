@@ -6,6 +6,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.0",
+    "@mui/lab": "^6.0.0-beta.15",
     "@mui/material": "^6.1.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -26,6 +27,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
+    "sass": "^1.81.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "zustand": "^5.0.1"
@@ -53,5 +55,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "install": "^0.13.0",
+    "npm": "^10.9.0"
   }
 }
