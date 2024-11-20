@@ -3,19 +3,23 @@ import { useEffect } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-import { Box, Divider } from '@mui/material';
+import { Box, Button, Divider } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
-
-// Styles
 import styles from './Header.module.scss';
 import useResponsive from '../../hooks/use-responsive ';
-import { IconButton } from '../../ui/IconButton/IconButton';
 import { SharedState, useSharedStore } from '../../store/use-shared.store';
+import { Tooltip } from '../../ui/Tooltip/Tooltip';
+import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
+import { PageType } from '../Layout/Layout';
+import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
+import cuBackgroud from '../../../assets/picture/cusp12.jpg';
 
-type HeaderProps = {};
+type HeaderProps = {
+  pageType: PageType;
+};
 
-export const Header = memo(() => {
+export const Header = memo(({ pageType }: HeaderProps) => {
   return (
     <React.Fragment>
       <Box
@@ -23,78 +27,73 @@ export const Header = memo(() => {
         borderColor="border.header"
         className={styles['header']}
       >
-        Header
+        <Box className={styles['header-container']}>
+          <Box className={styles['header-container-logo']}>
+            <img src={cuLogo} alt="cu-logo" />
+          </Box>
+
+          <Box className="flex flex-row">
+            <HeaderIcon
+              path="/dashboard"
+              activ={pageType === PageType.Dashboard}
+              icon={['fal', 'objects-column']}
+            />
+            <HeaderIcon
+              path="/products"
+              activ={pageType === PageType.Products}
+              icon={['fal', 'chart-network']}
+            />
+            <HeaderIcon
+              path="/inventory"
+              activ={pageType === PageType.Inventory}
+              icon={['fal', 'chart-network']}
+            />
+            <HeaderIcon
+              path="/shipping"
+              activ={pageType === PageType.Shipping}
+              icon={['fal', 'chart-network']}
+            />
+            <HeaderIcon
+              path="/user_management"
+              activ={pageType === PageType.UserManagement}
+              icon={['fal', 'users']}
+            />
+          </Box>
+        </Box>
       </Box>
-      <div className={styles['hedaer-background']}></div>
+      <div className={styles['hedaer-background']}>
+        {/* <img src={cuBackgroud} alt="header-background" /> */}
+      </div>
     </React.Fragment>
   );
 });
 
-const Breadcrumbs = memo(() => {
-  return <div className={styles['header-container-logo-breadcrumbs']}></div>;
-});
-
-const AccountSetting = memo(({}) => {
-  const { t } = useTranslation();
-  const { isDesktop } = useResponsive();
-
-  const [account, setAccount] = useState<any>({ firstName: 'Guest' });
-  const [drawer, setDrawer] = useState(false);
-  // Shared store state
-  const [
-    breadcrumbs,
-    network,
-    dashboard,
-    newsCenter,
-    workbench,
-    userRouter,
-    market,
-  ] = useSharedStore((state: SharedState) => [
-    state.breadcrumbs,
-    state.network,
-    state.dashboard,
-    state.newsCenter,
-    state.workbench,
-    state.userRouter,
-    state.market,
-  ]);
-
+const HeaderIcon = ({
+  activ,
+  path,
+  icon,
+}: {
+  activ: boolean;
+  path: string;
+  icon: [IconPrefix, IconName];
+}) => {
   return (
-    <Box
-      color="inherit"
-      onClick={() => setDrawer(true)}
-      // sx={{
-      //   '&:hover div': {
-      //     '& svg': { color: 'white' },
-      //     bgcolor: 'bg.card',
-      //   },
-      // }}
-      className={styles['header-container-navbar-drawer']}
-    >
-      {isDesktop && account.first_name && (
-        <Box className={styles['header-container-navbar-drawer-name']}>
-          {account.personal_data.first_name}
+    <Link to={path}>
+      <Tooltip title="shipping">
+        <Box
+          className="mr-4 py-5 px-4"
+          sx={{
+            color: 'text.primary',
+            fontWeight: activ ? 600 : undefined,
+            '&:hover': {
+              fontWeight: 600,
+              bgcolor: 'bg.hover',
+            },
+          }}
+        >
+          {path.slice(1).toUpperCase()}
         </Box>
-      )}
-
-      <IconButton
-        onClick={() => {}}
-        classes={clsx(
-          styles['header-container-navbar-buttons-iconbutton'],
-          styles['setting-icon']
-        )}
-        sxButton={{
-          '& svg': {
-            color: 'text.secondary',
-          },
-          bgcolor: 'transparent',
-          '&:hover': {
-            bgcolor: 'transparent',
-          },
-        }}
-        iconSize="small"
-        icon={['fal', 'gear']}
-      />
-    </Box>
+      </Tooltip>
+    </Link>
   );
-});
+};

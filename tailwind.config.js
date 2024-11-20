@@ -18,7 +18,7 @@ module.exports = {
         '3/5': '60%',
         '4/5': '80%',
         '48/100': '48%',
-        'dashboard-nav-width': '360px',
+        'dashboard-nav-width': '250px',
       },
 
     },

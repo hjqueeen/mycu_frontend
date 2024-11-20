@@ -1,0 +1,21 @@
+@import '../../../styles/breakpoints.scss';
+
+.nav-button {
+  @apply cursor-pointer flex justify-start normal-case p-1 rounded-md w-full ml-2;
+  &-image {
+    @apply flex items-center justify-center h-6 rounded-md w-6 text-lg shrink-0;
+  }
+  &-main {
+    @apply cursor-pointer flex justify-start normal-case px-1 py-0 mt-2 mb-3 rounded-md w-full;
+    &-title {
+      @apply font-bold text-lg py-2 pl-2;
+    }
+  }
+  &-tool-edit {
+    @apply flex flex-row items-center justify-start normal-case p-1 py-2 rounded-md w-full ml-2;
+  }
+
+  &-title {
+    @apply ml-4;
+  }
+}

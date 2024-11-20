@@ -33,6 +33,8 @@ declare module '@mui/material/styles' {
       newheader: string;
       newNav: string;
       newNavImage: string;
+      nav: string;
+      activ: string;
     };
     border: {
       app: string;
@@ -146,9 +148,11 @@ export const themeDark = createTheme({
       tooltip: '#444D58',
       darkgray: '#444D59',
       data: '#0F0F0F',
-      newheader: '#D2D3DD',
+      newheader: '#EBE8E1',
       newNav: '#D5ECFC',
       newNavImage: '#82C4F4',
+      nav: '#7E7570',
+      activ: '#FF6821',
     },
     border: {
       app: '#3a3a3a',
@@ -192,9 +196,11 @@ export const themeLight = createTheme({
       tooltip: '#444D58',
       darkgray: '#444D59',
       data: '#ffffff',
-      newheader: '#D2D3DD',
+      newheader: '#EBE8E1',
       newNav: '#D5ECFC',
       newNavImage: '#82C4F4',
+      nav: '#7E7570',
+      activ: '#FF6821',
     },
     border: {
       app: '#e9e9f0',

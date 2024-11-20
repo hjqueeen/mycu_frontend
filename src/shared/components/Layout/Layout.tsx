@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
-import { Box, Grid2 } from '@mui/material';
-import styles from './Layout.module.scss';
+import { Box, CssBaseline, Grid2, ThemeProvider } from '@mui/material';
 import { Header } from '../Header/Header';
 import useResponsive from '../../hooks/use-responsive ';
 import { MobileView } from './MobileView/MobileView';
 import { DesktopView } from './DesktopView/DesktopView';
+import { themeLight, useTheme } from '../../hooks/use-theme.hook';
+import styles from './Layout.module.scss';
 
 export enum PageType {
   Dashboard = 'DASHBOARD', // 메인페이지
@@ -28,13 +29,14 @@ export const Layout = ({
   rightComponentName: rightComponentName1,
 }: LayoutProps) => {
   const { isMobile, isDesktop } = useResponsive();
-  console.log('AppRouter', pageType);
+  // const { activeThemeGet } = useTheme();
 
   return (
-    <Box>
-      <Header />
-      <Box className={styles['page-layout-grid']}>
-        {/* {isMobile && (
+    <ThemeProvider theme={themeLight}>
+      <Box className="h-full">
+        <Header pageType={pageType} />
+        <Box className={styles['page-layout-grid']}>
+          {/* {isMobile && (
             <MobileView
               leftComponent={leftComponent}
               rightComponent1={rightComponent1}
@@ -42,19 +44,20 @@ export const Layout = ({
               // rightComponent3={rightComponent3}
             />
           )} */}
-        {/* {isDesktop && (
+          {/* {isDesktop && (
             <DesktopView
               pageType={pageType}
               leftComponent={leftComponent}
               rightComponent={rightComponent}
             />
           )} */}
-        <DesktopView
-          pageType={pageType}
-          leftComponent={leftComponent}
-          rightComponent={rightComponent}
-        />
+          <DesktopView
+            pageType={pageType}
+            leftComponent={leftComponent}
+            rightComponent={rightComponent}
+          />
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
