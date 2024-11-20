@@ -2,7 +2,7 @@
 
 .page-layout-grid {
   height: calc(100vh - 56px);
-  @apply overflow-x-hidden relative;
+  @apply overflow-x-hidden relative flex flex-row;
 }
 
 .page-layout-grid-left {
@@ -12,9 +12,6 @@
 .page-layout-grid-right {
   transition: margin-left 0.3s ease;
   @apply flex flex-row overflow-x-hidden p-4;
-  &-end {
-    @apply hidden lg:flex;
-  }
 }
 
 .swipe-item {

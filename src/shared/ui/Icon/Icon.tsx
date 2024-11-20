@@ -45,8 +45,6 @@ type IconProps = {
 };
 
 export const Icon = (props: IconProps) => {
-  console.log('icon', props.icon);
-
   return (
     <Box sx={props.sx}>
       <FontAwesomeIcon

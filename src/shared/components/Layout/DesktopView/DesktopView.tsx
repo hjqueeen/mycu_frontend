@@ -19,6 +19,7 @@ export const DesktopView = ({
 }: DesktopViewProps) => {
   const [showNav, setShowNav] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  console.log('rightComponent', rightComponent);
 
   useEffect(() => {
     switch (pageType) {
