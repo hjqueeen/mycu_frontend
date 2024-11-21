@@ -3,15 +3,9 @@ import {
   LayoutProps,
   PageType,
 } from '../../shared/components/Layout/Layout';
+import { ProductsPageType } from '../../shared/models/all.types';
 import ProductNav from './ProductNav/ProductNav';
 import ProductsContent from './ProductsContent/ProductsContent';
-
-export enum ProductsPageType {
-  Add = 'ADD',
-  All = 'ALL',
-  Default = 'Default',
-  Edit = 'EDIT',
-}
 
 export type ProductsPageProps = {
   type: ProductsPageType;
@@ -21,8 +15,9 @@ export const Products = ({ type }: ProductsPageProps) => {
   return (
     <Layout
       pageType={PageType.Products}
-      leftComponent={<ProductNav type={type} />}
-      rightComponent={<ProductsContent type={type} />}
+      contentType={type}
+      sideMenu={<ProductNav type={type} />}
+      mainGrid={<ProductsContent type={type} />}
       rightComponentName={PageType.Products}
     />
   );

@@ -4,7 +4,7 @@ export const Shipping = () => {
   return (
     <Layout
       pageType={PageType.Shipping}
-      rightComponent={<>Shipping</>}
+      mainGrid={<>Shipping</>}
       rightComponentName={PageType.Shipping}
     />
   );

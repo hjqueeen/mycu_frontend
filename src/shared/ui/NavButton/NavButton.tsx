@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import {
   IconName,
@@ -31,7 +31,7 @@ export const NavButton = ({
   return (
     <Box
       sx={{
-        fontWeight: active ? 600 : undefined,
+        fontWeight: active ? 600 : 400,
         backgroundColor: 'initial',
         '&:hover': {
           backgroundColor: 'bg.hover',
@@ -47,15 +47,26 @@ export const NavButton = ({
         >
           <Icon
             icon={icon}
-            size="sm"
+            size="xl"
             sx={{
-              color: active ? 'bg.activ' : 'text.primary',
-              fontWeight: active ? 600 : undefined,
+              color: active ? 'bg.activ' : undefined,
+              fontWeight: active ? 600 : 400,
             }}
           />
         </Box>
       )}
-      <Box
+      <Typography
+        className={styles['nav-button-main-title']}
+        variant="subtitle1"
+        gutterBottom
+        sx={{
+          color: active ? 'bg.activ' : undefined,
+          fontWeight: active ? 600 : 400,
+        }}
+      >
+        {title}
+      </Typography>
+      {/* <Box
         color={main ? 'text.primary' : active ? 'bg.activ' : 'text.primary'}
         className={clsx(
           main && styles['nav-button-main-title'],
@@ -63,7 +74,7 @@ export const NavButton = ({
         )}
       >
         {title}
-      </Box>
+      </Box> */}
     </Box>
   );
 };

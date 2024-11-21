@@ -215,7 +215,6 @@ export interface RemoveRoomUsersSocketResponse {
   status: ResultState;
 }
 
-
 export interface TanData {
   tan: boolean;
 }

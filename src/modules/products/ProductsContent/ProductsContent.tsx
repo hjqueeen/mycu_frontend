@@ -1,5 +1,6 @@
-import { ProductsPageProps, ProductsPageType } from '..';
+import { ProductsPageProps } from '../Products';
 import { ProductAdd } from '../ProductAdd/ProductAdd';
+import { ProductsPageType } from '../../../shared/models/all.types';
 
 const ProductsContent = ({ type }: ProductsPageProps) => {
   console.log('ProductsContent', type);

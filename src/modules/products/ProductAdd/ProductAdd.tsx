@@ -1,11 +1,14 @@
 import {
+  Box,
+  Button,
   Checkbox,
   FormControlLabel,
   FormLabel,
-  Grid,
   OutlinedInput,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import React, { useState } from 'react';
+import { styled } from '@mui/system';
 
 // 카테고리 타입 정의
 interface Category {
@@ -57,136 +60,116 @@ export const ProductAdd: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-yellow-50 rounded-lg max-w-md mx-auto shadow-lg">
-      <h1 className="text-center text-brown-800 text-2xl font-bold mb-4">
-        상품 등록
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">카테고리</label>
-          <select
-            className="w-full p-2 border rounded"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-              setSubCategory(''); // 카테고리 선택 시 하위 카테고리 초기화
-            }}
-          >
-            <option value="">카테고리 선택</option>
-            {Object.entries(categories).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {category && (
-          <div className="mb-4">
-            <label className="block font-semibold text-brown-800">
-              하위 카테고리
-            </label>
-            <select
-              className="w-full p-2 border rounded"
-              value={subCategory}
-              onChange={(e) => setSubCategory(e.target.value)}
-            >
-              <option value="">하위 카테고리 선택</option>
-              {categories[category].subCategories.map((sub, index) => (
-                <option key={index} value={sub}>
-                  {sub}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">
-            상품 이름
-          </label>
-          <input
-            type="text"
-            className="w-full p-2 border rounded"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">
-            상세 설명
-          </label>
-          <textarea
-            className="w-full p-2 border rounded"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">
-            사진 업로드
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              setImage(e.target.files ? e.target.files[0] : null)
-            }
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">
-            영상 링크
-          </label>
-          <input
-            type="url"
-            className="w-full p-2 border rounded"
-            value={videoLink}
-            onChange={(e) => setVideoLink(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">부속품</label>
-          <select
-            multiple
-            className="w-full p-2 border rounded"
-            onChange={(e) => {
-              const options = e.target.selectedOptions;
-              setVersions(Array.from(options).map((option) => option.value));
-            }}
-          >
-            <option value="product1">상품 1</option>
-            <option value="product2">상품 2</option>
-            <option value="product3">상품 3</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block font-semibold text-brown-800">
-            다른 버전
-          </label>
-          <select
-            multiple
-            className="w-full p-2 border rounded"
-            onChange={(e) => {
-              const options = e.target.selectedOptions;
-              setVersions(Array.from(options).map((option) => option.value));
-            }}
-          >
-            <option value="version1">버전 1</option>
-            <option value="version2">버전 2</option>
-            <option value="version3">버전 3</option>
-          </select>
-        </div>
-        <button
-          type="submit"
-          className="w-full p-2 mt-4 bg-orange-500 text-white rounded hover:bg-orange-600"
+    <Grid container spacing={3} className="w-3/5 py-10">
+      <FormGrid size={{ xs: 12, md: 6 }}>
+        <FormLabel htmlFor="category1" required>
+          Category 1
+        </FormLabel>
+        <OutlinedInput
+          id="category1"
+          name="category1"
+          type="name"
+          placeholder="Category A"
+          autoComplete="category1"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 12, md: 6 }}>
+        <FormLabel htmlFor="category2" required>
+          Category 2
+        </FormLabel>
+        <OutlinedInput
+          id="category2"
+          name="category2"
+          type="category2"
+          placeholder="Category B"
+          autoComplete="category 2"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 12 }}>
+        <FormLabel htmlFor="product-name" required>
+          Product Name
+        </FormLabel>
+        <OutlinedInput
+          id="product-name"
+          name="product-name"
+          type="product-name"
+          placeholder="CU-SP1"
+          autoComplete="product-name"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 12 }}>
+        <FormLabel htmlFor="product-description">Product Description</FormLabel>
+        <OutlinedInput
+          id="product-description"
+          name="product-description"
+          type="product-description"
+          placeholder="The IPAD CU-SP1 is a semi-automated external defibrillator (AED)."
+          autoComplete="product-description"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 6 }}>
+        <FormLabel htmlFor="accessories" required>
+          Accessories
+        </FormLabel>
+        <OutlinedInput
+          id="accessories"
+          name="accessories"
+          type="accessories"
+          placeholder="Carrying Case & Pads"
+          autoComplete="accessories"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 6 }}>
+        <FormLabel htmlFor="series-products" required>
+          Series products
+        </FormLabel>
+        <OutlinedInput
+          id="series-products"
+          name="series-products"
+          type="series-products"
+          placeholder="NY"
+          autoComplete="series-products"
+          required
+          size="small"
+        />
+      </FormGrid>
+      <Box
+        sx={[
+          {
+            display: 'flex',
+            flexDirection: { xs: 'column-reverse', sm: 'row' },
+            alignItems: 'end',
+            flexGrow: 1,
+            gap: 1,
+            pb: { xs: 12, sm: 0 },
+            mt: { xs: 2, sm: 0 },
+            mb: '60px',
+          },
+          { justifyContent: 'flex-end' },
+        ]}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            color: 'background.paper',
+            bgcolor: '#4BA36B',
+            alignSelf: 'start',
+            width: { xs: '100%', sm: 'auto' },
+          }}
         >
-          제출
-        </button>
-      </form>
-    </div>
+          Save
+        </Button>
+      </Box>
+    </Grid>
   );
 };

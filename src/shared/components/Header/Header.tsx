@@ -15,7 +15,7 @@ import { PageType } from '../Layout/Layout';
 import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
 import cuBackgroud from '../../../assets/picture/cusp12.jpg';
 
-type HeaderProps = {
+export type HeaderProps = {
   pageType: PageType;
 };
 
@@ -23,8 +23,8 @@ export const Header = memo(({ pageType }: HeaderProps) => {
   return (
     <React.Fragment>
       <Box
-        bgcolor="bg.newheader"
-        borderColor="border.header"
+        // bgcolor="bg.newheader"
+        // borderColor="border.header"
         className={styles['header']}
       >
         <Box className={styles['header-container']}>
@@ -32,7 +32,7 @@ export const Header = memo(({ pageType }: HeaderProps) => {
             <img src={cuLogo} alt="cu-logo" />
           </Box>
 
-          <Box className="flex flex-row">
+          <Box className="flex flex-row mr-24">
             <HeaderIcon
               path="/dashboard"
               activ={pageType === PageType.Dashboard}
@@ -61,9 +61,9 @@ export const Header = memo(({ pageType }: HeaderProps) => {
           </Box>
         </Box>
       </Box>
-      <div className={styles['hedaer-background']}>
-        {/* <img src={cuBackgroud} alt="header-background" /> */}
-      </div>
+      {/* <div className={styles['hedaer-background']}>
+       <img src={cuBackgroud} alt="header-background" /> 
+      </div> */}
     </React.Fragment>
   );
 });

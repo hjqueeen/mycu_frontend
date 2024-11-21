@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Dashboard from '../modules/dashboard';
 import { Inventory } from '../modules/Inventory';
 import LoginPage from '../modules/login';
-import { Products } from '../modules/products';
+import { Products } from '../modules/products/Products';
 import ProductNav from '../modules/products/ProductNav/ProductNav';
 import { Shipping } from '../modules/shipping';
 import { UserManagement } from '../modules/user_management';
@@ -18,7 +18,7 @@ export const AppRouter = () => {
         element={
           <Layout
             pageType={PageType.Dashboard}
-            rightComponent={<Dashboard />}
+            mainGrid={<Dashboard />}
             rightComponentName={PageType.Dashboard}
           />
         }
@@ -28,7 +28,7 @@ export const AppRouter = () => {
         element={
           <Layout
             pageType={PageType.Inventory}
-            rightComponent={<Inventory />}
+            mainGrid={<Inventory />}
             rightComponentName={PageType.Inventory}
           />
         }
@@ -40,7 +40,7 @@ export const AppRouter = () => {
         element={
           <Layout
             pageType={PageType.UserManagement}
-            rightComponent={<UserManagement />}
+            mainGrid={<UserManagement />}
             rightComponentName={PageType.UserManagement}
           />
         }

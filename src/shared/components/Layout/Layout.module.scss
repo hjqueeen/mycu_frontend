@@ -11,7 +11,7 @@
 
 .page-layout-grid-right {
   transition: margin-left 0.3s ease;
-  @apply flex flex-row overflow-x-hidden p-4;
+  @apply flex flex-row overflow-x-hidden p-4 justify-center;
 }
 
 .swipe-item {

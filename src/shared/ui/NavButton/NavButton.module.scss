@@ -1,7 +1,7 @@
 @import '../../../styles/breakpoints.scss';
 
 .nav-button {
-  @apply cursor-pointer flex justify-start normal-case p-1 rounded-md w-full ml-2;
+  @apply cursor-pointer flex flex-row items-center justify-start normal-case p-1 rounded-md w-full ml-2;
   &-image {
     @apply flex items-center justify-center h-6 rounded-md w-6 text-lg shrink-0;
   }
