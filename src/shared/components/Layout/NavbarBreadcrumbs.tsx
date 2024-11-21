@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
-import { MainHeaderProps } from './MainHeader';
+import { ContentHeaderProps } from './ContentHeader';
 
 const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }: any) => ({
   margin: theme.spacing(1, 0),
@@ -19,7 +19,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }: any) => ({
 export default function NavbarBreadcrumbs({
   pageType,
   contentType,
-}: MainHeaderProps) {
+}: ContentHeaderProps) {
   return (
     <StyledBreadcrumbs
       aria-label="breadcrumb"

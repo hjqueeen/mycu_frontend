@@ -1,32 +1,44 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductsPageProps } from '../Products';
-import avatar from '../../../assets/picture/avatar.jpg';
-import OptionsMenu from '../OptionsMenu';
-import MenuContent from '../MenuContent';
+
 import { ProductsPageType } from '../../../shared/models/all.types';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 
-const drawerWidth = 240;
-
-const Drawer = styled(MuiDrawer)({
-  width: drawerWidth,
-  flexShrink: 0,
-  boxSizing: 'border-box',
-  mt: 10,
-  [`& .${drawerClasses.paper}`]: {
-    width: drawerWidth,
-    boxSizing: 'border-box',
+const mainListItems = [
+  {
+    text: 'All Products',
+    icon: <HomeRoundedIcon />,
+    type: ProductsPageType.All,
   },
-});
+  {
+    text: 'Add Product',
+    icon: <AnalyticsRoundedIcon />,
+    type: ProductsPageType.Add,
+  },
+  {
+    text: 'Edit Product',
+    icon: <PeopleRoundedIcon />,
+    type: ProductsPageType.Edit,
+  },
+  // { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
+];
+
+const secondaryListItems = [
+  { text: 'Settings', icon: <SettingsRoundedIcon /> },
+  { text: 'About', icon: <InfoRoundedIcon /> },
+  { text: 'Feedback', icon: <HelpRoundedIcon /> },
+];
 
 const ProductNav = ({ type }: ProductsPageProps) => {
   const navigate = useNavigate();
@@ -47,77 +59,32 @@ const ProductNav = ({ type }: ProductsPageProps) => {
   }, []);
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        display: { xs: 'none', md: 'block' },
-        [`& .${drawerClasses.paper}`]: {
-          backgroundColor: 'background.paper',
-        },
-      }}
-    >
-      {/* <Box
-      sx={{
-        display: 'flex',
-        mt: 'calc(var(--template-frame-height, 0px) + 4px)',
-        p: 1.5,
-      }}
-    >
-      <SelectContent />
-    </Box> 
-      <Divider />*/}
-      <MenuContent onClick={onNavClick} />
-      {/* <CardAlert /> */}
-      <Stack
-        direction="row"
-        sx={{
-          p: 2,
-          gap: 1,
-          alignItems: 'center',
-          borderTop: '1px solid',
-          borderColor: 'divider',
-        }}
-      >
-        <Avatar
-          sizes="small"
-          alt="Riley Carter"
-          src={avatar}
-          sx={{ width: 36, height: 36 }}
-        />
-        <Box sx={{ mr: 'auto' }}>
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 500, lineHeight: '16px' }}
-          >
-            Pyunggang Park
-          </Typography>
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            ppg6530@email.com
-          </Typography>
-        </Box>
-        <OptionsMenu />
-      </Stack>
-    </Drawer>
-    // <Box className={styles['navigation-container']}>
-    //   <NavButton
-    //     active={type === ProductsPageType.All}
-    //     title="All Products"
-    //     icon={faEye}
-    //     onClick={() => onNavClick(ProductsPageType.All)}
-    //   />
-    //   <NavButton
-    //     active={type === ProductsPageType.Add}
-    //     title="Add Product"
-    //     icon={faSquarePlus}
-    //     onClick={() => onNavClick(ProductsPageType.Add)}
-    //   />
-    //   <NavButton
-    //     active={type === ProductsPageType.Edit}
-    //     title="Edit Product"
-    //     icon={faPenToSquare}
-    //     onClick={() => onNavClick(ProductsPageType.Edit)}
-    //   />
-    // </Box>
+    <>
+      <List dense>
+        {mainListItems.map((item, index) => (
+          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              selected={index === 0}
+              onClick={() => onNavClick(item.type)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+
+      <List dense>
+        {secondaryListItems.map((item, index) => (
+          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+            <ListItemButton>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 

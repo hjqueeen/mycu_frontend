@@ -9,12 +9,15 @@ import Search from './Search';
 import { PageType } from './Layout';
 import { ProductsPageType } from '../../models/all.types';
 
-export type MainHeaderProps = {
+export type ContentHeaderProps = {
   pageType: PageType;
   contentType?: ProductsPageType;
 };
 
-export default function MainHeader({ pageType, contentType }: MainHeaderProps) {
+export default function ContentHeader({
+  pageType,
+  contentType,
+}: ContentHeaderProps) {
   return (
     <Stack
       direction="row"

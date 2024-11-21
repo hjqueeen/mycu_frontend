@@ -16,7 +16,7 @@ export const Products = ({ type }: ProductsPageProps) => {
     <Layout
       pageType={PageType.Products}
       contentType={type}
-      sideMenu={<ProductNav type={type} />}
+      navContent={<ProductNav type={type} />}
       mainGrid={<ProductsContent type={type} />}
       rightComponentName={PageType.Products}
     />

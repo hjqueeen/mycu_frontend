@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-import { Box, Button, Divider } from '@mui/material';
+import { Box, Button, Divider, AppBar, Toolbar } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Header.module.scss';
@@ -21,50 +21,49 @@ export type HeaderProps = {
 
 export const Header = memo(({ pageType }: HeaderProps) => {
   return (
-    <React.Fragment>
-      <Box
-        // bgcolor="bg.newheader"
-        // borderColor="border.header"
-        className={styles['header']}
+    <AppBar position="fixed" elevation={0}>
+      <Toolbar
+        className="flex flex-row justify-between"
+        sx={{
+          bgcolor: 'background.default',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+          boxShadow: 0,
+        }}
       >
-        <Box className={styles['header-container']}>
-          <Box className={styles['header-container-logo']}>
-            <img src={cuLogo} alt="cu-logo" />
-          </Box>
-
-          <Box className="flex flex-row mr-24">
-            <HeaderIcon
-              path="/dashboard"
-              activ={pageType === PageType.Dashboard}
-              icon={['fal', 'objects-column']}
-            />
-            <HeaderIcon
-              path="/products"
-              activ={pageType === PageType.Products}
-              icon={['fal', 'chart-network']}
-            />
-            <HeaderIcon
-              path="/inventory"
-              activ={pageType === PageType.Inventory}
-              icon={['fal', 'chart-network']}
-            />
-            <HeaderIcon
-              path="/shipping"
-              activ={pageType === PageType.Shipping}
-              icon={['fal', 'chart-network']}
-            />
-            <HeaderIcon
-              path="/user_management"
-              activ={pageType === PageType.UserManagement}
-              icon={['fal', 'users']}
-            />
-          </Box>
+        <Box className={styles['header-container-logo']}>
+          <img src={cuLogo} alt="cu-logo" />
         </Box>
-      </Box>
-      {/* <div className={styles['hedaer-background']}>
-       <img src={cuBackgroud} alt="header-background" /> 
-      </div> */}
-    </React.Fragment>
+
+        <Box className="flex flex-row mr-24">
+          <HeaderIcon
+            path="/dashboard"
+            activ={pageType === PageType.Dashboard}
+            icon={['fal', 'objects-column']}
+          />
+          <HeaderIcon
+            path="/products"
+            activ={pageType === PageType.Products}
+            icon={['fal', 'chart-network']}
+          />
+          <HeaderIcon
+            path="/inventory"
+            activ={pageType === PageType.Inventory}
+            icon={['fal', 'chart-network']}
+          />
+          <HeaderIcon
+            path="/shipping"
+            activ={pageType === PageType.Shipping}
+            icon={['fal', 'chart-network']}
+          />
+          <HeaderIcon
+            path="/user_management"
+            activ={pageType === PageType.UserManagement}
+            icon={['fal', 'users']}
+          />
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 });
 

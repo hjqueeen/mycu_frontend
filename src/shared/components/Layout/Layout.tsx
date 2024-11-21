@@ -1,19 +1,28 @@
 import { ReactNode } from 'react';
-import { alpha, Box, Stack } from '@mui/material';
+import { alpha, Box, Stack, Typography } from '@mui/material';
 
 import { Header } from '../Header/Header';
-import MainHeader from './MainHeader';
+import ContentHeader from './ContentHeader';
 import { ProductsPageType } from '../../models/all.types';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Grid,
-  Container,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
+
+import { styled } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
+import avatar from '../../../assets/picture/avatar.jpg';
+import OptionsMenu from '../../../modules/products/OptionsMenu';
+
+const drawerWidth = 240;
+
+const Drawer = styled(MuiDrawer)({
+  width: drawerWidth,
+  flexShrink: 0,
+  boxSizing: 'border-box',
+  mt: 10,
+  [`& .${drawerClasses.paper}`]: {
+    width: drawerWidth,
+    boxSizing: 'border-box',
+  },
+});
 
 export enum PageType {
   Dashboard = 'DASHBOARD', // 메인페이지
@@ -27,7 +36,7 @@ export type LayoutProps = {
   pageType: PageType;
   contentType?: ProductsPageType;
   appNavbar?: ReactNode;
-  sideMenu?: ReactNode;
+  navContent?: ReactNode;
   mainGrid: ReactNode;
   rightComponentName: string;
 };
@@ -36,15 +45,59 @@ export const Layout = ({
   pageType,
   contentType,
   appNavbar,
-  sideMenu,
+  navContent,
   mainGrid,
-  rightComponentName: rightComponentName1,
+  rightComponentName,
 }: LayoutProps) => {
   return (
-    <Box className="h-full flex-col" sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Header pageType={pageType} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
-        {sideMenu}
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            [`& .${drawerClasses.paper}`]: {
+              top: '64px',
+              height: 'calc(100vh - 64px)',
+              backgroundColor: 'background.paper',
+            },
+          }}
+        >
+          <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
+            {navContent}
+          </Stack>
+          <Stack
+            direction="row"
+            sx={{
+              p: 2,
+              gap: 1,
+              alignItems: 'center',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Avatar
+              sizes="small"
+              alt="Riley Carter"
+              src={avatar}
+              sx={{ width: 36, height: 36 }}
+            />
+            <Box sx={{ mr: 'auto' }}>
+              <Typography
+                variant="body2"
+                sx={{ fontWeight: 500, lineHeight: '16px' }}
+              >
+                Pyunggang Park
+              </Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                ppg6530@email.com
+              </Typography>
+            </Box>
+            <OptionsMenu />
+          </Stack>
+        </Drawer>
+
         {appNavbar}
         {/* Main content */}
         <Box
@@ -66,67 +119,11 @@ export const Layout = ({
               mt: { xs: 8, md: 0 },
             }}
           >
-            <MainHeader pageType={pageType} contentType={contentType} />
+            <ContentHeader pageType={pageType} contentType={contentType} />
             {mainGrid}
           </Stack>
         </Box>
       </Box>
     </Box>
-
-    // <Box className="h-full">
-    //   <Header pageType={pageType} />
-    //   <Box className={styles['page-layout-grid']}>
-    //     {/* {isMobile && (
-    //       <MobileView
-    //         leftComponent={leftComponent}
-    //         rightComponent1={rightComponent1}
-    //         // rightComponent2={rightComponent2}
-    //         // rightComponent3={rightComponent3}
-    //       />
-    //     )} */}
-    //     {/* {isDesktop && (
-    //       <DesktopView
-    //         pageType={pageType}
-    //         leftComponent={leftComponent}
-    //         rightComponent={rightComponent}
-    //       />
-    //     )} */}
-    //     <DesktopView
-    //       pageType={pageType}
-    //       leftComponent={leftComponent}
-    //       rightComponent={rightComponent}
-    //     />
-    //   </Box>
-    // </Box>
-  );
-};
-
-// 네비게이션 메뉴
-const Navigation = () => {
-  return <></>;
-};
-
-// 메인 레이아웃
-export const MainLayout = () => {
-  return (
-    <Container>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6">웹 애플리케이션 헤더</Typography>
-        </Toolbar>
-      </AppBar>
-      <Grid container spacing={2} style={{ marginTop: 16 }}>
-        <Grid item xs={3}>
-          <Navigation />
-        </Grid>
-        <Grid item xs={9}>
-          <Typography variant="h4">콘텐츠 영역</Typography>
-          {/* 여기에 오른쪽 콘텐츠를 추가할 수 있습니다. 예를 들어: */}
-          <Typography variant="body1">
-            이곳에 상세 내용이 표시됩니다.
-          </Typography>
-        </Grid>
-      </Grid>
-    </Container>
   );
 };
