@@ -3,12 +3,12 @@ import {
   LayoutProps,
   PageType,
 } from '../../shared/components/Layout/Layout';
-import { ProductsPageType } from '../../shared/models/all.types';
+import { ProductsContentType } from '../../shared/models/all.types';
 import ProductNav from './ProductNav/ProductNav';
 import ProductsContent from './ProductsContent/ProductsContent';
 
 export type ProductsPageProps = {
-  type: ProductsPageType;
+  type: ProductsContentType;
 };
 
 export const Products = ({ type }: ProductsPageProps) => {
@@ -16,9 +16,7 @@ export const Products = ({ type }: ProductsPageProps) => {
     <Layout
       pageType={PageType.Products}
       contentType={type}
-      navContent={<ProductNav type={type} />}
       mainGrid={<ProductsContent type={type} />}
-      rightComponentName={PageType.Products}
     />
   );
 };

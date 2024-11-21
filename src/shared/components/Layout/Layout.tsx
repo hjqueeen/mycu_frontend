@@ -1,15 +1,16 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { alpha, Box, Stack, Typography } from '@mui/material';
 
 import { Header } from '../Header/Header';
 import ContentHeader from './ContentHeader';
-import { ProductsPageType } from '../../models/all.types';
+import { ProductsContentType } from '../../models/all.types';
 
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import avatar from '../../../assets/picture/avatar.jpg';
 import OptionsMenu from '../../../modules/products/OptionsMenu';
+import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 
 const drawerWidth = 240;
 
@@ -34,11 +35,10 @@ export enum PageType {
 
 export type LayoutProps = {
   pageType: PageType;
-  contentType?: ProductsPageType;
+  contentType?: ProductsContentType;
   appNavbar?: ReactNode;
   navContent?: ReactNode;
   mainGrid: ReactNode;
-  rightComponentName: string;
 };
 
 export const Layout = ({
@@ -47,8 +47,42 @@ export const Layout = ({
   appNavbar,
   navContent,
   mainGrid,
-  rightComponentName,
 }: LayoutProps) => {
+  let defaultExpandedItems;
+  let defaultSelectedItems;
+  if (pageType === PageType.Dashboard) {
+    defaultExpandedItems = undefined;
+    defaultSelectedItems = undefined;
+  } else if (pageType === PageType.Products) {
+    switch (contentType) {
+      case ProductsContentType.All:
+        defaultExpandedItems = ['1', '1.1'];
+        defaultSelectedItems = '1.1';
+        break;
+      case ProductsContentType.Add:
+        defaultExpandedItems = ['1', '1.2'];
+        defaultSelectedItems = '1.2';
+        break;
+      case ProductsContentType.Edit:
+        defaultExpandedItems = ['1', '1.3'];
+        defaultSelectedItems = '1.3';
+        break;
+      default:
+        defaultExpandedItems = ['1'];
+        defaultSelectedItems = '1';
+        break;
+    }
+  } else if (pageType === PageType.Inventory) {
+    defaultExpandedItems = ['2'];
+    defaultSelectedItems = '2';
+  } else if (pageType === PageType.Shipping) {
+    defaultExpandedItems = ['3'];
+    defaultSelectedItems = '3';
+  } else if (pageType === PageType.UserManagement) {
+    defaultExpandedItems = ['4'];
+    defaultSelectedItems = '4';
+  }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Header pageType={pageType} />
@@ -65,7 +99,10 @@ export const Layout = ({
           }}
         >
           <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
-            {navContent}
+            <DashboardNav
+              defaultExpandedItems={defaultExpandedItems}
+              defaultSelectedItems={defaultSelectedItems}
+            />
           </Stack>
           <Stack
             direction="row"

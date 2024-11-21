@@ -7,11 +7,11 @@ import ColorModeIconDropdown from '../../theme/ColorModeIconDropdown';
 
 import Search from './Search';
 import { PageType } from './Layout';
-import { ProductsPageType } from '../../models/all.types';
+import { ProductsContentType } from '../../models/all.types';
 
 export type ContentHeaderProps = {
   pageType: PageType;
-  contentType?: ProductsPageType;
+  contentType?: ProductsContentType;
 };
 
 export default function ContentHeader({

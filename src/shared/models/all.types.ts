@@ -1,4 +1,4 @@
-export enum ProductsPageType {
+export enum ProductsContentType {
   Add = 'ADD',
   All = 'ALL',
   Default = 'HOME',

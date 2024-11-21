@@ -18,7 +18,7 @@ function PageViewsBarChart() {
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          Page views and downloads
+          Sales
         </Typography>
         <Stack sx={{ justifyContent: 'space-between' }}>
           <Stack
@@ -35,7 +35,7 @@ function PageViewsBarChart() {
             <Chip size="small" color="error" label="-8%" />
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Page views and downloads for the last 6 months
+            Sales for the last 6 months
           </Typography>
         </Stack>
         <BarChart

@@ -3,6 +3,11 @@ import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
 import { TreeViewBaseItem } from '@mui/x-tree-view/models';
 import { styled, alpha } from '@mui/material/styles';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
+import { ContentHeaderProps } from '../../../shared/components/Layout/ContentHeader';
+import { useEffect, useState } from 'react';
+import { PageType } from '../../../shared/components/Layout/Layout';
+import { ProductsContentType } from '../../../shared/models/all.types';
+import { useNavigate } from 'react-router-dom';
 
 type Color = 'blue' | 'green';
 
@@ -76,6 +81,7 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
       color: theme.palette.background.paper,
     }),
     ...theme.applyStyles('dark', {
+      backgroundColor: alpha(theme.palette.warning.dark, 0.25),
       color: theme.palette.primary.contrastText,
     }),
   },
@@ -101,7 +107,30 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   }),
 }));
 
-const DashboardNav = () => {
+type DashboardNavProps = {
+  defaultExpandedItems: string[];
+  defaultSelectedItems: string;
+};
+
+const DashboardNav = ({ defaultExpandedItems, defaultSelectedItems }: any) => {
+  const navigate = useNavigate();
+
+  const onItemClick = (itemId: string) => {
+    switch (itemId) {
+      case '1.1':
+        navigate('/products/all');
+        break;
+      case '1.2':
+        navigate('/products/add');
+        break;
+      case '1.3':
+        navigate('/products/edit');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <Typography component="h2" variant="subtitle2">
@@ -111,8 +140,9 @@ const DashboardNav = () => {
         items={ITEMS}
         aria-label="pages"
         // multiSelect
-        // defaultExpandedItems={['1', '1.1']}
-        // defaultSelectedItems={['1.1', '1.1.1']}
+        defaultExpandedItems={defaultExpandedItems}
+        defaultSelectedItems={defaultSelectedItems}
+        onItemClick={(e, itemId) => onItemClick(itemId)}
         sx={{
           m: '0 -8px',
           pb: '8px',

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductsPageProps } from '../Products';
 
-import { ProductsPageType } from '../../../shared/models/all.types';
+import { ProductsContentType } from '../../../shared/models/all.types';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -19,17 +19,17 @@ const mainListItems = [
   {
     text: 'All Products',
     icon: <HomeRoundedIcon />,
-    type: ProductsPageType.All,
+    type: ProductsContentType.All,
   },
   {
     text: 'Add Product',
     icon: <AnalyticsRoundedIcon />,
-    type: ProductsPageType.Add,
+    type: ProductsContentType.Add,
   },
   {
     text: 'Edit Product',
     icon: <PeopleRoundedIcon />,
-    type: ProductsPageType.Edit,
+    type: ProductsContentType.Edit,
   },
   // { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
 ];
@@ -42,15 +42,15 @@ const secondaryListItems = [
 
 const ProductNav = ({ type }: ProductsPageProps) => {
   const navigate = useNavigate();
-  const onNavClick = useCallback((type: ProductsPageType) => {
+  const onNavClick = useCallback((type: ProductsContentType) => {
     switch (type) {
-      case ProductsPageType.Add:
+      case ProductsContentType.Add:
         navigate('/products/add');
         break;
-      case ProductsPageType.All:
+      case ProductsContentType.All:
         navigate('/products/all');
         break;
-      case ProductsPageType.Edit:
+      case ProductsContentType.Edit:
         navigate('/products/edit');
         break;
       default:

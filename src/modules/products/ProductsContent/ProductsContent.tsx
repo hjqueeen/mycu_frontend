@@ -1,17 +1,17 @@
 import { ProductsPageProps } from '../Products';
 import { ProductAdd } from '../ProductAdd/ProductAdd';
-import { ProductsPageType } from '../../../shared/models/all.types';
+import { ProductsContentType } from '../../../shared/models/all.types';
 
 const ProductsContent = ({ type }: ProductsPageProps) => {
   console.log('ProductsContent', type);
 
-  const ContentComponent = (type: ProductsPageType) => {
+  const ContentComponent = (type: ProductsContentType) => {
     switch (type) {
-      case ProductsPageType.All:
+      case ProductsContentType.All:
         return <>All</>;
-      case ProductsPageType.Add:
+      case ProductsContentType.Add:
         return <ProductAdd />;
-      case ProductsPageType.Edit:
+      case ProductsContentType.Edit:
         return <>Edit</>;
 
       default:
