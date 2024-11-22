@@ -15,9 +15,12 @@ import ColorModeSelect from '../../shared/theme/ColorModeSelect';
 import { useAuth } from '../../shared/hooks/use-auth.hook';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
 import { FacebookIcon, GoogleIcon } from './CustomIcons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { SignUpData } from '../../shared/models/auth.types';
+import { useAuthStore } from '../../shared/store/use-auth.store';
+import { useUserStore } from '../../shared/store/use-user.store';
+import { useNavigate } from 'react-router-dom';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -64,6 +67,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export default function SignUp() {
   const { signUp } = useAuth();
   const { handleError, handleRetry } = useFetch();
+  const navigate = useNavigate();
 
   const [firstNameError, setFirstNameError] = useState(false);
   const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
@@ -75,11 +79,28 @@ export default function SignUp() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
 
+  // Auth store state
+  const { setAccessToken } = useAuthStore();
+
+  // User store state
+  const { setAccount } = useUserStore();
+
   const signUpMutation = useMutation((data: SignUpData) => signUp(data), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
-    onSettled(data, error) {
+    onSuccess(data, variables, context) {
+      console.log('onSuccess', data);
+
       if (data) {
+        if (data.accessToken) {
+          setAccessToken(data.accessToken);
+        }
+        if (data.user) {
+          setAccount(data.user);
+        }
+        navigate('/dashboard');
       }
+    },
+    onError(error, variables, context) {
       if (error) {
         const errRes = error?.response;
         if (errRes) {
@@ -88,17 +109,9 @@ export default function SignUp() {
     },
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (emailError || passwordError || firstNameError || lastNameError) {
-      event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
@@ -202,7 +215,6 @@ export default function SignUp() {
               autoComplete="off"
               type="password"
               id="password"
-              autoFocus
               required
               fullWidth
               variant="outlined"
@@ -245,7 +257,7 @@ export default function SignUp() {
             type="submit"
             fullWidth
             variant="contained"
-            onClick={validateInputs}
+            onClick={() => validateInputs()}
           >
             Sign up
           </Button>

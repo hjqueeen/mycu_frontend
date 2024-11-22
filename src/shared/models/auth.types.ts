@@ -1,4 +1,5 @@
 import { UserEntity, UserRole } from '../../modules/user/models/user.types';
+import { Account } from './all.types';
 
 export interface AccountSetupRequest {
   token: string;
@@ -56,5 +57,5 @@ export interface TokenPayload {
 
 export interface LoginResponse {
   accessToken: string;
-  user: UserEntity;
+  user: Account;
 }

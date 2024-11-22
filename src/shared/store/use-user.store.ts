@@ -1,8 +1,14 @@
-import dayjs from 'dayjs';
 import { create } from 'zustand';
-import 'dayjs/locale/de';
-import 'dayjs/locale/en';
 
-export interface UserState {}
+import { Account } from '../models/all.types';
 
-export const useUserStore = create<UserState>((set, get) => ({}));
+export interface UserState {
+  account: Account | undefined;
+  setAccount: (account: Account | undefined) => void;
+}
+
+export const useUserStore = create<UserState>((set, get) => ({
+  account: undefined,
+  setAccount: (accountData: Account | undefined) =>
+    set({ account: accountData }),
+}));

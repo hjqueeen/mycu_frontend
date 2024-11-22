@@ -11,6 +11,7 @@ import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import avatar from '../../../assets/picture/avatar.jpg';
 import OptionsMenu from '../../../modules/products/OptionsMenu';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
+import { useUserStore } from '../../store/use-user.store';
 
 const drawerWidth = 240;
 
@@ -48,6 +49,10 @@ export const Layout = ({
   navContent,
   mainGrid,
 }: LayoutProps) => {
+  // User store state
+  const { account } = useUserStore();
+  console.log('account', account);
+
   let defaultExpandedItems;
   let defaultSelectedItems;
   if (pageType === PageType.Dashboard) {
@@ -125,10 +130,10 @@ export const Layout = ({
                 variant="body2"
                 sx={{ fontWeight: 500, lineHeight: '16px' }}
               >
-                Pyunggang Park
+                {account?.first_name} {account?.last_name}
               </Typography>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                ppg6530@email.com
+                {account?.email}
               </Typography>
             </Box>
             <OptionsMenu />

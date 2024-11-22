@@ -35,9 +35,13 @@ export interface UserEntity {
 }
 
 export enum UserRole {
-  First = 'FIRST', // low
-  Second = 'Second',
-  Third = 'THIRD',
-  Forth = 'FORTH',
-  Fifth = 'FIFTH',
+  Level_0 = 'LEVEL_0',
+  Level_1 = 'LEVEL_1',
+  Level_2 = 'LEVEL_2',
+  Level_3 = 'LEVEL_3',
+  Level_4 = 'LEVEL_4',
+  Level_5 = 'LEVEL_5',
+  // MEMBER = 'MEMBER',
+  // ADMIN = 'ADMIN',
+  // EMPLOYEE = 'EMPLOYEE'
 }

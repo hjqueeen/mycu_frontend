@@ -40,7 +40,9 @@ export const useAuth = () => {
     // }
   };
 
-  const signIn = async (data: LoginData): Promise<SignInData | undefined> => {
+  const signIn = async (
+    data: LoginData
+  ): Promise<LoginResponse | undefined> => {
     if (data) {
       return await fetchData(`auth/signin`, {
         method: 'POST',
@@ -49,7 +51,9 @@ export const useAuth = () => {
     }
   };
 
-  const signUp = async (data: LoginData): Promise<SignUpData | undefined> => {
+  const signUp = async (
+    data: SignUpData
+  ): Promise<LoginResponse | undefined> => {
     if (data) {
       return await fetchData(`auth/signup`, {
         method: 'POST',
