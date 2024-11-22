@@ -93,11 +93,11 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   [`& .${treeItemClasses.selected} `]: {
     backgroundColor: theme.palette.warning.dark,
     color: theme.palette.primary.contrastText,
-    '&:hover': {
+    '&:hover, &:not(:focus)': {
       backgroundColor: theme.palette.warning.dark,
       color: theme.palette.primary.contrastText,
     },
-    '&:not(:focus)': {
+    '&:not(:focus):not(:hover)': {
       backgroundColor: theme.palette.warning.dark,
       color: theme.palette.primary.contrastText,
     },
@@ -108,11 +108,14 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
 }));
 
 type DashboardNavProps = {
-  defaultExpandedItems: string[];
-  defaultSelectedItems: string;
+  defaultExpandedItems: string[] | undefined;
+  defaultSelectedItems: string | undefined;
 };
 
-const DashboardNav = ({ defaultExpandedItems, defaultSelectedItems }: any) => {
+const DashboardNav = ({
+  defaultExpandedItems,
+  defaultSelectedItems,
+}: DashboardNavProps) => {
   const navigate = useNavigate();
 
   const onItemClick = (itemId: string) => {

@@ -4,7 +4,8 @@ import { JwtPayload } from '../models/shared.types';
 import {
   LoginData,
   LoginResponse,
-  RegistrationData,
+  SignInData,
+  SignUpData,
 } from '../models/auth.types';
 import { jwtDecode } from 'jwt-decode';
 import { useFetch } from './use-fetch.hook';
@@ -20,7 +21,6 @@ export const regExpUpper = new RegExp('.*[A-Z].*');
 
 export const useAuth = () => {
   const { fetchData } = useFetch();
-  const { t } = useTranslation();
 
   // Auth store state
   const [accessToken] = useAuthStore((state: AuthState) => [state.accessToken]);
@@ -86,44 +86,6 @@ export const useAuth = () => {
   };
 
   /**
-   * Handle login http errors.
-   * @param status Http response status code
-   * @returns Error message
-   */
-  const loginHandleError = (
-    status: number,
-    fails: number,
-    timeout: number
-  ): {
-    fails: number;
-    message: string;
-  } => {
-    if ((status === 400 || status === 401) && timeout < 1) {
-      if (fails < 3) {
-        return {
-          fails: fails + 1,
-          message: t('auth.login.error.credentials') + '',
-        };
-      } else {
-        return {
-          fails: fails + 1,
-          message: t('auth.login.error.timeout') + '',
-        };
-      }
-    }
-    if (status === 404) {
-      return {
-        fails,
-        message: t('auth.login.error.credentials'),
-      };
-    }
-    return {
-      fails,
-      message: `Code ${status}: ${t('app.fetch.error.response')}`,
-    };
-  };
-
-  /**
    * Calculates password strength based on form field errors.
    * @param fieldErrors FieldErrors
    * @returns Password strength as width style
@@ -153,28 +115,26 @@ export const useAuth = () => {
    * @param registrationData Registration data
    * @returns Registration data
    */
-  const registration = async (
-    registrationData: RegistrationData
-  ): Promise<RegistrationData | undefined> => {
-    if (registrationData) {
-      return await fetchData(`auth/registration`, {
+  const signUp = async (data: SignUpData): Promise<SignInData | undefined> => {
+    if (data) {
+      return await fetchData(`auth/signup`, {
         method: 'POST',
-        body: registrationData,
+        body: data,
       });
     }
   };
 
   /**
-   * Handle registration http errors.
-   * @param status Http response status code
-   * @returns Error message
+   * Login user.
+   * @param registrationData Registration data
+   * @returns Registration data
    */
-  const registrationHandleError = (status: number): string => {
-    switch (status) {
-      case 409:
-        return t('form.profile.email.error.conflict') + '';
-      default:
-        return `Code ${status}: ${t('app.fetch.error.response')}`;
+  const signIn = async (data: LoginData): Promise<SignInData | undefined> => {
+    if (data) {
+      return await fetchData(`auth/signin`, {
+        method: 'POST',
+        body: data,
+      });
     }
   };
 
@@ -198,10 +158,9 @@ export const useAuth = () => {
     isAuthenticated,
     fieldErrorMatchCheck,
     login,
-    loginHandleError,
     passwordStrengthCalc,
-    registration,
-    registrationHandleError,
+    signUp,
+    signIn,
     timeoutCalc,
   };
 };

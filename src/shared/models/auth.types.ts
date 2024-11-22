@@ -31,19 +31,18 @@ export interface Payload {
   roles: UserRole[];
 }
 
-export interface RegistrationData {
-  code?: string;
-  disclaimer: boolean;
+export interface SignUpData {
+  first_name: string;
+  last_name: string;
   email: string;
-  leaflet?: boolean;
-  termsOfService: boolean;
-  token?: string;
-  toolPreviewId?: string;
-  linkId?: string;
-  communityLink?: string;
+  password: string;
+}
+
+export interface SignInData {
+  first_name: string;
+  last_name: string;
+  email: string;
   accessToken?: string;
-  toolId?: string;
-  groupinvite?: string;
 }
 
 export interface TokenPayload {

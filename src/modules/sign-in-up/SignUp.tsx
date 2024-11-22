@@ -2,20 +2,20 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import ColorModeSelect from '../../shared/theme/ColorModeSelect';
+import { useAuth } from '../../shared/hooks/use-auth.hook';
+import { useFetch } from '../../shared/hooks/use-fetch.hook';
+import { FacebookIcon, GoogleIcon } from './CustomIcons';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -59,12 +59,29 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignIn(props: { disableCustomTheme?: boolean }) {
+export default function SignUp() {
+  const { signUp } = useAuth();
+  const { handleError, handleRetry } = useFetch();
+
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+
+  // Get sign up data by query
+  // const signUpMutation = useMutation((data: SignUpData) => signUp(data), {
+  //   retry: (failureCount, error: any) => handleRetry(failureCount, error),
+  //   onSettled(data, error) {
+  //     if (data) {
+  //     }
+  //     if (error) {
+  //       const errRes = error?.response;
+  //       if (errRes) {
+  //       }
+  //     }
+  //   },
+  // });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -123,7 +140,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           variant="h4"
           sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
         >
-          Sign in
+          Sign up
         </Typography>
         <Box
           component="form"
@@ -181,17 +198,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             variant="contained"
             onClick={validateInputs}
           >
-            Sign in
+            Sign up
           </Button>
-          <Link
-            component="button"
-            type="button"
-            onClick={handleClickOpen}
-            variant="body2"
-            sx={{ alignSelf: 'center' }}
-          >
-            Forgot your password?
-          </Link>
         </Box>
         <Divider>or</Divider>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -201,7 +209,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             onClick={() => alert('Sign in with Google')}
             startIcon={<GoogleIcon />}
           >
-            Sign in with Google
+            Sign up with Google
           </Button>
           <Button
             fullWidth
@@ -209,18 +217,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             onClick={() => alert('Sign in with Facebook')}
             startIcon={<FacebookIcon />}
           >
-            Sign in with Facebook
+            Sign up with Facebook
           </Button>
-          <Typography sx={{ textAlign: 'center' }}>
-            Don&apos;t have an account?{' '}
-            <Link
-              href="/material-ui/getting-started/templates/sign-in/"
-              variant="body2"
-              sx={{ alignSelf: 'center' }}
-            >
-              Sign up
-            </Link>
-          </Typography>
         </Box>
       </Card>
     </SignInContainer>
