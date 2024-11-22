@@ -1,24 +1,5 @@
 import { UserEntity, UserRole } from '../../modules/user/models/user.types';
-import { Account } from './all.types';
-
-export interface AccountSetupRequest {
-  token: string;
-  values: {
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    password: string;
-  };
-}
-
-export interface AccountUsers {
-  employees: string;
-  members: string;
-}
-
-export interface ShowName {
-  show_name_formular_at_registration: boolean;
-}
+import { Account, Profile } from './all.types';
 
 export interface LoginData {
   email: string;
@@ -37,13 +18,6 @@ export interface SignUpData {
   last_name: string;
   email: string;
   password: string;
-}
-
-export interface SignInData {
-  first_name: string;
-  last_name: string;
-  email: string;
-  accessToken?: string;
 }
 
 export interface TokenPayload {

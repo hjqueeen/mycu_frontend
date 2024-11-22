@@ -90,7 +90,7 @@ const HeaderIcon = ({
             },
           }}
         >
-          {path.slice(1).toUpperCase()}
+          {path.slice(1).replace('_', ' ').toUpperCase()}
         </Box>
       </Tooltip>
     </Link>

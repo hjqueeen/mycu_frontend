@@ -138,7 +138,7 @@ export interface JwtPayload {
   email: string;
   exp: number;
   iat: number;
-  roles: string[];
+  role: string;
 }
 
 export interface MenuItem {

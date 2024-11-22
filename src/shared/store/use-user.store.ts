@@ -7,7 +7,7 @@ export interface UserState {
   setAccount: (account: Account | undefined) => void;
 }
 
-export const useUserStore = create<UserState>((set, get) => ({
+export const useUserStore = create<UserState>((set) => ({
   account: undefined,
   setAccount: (accountData: Account | undefined) =>
     set({ account: accountData }),

@@ -10,6 +10,9 @@ import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../shared/store/use-auth.store';
+import { useUserStore } from '../../shared/store/use-user.store';
 // import MenuButton from './MenuButton';
 
 const MenuItem = styled(MuiMenuItem)({
@@ -17,14 +20,30 @@ const MenuItem = styled(MuiMenuItem)({
 });
 
 export default function OptionsMenu() {
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  // Auth store state
+  const { setAccessToken } = useAuthStore();
+
+  // User store state
+  const { setAccount } = useUserStore();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logOut = () => {
+    setAccount(undefined);
+    setAccessToken(null);
+    navigate('/login');
+  };
+
   return (
     <React.Fragment>
       <MenuButton
@@ -61,7 +80,7 @@ export default function OptionsMenu() {
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <Divider />
         <MenuItem
-          onClick={handleClose}
+          onClick={logOut}
           sx={{
             [`& .${listItemIconClasses.root}`]: {
               ml: 'auto',

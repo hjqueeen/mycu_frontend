@@ -1,12 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { MultipleFieldErrors, ValidateResult } from 'react-hook-form';
 import { JwtPayload } from '../models/shared.types';
-import {
-  LoginData,
-  LoginResponse,
-  SignInData,
-  SignUpData,
-} from '../models/auth.types';
+import { LoginData, LoginResponse, SignUpData } from '../models/auth.types';
 import { jwtDecode } from 'jwt-decode';
 import { useFetch } from './use-fetch.hook';
 import { AuthState, useAuthStore } from '../store/use-auth.store';
@@ -21,23 +16,28 @@ export const regExpUpper = new RegExp('.*[A-Z].*');
 
 export const useAuth = () => {
   const { fetchData } = useFetch();
-
+  // Auth store state
+  const { accessToken } = useAuthStore();
   /**
    * Compare current date and access token expire date.
    * @returns Auth access validity
    */
   const isAuthenticated = () => {
-    return true; // DOTO fix
-    // if (accessToken) {
-    //   const decodedJWT: JwtPayload = jwtDecode(accessToken);
-    //   if (new Date(decodedJWT.exp * 1000) > new Date()) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // } else {
-    //   return false;
-    // }
+    if (accessToken) {
+      return isAccessTokenValid(accessToken);
+    } else {
+      return false;
+    }
+  };
+
+  const isAccessTokenValid = (accessToken: string) => {
+    const decodedJWT: JwtPayload = jwtDecode(accessToken);
+
+    if (new Date(decodedJWT.exp * 1000) > new Date()) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const signIn = async (
@@ -64,6 +64,7 @@ export const useAuth = () => {
 
   return {
     isAuthenticated,
+    isAccessTokenValid,
     signIn,
     signUp,
   };

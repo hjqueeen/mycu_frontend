@@ -12,6 +12,7 @@ import avatar from '../../../assets/picture/avatar.jpg';
 import OptionsMenu from '../../../modules/products/OptionsMenu';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 import { useUserStore } from '../../store/use-user.store';
+import { useAuthStore } from '../../store/use-auth.store';
 
 const drawerWidth = 240;
 
@@ -51,7 +52,9 @@ export const Layout = ({
 }: LayoutProps) => {
   // User store state
   const { account } = useUserStore();
-  console.log('account', account);
+  const { accessToken } = useAuthStore();
+
+  console.log('account', account, accessToken);
 
   let defaultExpandedItems;
   let defaultSelectedItems;

@@ -10,66 +10,21 @@ import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import ColorModeSelect from '../../shared/theme/ColorModeSelect';
-import { Link as Navigate } from 'react-router-dom';
+import { Link as Navigate, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useAuth } from '../../shared/hooks/use-auth.hook';
-import {
-  LoginData,
-  SignInData,
-  SignUpData,
-} from '../../shared/models/auth.types';
+import { LoginData } from '../../shared/models/auth.types';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
-
-const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '450px',
-  },
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  ...theme.applyStyles('dark', {
-    boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  }),
-}));
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
-  padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(4),
-  },
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
-}));
+import { Card, SignInContainer } from './SignInContainer';
+import { useAuthStore } from '../../shared/store/use-auth.store';
+import { useUserStore } from '../../shared/store/use-user.store';
 
 export default function SignIn() {
-  const { handleError, handleRetry, fetchData } = useFetch();
+  const { handleError, handleRetry } = useFetch();
+  const navigate = useNavigate();
   const { signIn } = useAuth();
 
   const [emailError, setEmailError] = React.useState(false);
@@ -78,18 +33,23 @@ export default function SignIn() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
-  console.log(
-    emailError,
-    emailErrorMessage,
-    passwordError,
-    passwordErrorMessage,
-    open
-  );
+  // Auth store state
+  const { setAccessToken } = useAuthStore();
 
-  const signInMutation = useMutation((data: SignUpData) => signIn(data), {
+  // User store state
+  const { setAccount } = useUserStore();
+
+  const signInMutation = useMutation((data: LoginData) => signIn(data), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
     onSettled(data, error) {
       if (data) {
+        if (data.user) {
+          setAccount(data.user);
+        }
+        if (data.accessToken) {
+          setAccessToken(data.accessToken);
+          navigate('/dashboard');
+        }
       }
       if (error) {
         const errRes = error?.response;
@@ -108,14 +68,14 @@ export default function SignIn() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (emailError || passwordError) {
-      event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    signInMutation.mutate({
+      email: data.get('email') as string,
+      password: data.get('password') as string,
     });
   };
 
@@ -196,7 +156,6 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              autoFocus
               required
               fullWidth
               variant="outlined"
