@@ -22,9 +22,6 @@ export const regExpUpper = new RegExp('.*[A-Z].*');
 export const useAuth = () => {
   const { fetchData } = useFetch();
 
-  // Auth store state
-  const [accessToken] = useAuthStore((state: AuthState) => [state.accessToken]);
-
   /**
    * Compare current date and access token expire date.
    * @returns Auth access validity
@@ -43,92 +40,6 @@ export const useAuth = () => {
     // }
   };
 
-  /**
-   * Checks if specific field error match is active
-   * @param fieldErrors ValidateResult
-   * @param match Field error to match
-   * @returns Boolean
-   */
-  const fieldErrorMatchCheck = (
-    fieldErrors: ValidateResult,
-    match: string
-  ): boolean => {
-    if (typeof fieldErrors === 'string') {
-      if (fieldErrors === match) {
-        return true;
-      }
-    } else {
-      const fieldErrorsArr = fieldErrors as string[];
-      if (
-        fieldErrorsArr?.length > 0 &&
-        fieldErrorsArr.find((fieldError) => fieldError === match)
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  /**
-   * Login user.
-   * @param loginData Login data
-   * @returns Login response
-   */
-  const login = async (
-    loginData: LoginData
-  ): Promise<LoginResponse | undefined> => {
-    if (loginData) {
-      return await fetchData(`auth/login`, {
-        method: 'POST',
-        body: loginData,
-      });
-    }
-  };
-
-  /**
-   * Calculates password strength based on form field errors.
-   * @param fieldErrors FieldErrors
-   * @returns Password strength as width style
-   */
-  const passwordStrengthCalc = (fieldErrors: MultipleFieldErrors): string => {
-    let errorCount = 0;
-    // Check for min length field error
-    if (fieldErrors.min) {
-      errorCount++;
-    }
-    // Check for match field errors
-    if (fieldErrors.matches) {
-      if (typeof fieldErrors.matches === 'string') {
-        errorCount++;
-      } else {
-        const fieldErrorsMatchesArr = fieldErrors.matches as string[];
-        errorCount = errorCount + fieldErrorsMatchesArr.length;
-      }
-    }
-
-    // Calculate password strength as width style
-    return 100 - (errorCount / 4) * 100 + '%';
-  };
-
-  /**
-   * Register user.
-   * @param registrationData Registration data
-   * @returns Registration data
-   */
-  const signUp = async (data: SignUpData): Promise<SignInData | undefined> => {
-    if (data) {
-      return await fetchData(`auth/signup`, {
-        method: 'POST',
-        body: data,
-      });
-    }
-  };
-
-  /**
-   * Login user.
-   * @param registrationData Registration data
-   * @returns Registration data
-   */
   const signIn = async (data: LoginData): Promise<SignInData | undefined> => {
     if (data) {
       return await fetchData(`auth/signin`, {
@@ -138,29 +49,18 @@ export const useAuth = () => {
     }
   };
 
-  /**
-   * Calculates timeout string by seconds
-   * @param seconds Seconds
-   * @returns Timeout string
-   */
-  const timeoutCalc = (seconds: number): string => {
-    const hoursCalc = Math.floor(seconds / 3600);
-    const minutesCalc = Math.floor(seconds / 60) % 60;
-    const secondsCalc = seconds % 60;
-
-    return [hoursCalc, minutesCalc, secondsCalc]
-      .map((v) => (v < 10 ? '0' + v : v))
-      .filter((v, i) => v !== '00' || i > 0)
-      .join(':');
+  const signUp = async (data: LoginData): Promise<SignUpData | undefined> => {
+    if (data) {
+      return await fetchData(`auth/signup`, {
+        method: 'POST',
+        body: data,
+      });
+    }
   };
 
   return {
     isAuthenticated,
-    fieldErrorMatchCheck,
-    login,
-    passwordStrengthCalc,
-    signUp,
     signIn,
-    timeoutCalc,
+    signUp,
   };
 };

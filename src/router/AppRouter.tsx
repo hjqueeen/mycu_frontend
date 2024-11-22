@@ -2,11 +2,11 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import DashboardNav from '../modules/dashboard/components/DashboardNav';
 import { Dashboard } from '../modules/dashboard/Dashboard';
 import { Inventory } from '../modules/inventory/Inventory';
-import SignIn from '../modules/sign-in-up/SignUp';
 import { Shipping } from '../modules/shipping/Shipping';
 import { UserManagement } from '../modules/user_management';
 import { Layout, PageType } from '../shared/components/Layout/Layout';
 import { ProductsRouter } from './ProductsRouter';
+import SignIn from '../modules/sign-in-up/SignIn';
 import SignUp from '../modules/sign-in-up/SignUp';
 
 export const AppRouter = () => {

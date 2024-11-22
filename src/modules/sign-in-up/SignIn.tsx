@@ -70,6 +70,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignIn() {
   const { handleError, handleRetry, fetchData } = useFetch();
+  const { signIn } = useAuth();
 
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
@@ -84,15 +85,6 @@ export default function SignIn() {
     passwordErrorMessage,
     open
   );
-
-  const signIn = async (data: LoginData): Promise<SignInData | undefined> => {
-    if (data) {
-      return await fetchData(`auth/signin`, {
-        method: 'POST',
-        body: data,
-      });
-    }
-  };
 
   const signInMutation = useMutation((data: SignUpData) => signIn(data), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),

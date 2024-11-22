@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,6 +15,9 @@ import ColorModeSelect from '../../shared/theme/ColorModeSelect';
 import { useAuth } from '../../shared/hooks/use-auth.hook';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
 import { FacebookIcon, GoogleIcon } from './CustomIcons';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
+import { SignUpData } from '../../shared/models/auth.types';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -63,25 +65,28 @@ export default function SignUp() {
   const { signUp } = useAuth();
   const { handleError, handleRetry } = useFetch();
 
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
+  const [lastNameError, setLastNameError] = useState(false);
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [open, setOpen] = useState(false);
 
-  // Get sign up data by query
-  // const signUpMutation = useMutation((data: SignUpData) => signUp(data), {
-  //   retry: (failureCount, error: any) => handleRetry(failureCount, error),
-  //   onSettled(data, error) {
-  //     if (data) {
-  //     }
-  //     if (error) {
-  //       const errRes = error?.response;
-  //       if (errRes) {
-  //       }
-  //     }
-  //   },
-  // });
+  const signUpMutation = useMutation((data: SignUpData) => signUp(data), {
+    retry: (failureCount, error: any) => handleRetry(failureCount, error),
+    onSettled(data, error) {
+      if (data) {
+      }
+      if (error) {
+        const errRes = error?.response;
+        if (errRes) {
+        }
+      }
+    },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -92,22 +97,38 @@ export default function SignUp() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
+    if (emailError || passwordError || firstNameError || lastNameError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if (data) {
+      signUpMutation.mutate({
+        email: data.get('email') as string,
+        password: data.get('password') as string,
+        first_name: data.get('first_name') as string,
+        last_name: data.get('last_name') as string,
+      });
+    }
   };
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
+    const firstName = document.getElementById('first_name') as HTMLInputElement;
+    const lastName = document.getElementById('last_name') as HTMLInputElement;
 
     let isValid = true;
+
+    if (!firstName.value.trim()) {
+      setFirstNameError(true);
+      setFirstNameErrorMessage('First name is required.');
+    }
+
+    if (!lastName.value.trim()) {
+      setLastNameError(true);
+      setLastNameErrorMessage('Last name is required.');
+    }
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
@@ -162,7 +183,7 @@ export default function SignUp() {
               type="email"
               name="email"
               placeholder="your@email.com"
-              autoComplete="email"
+              autoComplete="off"
               autoFocus
               required
               fullWidth
@@ -170,6 +191,7 @@ export default function SignUp() {
               color={emailError ? 'error' : 'primary'}
             />
           </FormControl>
+          <div className=""></div>
           <FormControl>
             <FormLabel htmlFor="password">Password</FormLabel>
             <TextField
@@ -177,9 +199,9 @@ export default function SignUp() {
               helperText={passwordErrorMessage}
               name="password"
               placeholder="••••••"
+              autoComplete="off"
               type="password"
               id="password"
-              autoComplete="current-password"
               autoFocus
               required
               fullWidth
@@ -187,11 +209,38 @@ export default function SignUp() {
               color={passwordError ? 'error' : 'primary'}
             />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <ForgotPassword open={open} handleClose={handleClose} />
+          <FormControl>
+            <FormLabel htmlFor="first_name">First Name</FormLabel>
+            <TextField
+              error={firstNameError}
+              helperText={firstNameErrorMessage}
+              id="first_name"
+              type="text"
+              name="first_name"
+              placeholder="Hans"
+              autoComplete="given-name"
+              required
+              fullWidth
+              variant="outlined"
+              color={firstNameError ? 'error' : 'primary'}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="last_name">Last Name</FormLabel>
+            <TextField
+              error={lastNameError}
+              helperText={lastNameErrorMessage}
+              id="last_name"
+              type="text"
+              name="last_name"
+              placeholder="Park"
+              autoComplete="family-name"
+              required
+              fullWidth
+              variant="outlined"
+              color={lastNameError ? 'error' : 'primary'}
+            />
+          </FormControl>
           <Button
             type="submit"
             fullWidth
