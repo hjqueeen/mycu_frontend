@@ -3,7 +3,15 @@ import { useEffect } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-import { Box, Button, Divider, AppBar, Toolbar } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  AppBar,
+  Toolbar,
+  Drawer,
+  Stack,
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './Header.module.scss';
@@ -16,6 +24,8 @@ import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
 import cuBackgroud from '../../../assets/picture/cusp12.jpg';
 import { useUserStore } from '../../store/use-user.store';
 import { HeaderMenu } from '../../models/all.types';
+import Cart from '../../../modules/cart/Cart';
+import useCartStore, { CartItem } from '../../store/use-cart.store';
 
 export type HeaderProps = {
   pageType: PageType;
@@ -23,6 +33,7 @@ export type HeaderProps = {
 };
 
 export const Header = memo(({ pageType, headerMenu }: HeaderProps) => {
+  const [drawer, setDrawer] = useState(false);
   return (
     <AppBar position="fixed" elevation={0}>
       <Toolbar
@@ -74,6 +85,17 @@ export const Header = memo(({ pageType, headerMenu }: HeaderProps) => {
               icon={['fal', 'users']}
             />
           )}
+          <CartIcon
+            path="/cart"
+            activ={pageType === PageType.Cart}
+            icon={['fas', 'cart-shopping']}
+            onClick={() => setDrawer(true)}
+          />
+          <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
+            <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
+              <Cart />
+            </Stack>
+          </Drawer>
         </Box>
       </Toolbar>
     </AppBar>
@@ -91,21 +113,54 @@ const HeaderIcon = ({
 }) => {
   return (
     <Link to={path}>
-      <Tooltip title="shipping">
-        <Box
-          className="mr-4 py-5 px-4"
-          sx={{
-            color: 'text.primary',
-            fontWeight: activ ? 600 : undefined,
-            '&:hover': {
-              fontWeight: 600,
-              bgcolor: 'bg.hover',
-            },
-          }}
-        >
-          {path.slice(1).replace('_', ' ').toUpperCase()}
-        </Box>
-      </Tooltip>
+      <Box
+        className="mr-4 py-5 px-4"
+        sx={{
+          color: 'text.primary',
+          fontWeight: activ ? 600 : undefined,
+          '&:hover': {
+            fontWeight: 600,
+            bgcolor: 'bg.hover',
+          },
+        }}
+      >
+        {path.slice(1).replace('_', ' ').toUpperCase()}
+      </Box>
     </Link>
+  );
+};
+
+const CartIcon = ({
+  activ,
+  path,
+  icon,
+  onClick,
+}: {
+  activ: boolean;
+  path: string;
+  icon: [IconPrefix, IconName];
+  onClick: () => void;
+}) => {
+  const { cart } = useCartStore();
+  const calculateTotalQuantity = (cart: CartItem[]): number => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const count = calculateTotalQuantity(cart);
+  return (
+    <Box
+      className="mr-4 py-5 px-4 flex flex-row"
+      onClick={onClick}
+      sx={{
+        color: 'text.primary',
+        fontWeight: activ ? 600 : undefined,
+        '&:hover': {
+          fontWeight: 600,
+          bgcolor: 'bg.hover',
+        },
+      }}
+    >
+      {`${path.slice(1).toUpperCase()} (${count})`}
+    </Box>
   );
 };

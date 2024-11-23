@@ -6,17 +6,30 @@ export interface Product {
   price: number;
 }
 
+export interface CartItem extends Product {
+  quantity: number;
+}
+
 interface CartState {
-  cart: Product[];
-  addToCart: (product: Product) => void;
+  cart: CartItem[];
+  addToCart: (product: Product, quantity: number) => void;
   removeFromCart: (id: string) => void;
 }
 
 const useCartStore = create<CartState>((set) => ({
   cart: JSON.parse(localStorage.getItem('cart') || '[]'),
-  addToCart: (product: Product) =>
+  addToCart: (product: Product, quantity: number) =>
     set((state) => {
-      const updatedCart = [...state.cart, product];
+      const existingItem = state.cart.find((item) => item.id === product.id);
+
+      const updatedCart = existingItem
+        ? state.cart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        : [...state.cart, { ...product, quantity }];
+
       localStorage.setItem('cart', JSON.stringify(updatedCart));
       return { cart: updatedCart };
     }),

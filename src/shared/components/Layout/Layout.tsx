@@ -33,6 +33,7 @@ export enum PageType {
   Inventory = 'INVENTORY', // 재고관리
   Shipping = 'SHIPPING', // 출고관리
   UserManagement = 'USER_MANAGEMENT', //유저관리
+  Cart = 'CART',
 }
 
 export type LayoutProps = {

@@ -14,7 +14,10 @@ const Cart: React.FC = () => {
             key={item.id}
             style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <ListItemText primary={item.name} secondary={`${item.price}`} />
+            <ListItemText
+              primary={item.name}
+              secondary={`Price: ${item.price} | Quantity: ${item.quantity}`}
+            />
             <Button
               variant="outlined"
               color="secondary"
