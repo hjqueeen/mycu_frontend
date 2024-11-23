@@ -110,9 +110,16 @@ export const UserManagement = () => {
     // { field: 'id', headerName: 'ID', width: 90 },
     {
       field: 'first_name',
-      headerName: 'Name',
+      headerName: 'First Name',
       type: 'string',
-      width: 120,
+      width: 100,
+      editable: false,
+    },
+    {
+      field: 'last_name',
+      headerName: 'Last Name',
+      type: 'string',
+      width: 100,
       editable: false,
     },
     {

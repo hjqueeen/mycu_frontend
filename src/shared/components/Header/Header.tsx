@@ -32,7 +32,7 @@ export type HeaderProps = {
   headerMenu: HeaderMenu | undefined;
 };
 
-export const Header = memo(({ pageType, headerMenu }: HeaderProps) => {
+export const Header = ({ pageType, headerMenu }: HeaderProps) => {
   const [drawer, setDrawer] = useState(false);
   return (
     <AppBar position="fixed" elevation={0}>
@@ -100,7 +100,7 @@ export const Header = memo(({ pageType, headerMenu }: HeaderProps) => {
       </Toolbar>
     </AppBar>
   );
-});
+};
 
 const HeaderIcon = ({
   activ,
