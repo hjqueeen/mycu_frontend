@@ -9,7 +9,7 @@ import { ProductsRouter } from './ProductsRouter';
 import SignIn from '../modules/sign-in-up/SignIn';
 import SignUp from '../modules/sign-in-up/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '../shared/store/use-auth.store';
 import { useMutation } from 'react-query';
 import { useUserStore } from '../shared/store/use-user.store';
@@ -18,19 +18,23 @@ import { useFetch } from '../shared/hooks/use-fetch.hook';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '../shared/models/shared.types';
 import { useUsersHttp } from '../shared/hooks/use-users-http.hook';
+import { HeaderMenu } from '../shared/models/all.types';
 
 export const AppRouter = () => {
   const { handleError, handleRetry } = useFetch();
   const { userGet } = useUsersHttp();
   // User store state
-  const { account, setAccount } = useUserStore();
+  const { account, headerMenu, setAccount, setHeaderMenu } = useUserStore();
 
   // GET user data mutation
   const userGetMutation = useMutation((id: string) => userGet(id), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
     onSettled: (data, error) => {
       if (data) {
+        console.log('data', data.account);
+
         setAccount(data.account);
+        setHeaderMenu(data.headerMenu);
         // setProfile(data.profile);
         // setTheme(data.theme ?? Theme.Light);
       }
@@ -66,49 +70,61 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Layout pageType={PageType.Dashboard} mainGrid={<Dashboard />} />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inventory"
-        element={
-          <ProtectedRoute>
-            <Layout pageType={PageType.Inventory} mainGrid={<Inventory />} />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/products/*"
-        element={
-          <ProtectedRoute>
-            <ProductsRouter />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/shipping"
-        element={
-          <ProtectedRoute>
-            <Shipping />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/user_management"
-        element={
-          <ProtectedRoute>
-            <Layout
-              pageType={PageType.UserManagement}
-              mainGrid={<UserManagement />}
-            />
-          </ProtectedRoute>
-        }
-      />
+      {headerMenu?.dashboard && (
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout pageType={PageType.Dashboard} mainGrid={<Dashboard />} />
+            </ProtectedRoute>
+          }
+        />
+      )}
+
+      {headerMenu?.inventory && (
+        <Route
+          path="/inventory"
+          element={
+            <ProtectedRoute>
+              <Layout pageType={PageType.Inventory} mainGrid={<Inventory />} />
+            </ProtectedRoute>
+          }
+        />
+      )}
+      {headerMenu?.products && (
+        <Route
+          path="/products/*"
+          element={
+            <ProtectedRoute>
+              <ProductsRouter />
+            </ProtectedRoute>
+          }
+        />
+      )}
+      {headerMenu?.shipping && (
+        <Route
+          path="/shipping"
+          element={
+            <ProtectedRoute>
+              <Shipping />
+            </ProtectedRoute>
+          }
+        />
+      )}
+      {headerMenu?.user_management && (
+        <Route
+          path="/user_management"
+          element={
+            <ProtectedRoute>
+              <Layout
+                pageType={PageType.UserManagement}
+                mainGrid={<UserManagement />}
+              />
+            </ProtectedRoute>
+          }
+        />
+      )}
+
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="*" element={<Navigate to="/" />} />

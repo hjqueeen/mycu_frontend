@@ -51,8 +51,9 @@ export const Layout = ({
   mainGrid,
 }: LayoutProps) => {
   // User store state
-  const { account } = useUserStore();
+  const { account, headerMenu } = useUserStore();
   const { accessToken } = useAuthStore();
+  // User store state
 
   let defaultExpandedItems;
   let defaultSelectedItems;
@@ -91,7 +92,7 @@ export const Layout = ({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <Header pageType={pageType} />
+      <Header pageType={pageType} headerMenu={headerMenu} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
         <Drawer
           variant="permanent"

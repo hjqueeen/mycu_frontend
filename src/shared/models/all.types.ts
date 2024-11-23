@@ -52,3 +52,11 @@ export type ExtendedTreeItemProps = {
   id: string;
   label: string;
 };
+
+export interface HeaderMenu {
+  dashboard: boolean;
+  products: boolean;
+  inventory: boolean;
+  shipping: boolean;
+  user_management: boolean;
+}

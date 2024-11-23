@@ -14,12 +14,15 @@ import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { PageType } from '../Layout/Layout';
 import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
 import cuBackgroud from '../../../assets/picture/cusp12.jpg';
+import { useUserStore } from '../../store/use-user.store';
+import { HeaderMenu } from '../../models/all.types';
 
 export type HeaderProps = {
   pageType: PageType;
+  headerMenu: HeaderMenu | undefined;
 };
 
-export const Header = memo(({ pageType }: HeaderProps) => {
+export const Header = memo(({ pageType, headerMenu }: HeaderProps) => {
   return (
     <AppBar position="fixed" elevation={0}>
       <Toolbar
@@ -36,31 +39,41 @@ export const Header = memo(({ pageType }: HeaderProps) => {
         </Box>
 
         <Box className="flex flex-row mr-24">
-          <HeaderIcon
-            path="/dashboard"
-            activ={pageType === PageType.Dashboard}
-            icon={['fal', 'objects-column']}
-          />
-          <HeaderIcon
-            path="/products"
-            activ={pageType === PageType.Products}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/inventory"
-            activ={pageType === PageType.Inventory}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/shipping"
-            activ={pageType === PageType.Shipping}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/user_management"
-            activ={pageType === PageType.UserManagement}
-            icon={['fal', 'users']}
-          />
+          {headerMenu?.dashboard && (
+            <HeaderIcon
+              path="/dashboard"
+              activ={pageType === PageType.Dashboard}
+              icon={['fal', 'objects-column']}
+            />
+          )}
+          {headerMenu?.products && (
+            <HeaderIcon
+              path="/products"
+              activ={pageType === PageType.Products}
+              icon={['fal', 'chart-network']}
+            />
+          )}
+          {headerMenu?.inventory && (
+            <HeaderIcon
+              path="/inventory"
+              activ={pageType === PageType.Inventory}
+              icon={['fal', 'chart-network']}
+            />
+          )}
+          {headerMenu?.shipping && (
+            <HeaderIcon
+              path="/shipping"
+              activ={pageType === PageType.Shipping}
+              icon={['fal', 'chart-network']}
+            />
+          )}
+          {headerMenu?.user_management && (
+            <HeaderIcon
+              path="/user_management"
+              activ={pageType === PageType.UserManagement}
+              icon={['fal', 'users']}
+            />
+          )}
         </Box>
       </Toolbar>
     </AppBar>

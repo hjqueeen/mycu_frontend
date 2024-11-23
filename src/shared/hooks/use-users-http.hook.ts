@@ -11,6 +11,7 @@ import {
   User,
   Account,
   ExtendedTreeItemProps,
+  HeaderMenu,
 } from '../models/all.types';
 
 // Password reg expressions
@@ -43,6 +44,7 @@ export const useUsersHttp = () => {
   ): Promise<
     | {
         account: Account;
+        headerMenu: HeaderMenu;
         // profile: Profile;
         // communities?: Community[];
         // theme?: Theme;

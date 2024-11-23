@@ -31,8 +31,6 @@ export const UserManagement = () => {
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
   const groupOptions = navUserGroups.map((group) => group.label);
 
-  console.log('groupOptions', groupOptions);
-
   // Mutation for saving changes to the database
   const mutation = useMutation((updatedProfile: Profile) => usersGet(), {
     onSuccess: (data, variables) => {
