@@ -54,8 +54,6 @@ export const Layout = ({
   const { account } = useUserStore();
   const { accessToken } = useAuthStore();
 
-  console.log('account', account, accessToken);
-
   let defaultExpandedItems;
   let defaultSelectedItems;
   if (pageType === PageType.Dashboard) {

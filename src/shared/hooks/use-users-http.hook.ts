@@ -5,7 +5,13 @@ import { LoginData, LoginResponse, SignUpData } from '../models/auth.types';
 import { jwtDecode } from 'jwt-decode';
 import { useFetch } from './use-fetch.hook';
 import { AuthState, useAuthStore } from '../store/use-auth.store';
-import { Profile, FetchDataParams, User, Account } from '../models/all.types';
+import {
+  Profile,
+  FetchDataParams,
+  User,
+  Account,
+  ExtendedTreeItemProps,
+} from '../models/all.types';
 
 // Password reg expressions
 // const regExpLower = new RegExp('.*[a-z].*');
@@ -49,8 +55,20 @@ export const useUsersHttp = () => {
     return undefined;
   };
 
+  const userGroupsGet = async (
+    params?: FetchDataParams
+  ): Promise<ExtendedTreeItemProps[]> => {
+    if (accessToken) {
+      return await fetchData(`user-group`, {
+        params,
+      });
+    }
+    return [];
+  };
+
   return {
     userGet,
     usersGet,
+    userGroupsGet,
   };
 };

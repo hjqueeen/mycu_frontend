@@ -16,9 +16,11 @@ export interface Account {
 }
 
 export interface Profile {
+  id: string;
   first_name: string;
   last_name: string;
   role: UserRole;
+  group?: string;
 }
 
 export interface FetchDataParams {
@@ -33,3 +35,20 @@ export interface User {
   role: UserRole;
   register_date: Date;
 }
+
+export interface UserGroup {
+  id: string;
+  name: string;
+  contact_person?: User;
+  users: User[];
+  dashboard: boolean;
+  products: boolean;
+  inventory: boolean;
+  shipping: boolean;
+  user_management: boolean;
+}
+
+export type ExtendedTreeItemProps = {
+  id: string;
+  label: string;
+};

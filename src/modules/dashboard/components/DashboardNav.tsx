@@ -6,60 +6,16 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import { ContentHeaderProps } from '../../../shared/components/Layout/ContentHeader';
 import { useEffect, useState } from 'react';
 import { PageType } from '../../../shared/components/Layout/Layout';
-import { ProductsContentType } from '../../../shared/models/all.types';
+import {
+  ExtendedTreeItemProps,
+  ProductsContentType,
+  UserGroup,
+} from '../../../shared/models/all.types';
 import { useNavigate } from 'react-router-dom';
-
-type Color = 'blue' | 'green';
-
-type ExtendedTreeItemProps = {
-  color?: Color;
-  id: string;
-  label: string;
-};
-
-const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
-  {
-    id: '1',
-    label: 'Products',
-    children: [
-      {
-        id: '1.1',
-        label: 'All Products',
-        color: 'green',
-        children: [
-          { id: '1.1.1', label: 'Category 1', color: 'blue' },
-          { id: '1.1.2', label: 'Category 2', color: 'blue' },
-          { id: '1.1.3', label: 'Category 3', color: 'blue' },
-          { id: '1.1.4', label: 'Category 4', color: 'blue' },
-        ],
-      },
-      { id: '1.2', label: 'Add Products', color: 'green' },
-      { id: '1.3', label: 'Edit Products', color: 'green' },
-    ],
-  },
-  {
-    id: '2',
-    label: 'Inventory',
-    children: [
-      { id: '2.1', label: 'All products', color: 'green' },
-      {
-        id: '2.2',
-        label: 'Categories',
-        children: [
-          { id: '2.2.1', label: 'Gadgets', color: 'blue' },
-          { id: '2.2.2', label: 'Phones', color: 'blue' },
-          { id: '2.2.3', label: 'Wearables', color: 'blue' },
-        ],
-      },
-      { id: '2.3', label: 'Bestsellers', color: 'green' },
-      { id: '2.4', label: 'Sales', color: 'green' },
-    ],
-  },
-  { id: '3', label: 'Shipping', color: 'blue' },
-  { id: '4', label: 'User Management', color: 'blue' },
-  { id: '5', label: 'Contact', color: 'blue' },
-  { id: '6', label: 'Help', color: 'blue' },
-];
+import { useMutation } from 'react-query';
+import { useUsersHttp } from '../../../shared/hooks/use-users-http.hook';
+import { useFetch } from '../../../shared/hooks/use-fetch.hook';
+import { useUserStore } from '../../../shared/store/use-user.store';
 
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   color: theme.palette.grey[200],
@@ -93,11 +49,15 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   [`& .${treeItemClasses.selected} `]: {
     backgroundColor: theme.palette.warning.dark,
     color: theme.palette.primary.contrastText,
-    '&:hover, &:not(:focus)': {
+    '&:not(:focus):not(:hover)': {
       backgroundColor: theme.palette.warning.dark,
       color: theme.palette.primary.contrastText,
     },
-    '&:not(:focus):not(:hover)': {
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.warning.dark,
+      color: theme.palette.primary.contrastText,
+    },
+    '&:hover, &:not(:focus)': {
       backgroundColor: theme.palette.warning.dark,
       color: theme.palette.primary.contrastText,
     },
@@ -117,6 +77,84 @@ const DashboardNav = ({
   defaultSelectedItems,
 }: DashboardNavProps) => {
   const navigate = useNavigate();
+  const { handleError, handleRetry } = useFetch();
+  const { userGroupsGet } = useUsersHttp();
+
+  const { navUserGroups, setNavUserGroups } = useUserStore();
+
+  const userGroupsGetMutation = useMutation(() => userGroupsGet(), {
+    retry: (failureCount, error: any) => handleRetry(failureCount, error),
+    onSuccess(data) {
+      if (data) {
+        setNavUserGroups(data);
+      }
+    },
+    onError(error) {
+      if (error) {
+        const errRes = error?.response;
+        if (errRes) {
+        }
+      }
+    },
+  });
+
+  useEffect(() => {
+    userGroupsGetMutation.mutate();
+  }, []);
+
+  const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
+    {
+      id: '1',
+      label: 'Products',
+      children: [
+        {
+          id: '1.1',
+          label: 'All Products',
+          children: [
+            { id: '1.1.1', label: 'Category 1' },
+            { id: '1.1.2', label: 'Category 2' },
+            { id: '1.1.3', label: 'Category 3' },
+            { id: '1.1.4', label: 'Category 4' },
+          ],
+        },
+        { id: '1.2', label: 'Add Products' },
+        { id: '1.3', label: 'Edit Products' },
+      ],
+    },
+    {
+      id: '2',
+      label: 'Inventory',
+      children: [
+        { id: '2.1', label: 'All products' },
+        {
+          id: '2.2',
+          label: 'Categories',
+          children: [
+            { id: '2.2.1', label: 'Gadgets' },
+            { id: '2.2.2', label: 'Phones' },
+            { id: '2.2.3', label: 'Wearables' },
+          ],
+        },
+        { id: '2.3', label: 'Bestsellers' },
+        { id: '2.4', label: 'Sales' },
+      ],
+    },
+    { id: '3', label: 'Shipping' },
+    { id: '4', label: 'User Management', children: navUserGroups },
+    { id: '5', label: 'Contact' },
+    { id: '6', label: 'Help' },
+    {
+      id: '7',
+      label: 'Settings',
+      children: [
+        { id: '7.1', label: 'Profile' },
+        {
+          id: '7.2',
+          label: 'Account',
+        },
+      ],
+    },
+  ];
 
   const onItemClick = (itemId: string) => {
     switch (itemId) {
