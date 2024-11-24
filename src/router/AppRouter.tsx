@@ -19,6 +19,10 @@ import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '../shared/models/shared.types';
 import { useUsersHttp } from '../shared/hooks/use-users-http.hook';
 import { HeaderMenu } from '../shared/models/all.types';
+import Cart from '../modules/cart/Cart';
+import Checkout from '../modules/cart/Checkout';
+import { Account } from '../modules/account/Account';
+import { Password } from '../modules/account/Password';
 
 export const AppRouter = () => {
   const { handleError, handleRetry } = useFetch();
@@ -31,8 +35,6 @@ export const AppRouter = () => {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
     onSettled: (data, error) => {
       if (data) {
-        console.log('data', data.account);
-
         setAccount(data.account);
         setHeaderMenu(data.headerMenu);
         // setProfile(data.profile);
@@ -124,7 +126,38 @@ export const AppRouter = () => {
           }
         />
       )}
-
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
+            <Layout pageType={PageType.Cart} mainGrid={<Cart />} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <ProtectedRoute>
+            <Layout pageType={PageType.Checkout} mainGrid={<Checkout />} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <ProtectedRoute>
+            <Layout pageType={PageType.Account} mainGrid={<Account />} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/password"
+        element={
+          <ProtectedRoute>
+            <Layout pageType={PageType.Password} mainGrid={<Password />} />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="*" element={<Navigate to="/" />} />

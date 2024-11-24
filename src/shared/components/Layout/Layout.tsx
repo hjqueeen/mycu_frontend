@@ -34,6 +34,9 @@ export enum PageType {
   Shipping = 'SHIPPING', // 출고관리
   UserManagement = 'USER_MANAGEMENT', //유저관리
   Cart = 'CART',
+  Checkout = 'CHECKOUT',
+  Account = 'ACCOUNT',
+  Password = 'PASSWORD',
 }
 
 export type LayoutProps = {

@@ -13,6 +13,12 @@ export interface Account {
   first_name: string;
   last_name: string;
   role: UserRole;
+  address1?: string;
+  address2?: string;
+  zip_code?: string;
+  place?: string;
+  country?: string;
+  telephone?: string;
 }
 
 export interface Profile {

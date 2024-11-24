@@ -14,7 +14,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../shared/store/use-auth.store';
 import { useUserStore } from '../../shared/store/use-user.store';
 // import MenuButton from './MenuButton';
-
+enum MenuType {
+  Account = 'ACCOUNT',
+  Password = 'PASSWORD',
+  OrderHistory = 'ORDER_HISTORY',
+  OrderSettings = 'ORDER_SETTINGS',
+}
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
 });
@@ -38,6 +43,24 @@ export default function OptionsMenu() {
     setAnchorEl(null);
   };
 
+  const handleMenuClick = (type: MenuType) => {
+    switch (type) {
+      case MenuType.Account:
+        navigate('/account');
+        break;
+      case MenuType.Password:
+        navigate('/password');
+        break;
+      case MenuType.OrderHistory:
+        navigate('/order_history');
+        break;
+      case MenuType.OrderSettings:
+        navigate('/order_settings');
+        break;
+      default:
+        break;
+    }
+  };
   const logOut = () => {
     setAccount(undefined);
     setAccessToken(null);
@@ -73,11 +96,19 @@ export default function OptionsMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={() => handleMenuClick(MenuType.Account)}>
+          My account
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClick(MenuType.Password)}>
+          Passwort ändern
+        </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>Add another account</MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={() => handleMenuClick(MenuType.OrderHistory)}>
+          Order history
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClick(MenuType.OrderSettings)}>
+          Order settings
+        </MenuItem>
         <Divider />
         <MenuItem
           onClick={logOut}
