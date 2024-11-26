@@ -68,9 +68,31 @@ export const useUsersHttp = () => {
     return [];
   };
 
+  const userEmailPatch = async (data: any): Promise<any> => {
+    if (accessToken) {
+      return await fetchData(`users/email`, {
+        method: 'PATCH',
+        body: data,
+      });
+    }
+    return [];
+  };
+
+  const userProfilePatch = async (data: any): Promise<any> => {
+    if (accessToken) {
+      return await fetchData(`users/profile`, {
+        method: 'PATCH',
+        body: data,
+      });
+    }
+    return [];
+  };
+
   return {
     userGet,
     usersGet,
     userGroupsGet,
+    userEmailPatch,
+    userProfilePatch,
   };
 };

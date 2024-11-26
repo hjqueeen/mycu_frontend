@@ -13,8 +13,9 @@ export interface Account {
   first_name: string;
   last_name: string;
   role: UserRole;
-  address1?: string;
-  address2?: string;
+  street?: string;
+  house_number?: string;
+  address_detail?: string;
   zip_code?: string;
   place?: string;
   country?: string;
