@@ -7,10 +7,10 @@ import {
 } from '../models/all.types';
 
 export interface UserState {
-  account: Account | undefined;
+  account: Account | any | undefined;
   navUserGroups: ExtendedTreeItemProps[];
   headerMenu: HeaderMenu;
-  setAccount: (account: Account | undefined) => void;
+  setAccount: (account: Account | any | undefined) => void;
   setNavUserGroups: (groups: ExtendedTreeItemProps[]) => void;
   setHeaderMenu: (headerMenu: HeaderMenu) => void;
 }
@@ -25,7 +25,7 @@ export const useUserStore = create<UserState>((set) => ({
     shipping: false,
     user_management: false,
   },
-  setAccount: (accountData: Account | undefined) =>
+  setAccount: (accountData: Account | any | undefined) =>
     set({ account: accountData }),
   setNavUserGroups: (groups: ExtendedTreeItemProps[]) =>
     set({ navUserGroups: groups }),

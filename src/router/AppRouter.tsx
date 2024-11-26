@@ -21,7 +21,7 @@ import { useUsersHttp } from '../shared/hooks/use-users-http.hook';
 import { HeaderMenu } from '../shared/models/all.types';
 import Cart from '../modules/cart/Cart';
 import Checkout from '../modules/cart/Checkout';
-import { Account } from '../modules/account/Account';
+import { AccountPage } from '../modules/account/Account';
 import { Password } from '../modules/account/Password';
 
 export const AppRouter = () => {
@@ -146,7 +146,7 @@ export const AppRouter = () => {
         path="/account"
         element={
           <ProtectedRoute>
-            <Layout pageType={PageType.Account} mainGrid={<Account />} />
+            <Layout pageType={PageType.Account} mainGrid={<AccountPage />} />
           </ProtectedRoute>
         }
       />
