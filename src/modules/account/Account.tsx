@@ -41,7 +41,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
   });
   const [open, setOpen] = React.useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  const [readOnly, setReadOnly] = useState(true);
+  // const [readOnly, setReadOnly] = useState(true);
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
@@ -150,21 +150,17 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
     return isValid;
   };
 
-  const handleSubmitEmail = async (submit: boolean) => {
-    if (submit) {
-      if (validateEmails()) {
-        try {
-          setReadOnly(true);
-          userEmailPatchMutation.mutate({
-            id: tempAccount.id,
-            email: tempAccount.email,
-          });
-        } catch (error) {
-          console.error('이메일 변경 실패', error);
-        }
+  const handleSubmitEmail = async () => {
+    if (validateEmails()) {
+      try {
+        // setReadOnly(true);
+        userEmailPatchMutation.mutate({
+          id: tempAccount.id,
+          email: tempAccount.email,
+        });
+      } catch (error) {
+        console.error('이메일 변경 실패', error);
       }
-    } else {
-      setReadOnly(false);
     }
   };
   const handleSubmit = async (
@@ -192,7 +188,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
   };
 
   return (
-    <Grid container spacing={3} className="w-3/5 py-10">
+    <Grid container spacing={3} className="w-full lg:w-3/5 py-10">
       <Typography variant="h4" gutterBottom className="w-full">
         Email address for membership
       </Typography>
@@ -201,7 +197,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
         className="flex flex-row "
         sx={{ alignItems: !emailError ? 'flex-end' : 'center' }}
       >
-        <FormGrid size={{ xs: 11 }}>
+        <FormGrid size={{ xs: 12 }}>
           <FormLabel htmlFor="email" required>
             Email Address
           </FormLabel>
@@ -212,12 +208,12 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
             placeholder="info@cu.de"
             required
             size="small"
-            inputProps={{ readOnly: readOnly }}
+            // inputProps={{ readOnly: readOnly }}
             value={tempAccount?.email}
             error={emailError}
             helperText={emailErrorMessage}
             onFocus={() => {
-              setReadOnly(false);
+              // setReadOnly(false);
               setEmailError(false);
               setEmailErrorMessage('');
             }}
@@ -225,23 +221,29 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
             variant="outlined"
           />
         </FormGrid>
-        <FormGrid size={{ xs: 1 }} className="ml-4">
-          <Button
-            variant="contained"
-            sx={{
-              color: 'background.paper',
-              bgcolor: '#4BA36B',
-              alignSelf: 'start',
-              width: { xs: '100%', sm: 'auto' },
-              height: '36px',
-            }}
-            onClick={() => handleSubmitEmail(!readOnly)}
-          >
-            {readOnly ? 'Edit' : 'Save'}
-          </Button>
-        </FormGrid>
       </Grid>
-
+      <Box
+        sx={[
+          {
+            display: 'flex',
+            flexDirection: { xs: 'column-reverse', sm: 'row' },
+            alignItems: 'end',
+            flexGrow: 1,
+            gap: 1,
+            pb: { xs: 12, sm: 0 },
+            mt: { xs: 2, sm: 0 },
+          },
+          { justifyContent: 'flex-end' },
+        ]}
+      >
+        <Button
+          className="w-auto h-9"
+          variant="contained"
+          onClick={() => handleSubmitEmail()}
+        >
+          Email Save
+        </Button>
+      </Box>
       <Typography variant="h4" gutterBottom className="w-full mt-4">
         Profile
       </Typography>
@@ -319,8 +321,8 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
           onChange={handleInputChange}
         />
       </FormGrid>
-      <FormGrid size={{ xs: 12 }}>
-        <FormLabel htmlFor="address_detail">Adressdetails</FormLabel>
+      {/*   <FormGrid size={{ xs: 12 }}>
+      <FormLabel htmlFor="address_detail">Adressdetails</FormLabel>
         <TextField
           variant="outlined"
           id="address_detail"
@@ -331,7 +333,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
           value={tempAccount?.address_detail}
           onChange={handleInputChange}
         />
-      </FormGrid>
+      </FormGrid> */}
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="zip_code">Zip code</FormLabel>
         <TextField
@@ -356,7 +358,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
           onChange={handleInputChange}
         />
       </FormGrid>
-      <FormGrid size={{ xs: 12, md: 6 }}>
+      <FormGrid size={{ xs: 12 }}>
         <FormLabel htmlFor="country">Country</FormLabel>
         <TextField
           variant="outlined"
@@ -378,22 +380,16 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
             gap: 1,
             pb: { xs: 12, sm: 0 },
             mt: { xs: 2, sm: 0 },
-            mb: '60px',
           },
           { justifyContent: 'flex-end' },
         ]}
       >
         <Button
+          className="w-auto h-9"
           variant="contained"
-          sx={{
-            color: 'background.paper',
-            bgcolor: '#4BA36B',
-            alignSelf: 'start',
-            width: { xs: '100%', sm: 'auto' },
-          }}
           onClick={(event) => handleSubmit(event)}
         >
-          Save
+          Profile Save
         </Button>
       </Box>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
