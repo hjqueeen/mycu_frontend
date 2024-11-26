@@ -2,24 +2,14 @@ import {
   Alert,
   Box,
   Button,
-  Checkbox,
-  Dialog,
-  FormControlLabel,
   FormLabel,
-  IconButton,
-  OutlinedInput,
   Snackbar,
   SnackbarCloseReason,
   TextField,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { styled } from '@mui/system';
 import { useUserStore } from '../../shared/store/use-user.store';
 import { Account } from '../../shared/models/all.types';
@@ -32,12 +22,23 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-export const AccountPage: React.FC = () => {
+export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
   const { userEmailPatch, userProfilePatch } = useUsersHttp();
   const { handleError, handleRetry } = useFetch();
-  const { account, setAccount } = useUserStore();
+  const { setAccount } = useUserStore();
 
-  const [tempAccount, setTempAccount] = useState<Account | any>(undefined);
+  const [tempAccount, setTempAccount] = useState<Account | any>({
+    email: '',
+    first_name: '',
+    last_name: '',
+    street: '',
+    house_number: '',
+    address_detail: '',
+    zip_code: '',
+    place: '',
+    country: '',
+    telephone: '',
+  });
   const [open, setOpen] = React.useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [readOnly, setReadOnly] = useState(true);
@@ -48,14 +49,18 @@ export const AccountPage: React.FC = () => {
   const [lastNameError, setLastNameError] = useState(false);
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
 
+  useLayoutEffect(() => {
+    defaultValue && setTempAccount(defaultValue);
+  }, [defaultValue]);
+
   const userEmailPatchMutation = useMutation(
     (data: any) => userEmailPatch(data),
     {
       retry: (failureCount, error: any) => handleRetry(failureCount, error),
       onSuccess(data, variables) {
         if (data) {
-          const updatedAccount = account;
-          account.email = variables.email;
+          const updatedAccount = defaultValue;
+          updatedAccount.email = variables.email;
           setAccount(updatedAccount);
           setOpen(true);
           setNotificationMessage('Your email has been successfully changed.');
@@ -106,10 +111,6 @@ export const AccountPage: React.FC = () => {
       },
     }
   );
-
-  useLayoutEffect(() => {
-    setTempAccount(account);
-  }, [account]);
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,7 +190,6 @@ export const AccountPage: React.FC = () => {
 
     setOpen(false);
   };
-  console.log('open', account, tempAccount);
 
   return (
     <Grid container spacing={3} className="w-3/5 py-10">
@@ -213,7 +213,7 @@ export const AccountPage: React.FC = () => {
             required
             size="small"
             inputProps={{ readOnly: readOnly }}
-            defaultValue={tempAccount?.email}
+            value={tempAccount?.email}
             error={emailError}
             helperText={emailErrorMessage}
             onFocus={() => {
@@ -257,7 +257,7 @@ export const AccountPage: React.FC = () => {
           placeholder="First Name"
           required
           size="small"
-          defaultValue={tempAccount?.first_name}
+          value={tempAccount?.first_name}
           onChange={handleInputChange}
           error={firstNameError}
           helperText={firstNameErrorMessage}
@@ -275,7 +275,7 @@ export const AccountPage: React.FC = () => {
           placeholder="Last Name"
           required
           size="small"
-          defaultValue={tempAccount?.last_name}
+          value={tempAccount?.last_name}
           onChange={handleInputChange}
           error={lastNameError}
           helperText={lastNameErrorMessage}
@@ -288,9 +288,8 @@ export const AccountPage: React.FC = () => {
           id="telephone"
           name="telephone"
           type="tel"
-          // placeholder="0179 439 7891"
           size="small"
-          defaultValue={tempAccount?.telephone}
+          value={tempAccount?.telephone}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -303,7 +302,7 @@ export const AccountPage: React.FC = () => {
           type="text"
           size="small"
           autoComplete="address-line1"
-          defaultValue={tempAccount?.street}
+          value={tempAccount?.street}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -316,7 +315,7 @@ export const AccountPage: React.FC = () => {
           type="text"
           size="small"
           autoComplete="address-line2"
-          defaultValue={tempAccount?.house_number}
+          value={tempAccount?.house_number}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -329,7 +328,7 @@ export const AccountPage: React.FC = () => {
           type="text"
           size="small"
           autoComplete="address-line3"
-          defaultValue={tempAccount?.address_detail}
+          value={tempAccount?.address_detail}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -340,9 +339,8 @@ export const AccountPage: React.FC = () => {
           id="zip_code"
           name="zip_code"
           type="text"
-          // placeholder="13587"
           size="small"
-          defaultValue={tempAccount?.zip_code}
+          value={tempAccount?.zip_code}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -353,9 +351,8 @@ export const AccountPage: React.FC = () => {
           id="place"
           name="place"
           type="text"
-          // placeholder="Berlin"
           size="small"
-          defaultValue={tempAccount?.place}
+          value={tempAccount?.place}
           onChange={handleInputChange}
         />
       </FormGrid>
@@ -366,9 +363,8 @@ export const AccountPage: React.FC = () => {
           id="country"
           name="country"
           type="text"
-          // placeholder="Germany"
           size="small"
-          defaultValue={tempAccount?.country}
+          value={tempAccount?.country}
           onChange={handleInputChange}
         />
       </FormGrid>

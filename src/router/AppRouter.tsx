@@ -146,7 +146,10 @@ export const AppRouter = () => {
         path="/account"
         element={
           <ProtectedRoute>
-            <Layout pageType={PageType.Account} mainGrid={<AccountPage />} />
+            <Layout
+              pageType={PageType.Account}
+              mainGrid={<AccountPage defaultValue={account} />}
+            />
           </ProtectedRoute>
         }
       />
