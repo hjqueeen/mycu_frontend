@@ -14,15 +14,18 @@ import {
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import React, { useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { styled } from '@mui/system';
 import { useUserStore } from '../../shared/store/use-user.store';
-import Divider from '@mui/material/Divider/Divider';
 import { Account } from '../../shared/models/all.types';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
 import { useMutation } from 'react-query';
 import { useUsersHttp } from '../../shared/hooks/use-users-http.hook';
-import CloseIcon from '@mui/icons-material/Close';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -34,7 +37,7 @@ export const AccountPage: React.FC = () => {
   const { handleError, handleRetry } = useFetch();
   const { account, setAccount } = useUserStore();
 
-  const [tempAccount, setTempAccount] = useState<Account | any>(account);
+  const [tempAccount, setTempAccount] = useState<Account | any>(undefined);
   const [open, setOpen] = React.useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [readOnly, setReadOnly] = useState(true);
@@ -103,18 +106,20 @@ export const AccountPage: React.FC = () => {
       },
     }
   );
-  // const resetSnackbar = () => {
-  //   setTimeout(() => {
-  //     setOpen(false);
-  //     setNotificationMessage('');
-  //   }, 5000);
-  // };
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    const updatedAccount = tempAccount;
-    updatedAccount[name] = value;
-    setTempAccount(updatedAccount);
-  };
+
+  useLayoutEffect(() => {
+    setTempAccount(account);
+  }, [account]);
+
+  const handleInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      const updatedAccount = tempAccount;
+      updatedAccount[name] = value;
+      setTempAccount(updatedAccount);
+    },
+    [tempAccount, setTempAccount]
+  );
 
   const validateInputs = () => {
     let isValid = true;
@@ -184,7 +189,7 @@ export const AccountPage: React.FC = () => {
 
     setOpen(false);
   };
-  console.log('open', account);
+  console.log('open', account, tempAccount);
 
   return (
     <Grid container spacing={3} className="w-3/5 py-10">
