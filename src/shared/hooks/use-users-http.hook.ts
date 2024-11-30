@@ -1,17 +1,12 @@
-import { useTranslation } from 'react-i18next';
-import { MultipleFieldErrors, ValidateResult } from 'react-hook-form';
-import { JwtPayload } from '../models/shared.types';
-import { LoginData, LoginResponse, SignUpData } from '../models/auth.types';
-import { jwtDecode } from 'jwt-decode';
 import { useFetch } from './use-fetch.hook';
-import { AuthState, useAuthStore } from '../store/use-auth.store';
+import { useAuthStore } from '../store/use-auth.store';
 import {
   Profile,
   FetchDataParams,
-  User,
   Account,
   ExtendedTreeItemProps,
   HeaderMenu,
+  ResponseStandard,
 } from '../models/all.types';
 
 // Password reg expressions
@@ -68,24 +63,27 @@ export const useUsersHttp = () => {
     return [];
   };
 
-  const userEmailPatch = async (data: any): Promise<any> => {
+  const userEmailPatch = async (data: {
+    id: string;
+    email: string;
+  }): Promise<ResponseStandard | undefined> => {
     if (accessToken) {
       return await fetchData(`users/email`, {
         method: 'PATCH',
         body: data,
       });
     }
-    return [];
   };
 
-  const userProfilePatch = async (data: any): Promise<any> => {
+  const userProfilePatch = async (
+    data: Partial<Account>
+  ): Promise<ResponseStandard | undefined> => {
     if (accessToken) {
       return await fetchData(`users/profile`, {
         method: 'PATCH',
         body: data,
       });
     }
-    return [];
   };
 
   return {

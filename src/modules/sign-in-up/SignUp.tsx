@@ -154,7 +154,6 @@ export default function SignUp() {
               name="email"
               placeholder="your@email.com"
               autoComplete="off"
-              autoFocus
               required
               fullWidth
               variant="outlined"

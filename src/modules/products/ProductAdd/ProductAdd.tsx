@@ -7,8 +7,10 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 // 카테고리 타입 정의
 interface Category {
@@ -30,6 +32,27 @@ export const ProductAdd: React.FC = () => {
   const [videoLink, setVideoLink] = useState<string>('');
   const [accessories, setAccessories] = useState<string[]>([]);
   const [versions, setVersions] = useState<string[]>([]);
+  const [barcode, setBarcode] = useState('');
+  let scanBuffer = '';
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      // Enter 키를 기준으로 바코드 데이터 구분
+      if (event.key === 'Enter') {
+        setBarcode(scanBuffer);
+        scanBuffer = ''; // 버퍼 초기화
+        console.log('Scanned barcode:', barcode);
+        // 상품 검색 또는 입력 처리 로직 추가
+      } else {
+        scanBuffer += event.key;
+      }
+    };
+
+    window.addEventListener('keypress', handleKeyPress);
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [barcode]);
 
   // 카테고리 데이터
   const categories: Record<string, Category> = {
@@ -102,6 +125,28 @@ export const ProductAdd: React.FC = () => {
           required
           size="small"
         />
+      </FormGrid>
+      <FormGrid size={{ xs: 12 }}>
+        <FormLabel htmlFor="product-barcode" required>
+          Barcode
+        </FormLabel>
+        <Box className="flex flex-row items-center">
+          <OutlinedInput
+            className="mr-3 w-1/2 "
+            id="product-barcode"
+            name="product-barcode"
+            type="product-barcode"
+            autoComplete="product-barcode"
+            value={barcode}
+            required
+            size="small"
+          />
+          <FontAwesomeIcon
+            className="cursor-pointer"
+            icon={faRotateLeft}
+            onClick={() => setBarcode('')}
+          />
+        </Box>
       </FormGrid>
       <FormGrid size={{ xs: 12 }}>
         <FormLabel htmlFor="product-description">Product Description</FormLabel>

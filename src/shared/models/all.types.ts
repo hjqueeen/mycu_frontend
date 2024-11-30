@@ -67,3 +67,13 @@ export interface HeaderMenu {
   shipping: boolean;
   user_management: boolean;
 }
+
+export enum State {
+  Error = 'ERROR',
+  Success = 'SUCCESS',
+}
+
+export interface ResponseStandard {
+  status: State;
+  [key: string]: any;
+}

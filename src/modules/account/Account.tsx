@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid2';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { styled } from '@mui/system';
 import { useUserStore } from '../../shared/store/use-user.store';
-import { Account } from '../../shared/models/all.types';
+import { Account, State } from '../../shared/models/all.types';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
 import { useMutation } from 'react-query';
 import { useUsersHttp } from '../../shared/hooks/use-users-http.hook';
@@ -92,7 +92,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
     {
       retry: (failureCount, error: any) => handleRetry(failureCount, error),
       onSuccess(data) {
-        if (data.status === 'SUCCESS') {
+        if (data?.status === State.Success) {
           setAccount(tempAccount);
           setOpen(true);
           setNotificationMessage('Your Profile has been successfully changed.');
@@ -115,11 +115,12 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      const updatedAccount = tempAccount;
-      updatedAccount[name] = value;
-      setTempAccount(updatedAccount);
+      setTempAccount((prev: any) => ({
+        ...prev,
+        [name]: value,
+      }));
     },
-    [tempAccount, setTempAccount]
+    [setTempAccount]
   );
 
   const validateInputs = () => {
@@ -163,6 +164,7 @@ export const AccountPage = ({ defaultValue }: { defaultValue: Account }) => {
       }
     }
   };
+  
   const handleSubmit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
