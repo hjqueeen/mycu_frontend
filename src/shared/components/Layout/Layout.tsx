@@ -13,6 +13,8 @@ import OptionsMenu from '../../../modules/products/OptionsMenu';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 import { useUserStore } from '../../store/use-user.store';
 import { useAuthStore } from '../../store/use-auth.store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const drawerWidth = 240;
 
@@ -125,11 +127,15 @@ export const Layout = ({
               borderColor: 'divider',
             }}
           >
-            <Avatar
+            {/* <Avatar
               sizes="small"
               alt="Riley Carter"
               src={avatar}
               sx={{ width: 36, height: 36 }}
+            /> */}
+            <FontAwesomeIcon
+              icon={faUser}
+              style={{ width: 30, height: 30, color: '#999999' }}
             />
             <Box sx={{ mr: 'auto' }}>
               <Typography

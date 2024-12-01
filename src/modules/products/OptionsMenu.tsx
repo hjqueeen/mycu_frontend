@@ -100,7 +100,7 @@ export default function OptionsMenu() {
           My account
         </MenuItem>
         <MenuItem onClick={() => handleMenuClick(MenuType.Password)}>
-          Passwort ändern
+          Change Password
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => handleMenuClick(MenuType.OrderHistory)}>
