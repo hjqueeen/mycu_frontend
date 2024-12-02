@@ -106,7 +106,7 @@ const ProductScanner = ({
 
   return (
     <Grid spacing={1} container className="w-full flex flex-row">
-      <Grid size={11} spacing={1} container className="flex flex-row">
+      <Grid size={10} spacing={1} container className="flex flex-row">
         <Grid
           container
           spacing={1}
@@ -176,7 +176,7 @@ const ProductScanner = ({
       <Grid
         container
         spacing={1}
-        size={1}
+        size={2}
         className="flex flex-col justify-between"
       >
         <Box></Box>

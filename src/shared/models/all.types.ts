@@ -80,7 +80,7 @@ export interface ResponseStandard {
 
 export interface ICategory {
   id: string;
-  model_name: string;
+  model_number: string;
 }
 
 export interface ICompany {

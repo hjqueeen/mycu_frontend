@@ -144,7 +144,7 @@ const ShippingInformation = () => {
           </MenuItem>
           {models?.map((model: ICategory) => (
             <MenuItem key={model.id} value={model.id}>
-              {model.model_name}
+              {model.model_number}
             </MenuItem>
           ))}
         </Select>
