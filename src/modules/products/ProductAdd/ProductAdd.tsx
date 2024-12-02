@@ -21,6 +21,8 @@ import Typography from '@mui/material/Typography/Typography';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useMutation } from 'react-query';
+import { ICategory, ICompany } from '../../../shared/models/all.types';
+import { useHttp } from '../../../shared/hooks/use-http.hook';
 // 카테고리 타입 정의
 interface Category {
   label: string;
@@ -36,6 +38,7 @@ export const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  paddingRight: '8px',
 }));
 
 const GridColumnStyled = styled(Grid)(() => ({
@@ -44,6 +47,7 @@ const GridColumnStyled = styled(Grid)(() => ({
 }));
 
 export const FormLabelStyled = styled(FormLabel)(() => ({
+  minWidth: '120px',
   width: '120px',
   marginRight: '6px',
 }));
@@ -53,15 +57,11 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
   maxWidth: '300px',
 }));
 
-const fetchModels = async () => {
-  const response = await fetch('/api/models'); // API 엔드포인트
-  if (!response.ok) {
-    throw new Error('Failed to fetch models');
-  }
-  return response.json(); // 모델 데이터 반환
-};
+const businessIds = ['224-81-2409-81', '224-81-24096'];
 
 export const ProductAdd: React.FC = () => {
+  const { categoriesGet, companiesGet } = useHttp();
+  const [businessId, setBusinessId] = useState('');
   const [category, setCategory] = useState<string>('');
   const [subCategory, setSubCategory] = useState<string>('');
   const [productName, setProductName] = useState<string>('');
@@ -70,6 +70,12 @@ export const ProductAdd: React.FC = () => {
   const [videoLink, setVideoLink] = useState<string>('');
   const [accessories, setAccessories] = useState<string[]>([]);
   const [versions, setVersions] = useState<string[]>([]);
+  // 오늘 날짜를 기본값으로 설정
+  const [inspectionDate, setInspectionDate] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식
+  });
+
   const [barcode, setBarcode] = useState('');
   const [aedBarcode, setAedBarcode] = useState<Barcode>({
     udi: '',
@@ -87,8 +93,26 @@ export const ProductAdd: React.FC = () => {
     serial: '',
   });
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
+  const [selectedBusinessId, setSelectedBusinessId] = useState<string | null>(
+    null
+  );
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+
   let scanBuffer = '';
-  const { mutate, data: models, isLoading, isError } = useMutation(fetchModels);
+
+  const { mutate: categoriesGetMutation, data: models } = useMutation(() =>
+    categoriesGet()
+  );
+
+  const { mutate: companiesGetMutation, data: companies } = useMutation(() =>
+    companiesGet()
+  );
+
+  useEffect(() => {
+    categoriesGetMutation();
+    companiesGetMutation();
+  }, []);
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       // Enter 키를 기준으로 바코드 데이터 구분
@@ -108,16 +132,8 @@ export const ProductAdd: React.FC = () => {
     };
   }, [barcode]);
 
-  // 카테고리 데이터
-  const categories: Record<string, Category> = {
-    electronics: {
-      label: '전자제품',
-      subCategories: ['휴대폰', '노트북', '가전제품'],
-    },
-    fashion: {
-      label: '패션',
-      subCategories: ['의류', '액세서리', '신발'],
-    },
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInspectionDate(event.target.value); // 선택된 날짜로 업데이트
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -140,6 +156,15 @@ export const ProductAdd: React.FC = () => {
     setSelectedModel(event.target.value as string);
   };
 
+  const handleCompanyChange = (event: SelectChangeEvent, child: ReactNode) => {
+    setSelectedCompany(event.target.value as string);
+  };
+  const handleBusinessIdChange = (
+    event: SelectChangeEvent,
+    child: ReactNode
+  ) => {
+    setSelectedBusinessId(event.target.value as string);
+  };
   return (
     <Grid
       container
@@ -149,7 +174,28 @@ export const ProductAdd: React.FC = () => {
     >
       <Grid spacing={1} container className="w-full">
         <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>주문번호</FormLabelStyled>
+          <FormLabelStyled>사업자등록번호</FormLabelStyled>
+          <Select
+            id="business_id"
+            name="business_name"
+            value={selectedBusinessId || ''}
+            onChange={handleBusinessIdChange}
+            displayEmpty
+            size="small"
+            sx={{ width: '100%', maxWidth: '300px' }}
+          >
+            <MenuItem value="" disabled>
+              <Typography>선택</Typography>
+            </MenuItem>
+            {businessIds?.map((id: string) => (
+              <MenuItem key={id} value={id}>
+                {id}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormGrid>
+        <FormGrid size={{ xs: 4 }}>
+          <FormLabelStyled>문서번호</FormLabelStyled>
           <OutlinedInputStyled
             id="order_id"
             name="order_id"
@@ -167,15 +213,6 @@ export const ProductAdd: React.FC = () => {
           />
         </FormGrid>
         <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>검사일</FormLabelStyled>
-          <OutlinedInputStyled
-            id="inspection_date"
-            name="inspection_date"
-            type="date"
-            size="small"
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
           <FormLabelStyled>모델명</FormLabelStyled>
           <Select
             id="model_id"
@@ -187,11 +224,11 @@ export const ProductAdd: React.FC = () => {
             sx={{ width: '100%', maxWidth: '300px' }}
           >
             <MenuItem value="" disabled>
-              <Typography> 모델을 선택하세요</Typography>
+              <Typography>모델 선택</Typography>
             </MenuItem>
-            {models?.map((model: { id: string; name: string }) => (
+            {models?.map((model: ICategory) => (
               <MenuItem key={model.id} value={model.id}>
-                {model.name}
+                {model.model_name}
               </MenuItem>
             ))}
           </Select>
@@ -218,6 +255,45 @@ export const ProductAdd: React.FC = () => {
             name="manufacture_date"
             type="date"
             size="small"
+          />
+        </FormGrid>
+
+        <FormGrid size={{ xs: 4 }}>
+          <FormLabelStyled>출고지</FormLabelStyled>
+          <Select
+            id="company_id"
+            name="company_name"
+            value={selectedCompany || ''}
+            onChange={handleCompanyChange}
+            displayEmpty
+            size="small"
+            sx={{ width: '100%', maxWidth: '300px' }}
+          >
+            <MenuItem value="" disabled>
+              <Typography>출고지 선택</Typography>
+            </MenuItem>
+            {companies?.map((company: ICompany) => (
+              <MenuItem key={company.id} value={company.id}>
+                {company.company_name}
+              </MenuItem>
+            ))}
+          </Select>
+          {/* <OutlinedInputStyled
+            id="model_name"
+            name="model_name"
+            type="text"
+            size="small"
+          /> */}
+        </FormGrid>
+        <FormGrid size={{ xs: 4 }}>
+          <FormLabelStyled>출고일자</FormLabelStyled>
+          <OutlinedInputStyled
+            id="inspection_date"
+            name="inspection_date"
+            type="date"
+            size="small"
+            value={inspectionDate} // 상태로 관리
+            onChange={handleDateChange} // 변경 가능하도록
           />
         </FormGrid>
       </Grid>

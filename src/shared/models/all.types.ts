@@ -77,3 +77,21 @@ export interface ResponseStandard {
   status: State;
   [key: string]: any;
 }
+
+export interface ICategory {
+  id: string;
+  model_name: string;
+}
+
+export interface ICompany {
+  id: string;
+  shipping_area?: ShippingArea; // 출고지
+  company_name: string; // 업체명
+  final_shipping_location?: string; // 최종출고지
+  shipping_address?: string; // 최종출고지
+}
+
+export enum ShippingArea {
+  Domestic = '국내',
+  International = '해외',
+}
