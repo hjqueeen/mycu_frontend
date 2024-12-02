@@ -17,6 +17,7 @@ import { useFetch } from '../../shared/hooks/use-fetch.hook';
 import { useMutation } from 'react-query';
 import { useUsersHttp } from '../../shared/hooks/use-users-http.hook';
 import { Link } from 'react-router-dom';
+import ForgotPassword from '../sign-in-up/ForgotPassword';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -25,6 +26,7 @@ const FormGrid = styled(Grid)(() => ({
 
 export const Password = () => {
   const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
@@ -50,10 +52,14 @@ export const Password = () => {
   };
   return (
     <Grid container spacing={3} className="w-full lg:w-3/5 py-10">
+      <ForgotPassword
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+      />
       <Typography variant="h4" gutterBottom className="w-full mt-4">
         Change Password
       </Typography>
-      <FormGrid size={{ xs: 12 }}>
+      <FormGrid size={{ xs: 12, md: 8 }}>
         <FormLabel htmlFor="password" required>
           Current Password
         </FormLabel>
@@ -68,13 +74,16 @@ export const Password = () => {
           // value={tempAccount?.password}
           // onChange={handleInputChange}
         />
-        <Link to="/">
-          <Typography className="mt-2" sx={{ color: 'primary.main' }}>
-            Forgot your password?
-          </Typography>
-        </Link>
+
+        <Typography
+          className="mt-2"
+          sx={{ color: 'primary.main' }}
+          onClick={() => setModalOpen(true)}
+        >
+          Forgot your password?
+        </Typography>
       </FormGrid>
-      <FormGrid size={{ xs: 12, md: 6 }}>
+      <FormGrid size={{ xs: 12, md: 8 }}>
         <FormLabel htmlFor="password" required>
           New password
         </FormLabel>

@@ -105,55 +105,55 @@ const DashboardNav = ({
   const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
     {
       id: '1',
-      label: 'Products',
+      label: '출하관리',
       children: [
         {
           id: '1.1',
-          label: 'All Products',
-          children: [
-            { id: '1.1.1', label: 'Category 1' },
-            { id: '1.1.2', label: 'Category 2' },
-            { id: '1.1.3', label: 'Category 3' },
-            { id: '1.1.4', label: 'Category 4' },
-          ],
+          label: '출하내역',
+          // children: [
+          //   { id: '1.1.1', label: 'Category 1' },
+          //   { id: '1.1.2', label: 'Category 2' },
+          //   { id: '1.1.3', label: 'Category 3' },
+          //   { id: '1.1.4', label: 'Category 4' },
+          // ],
         },
-        { id: '1.2', label: 'Add Products' },
-        { id: '1.3', label: 'Edit Products' },
+        { id: '1.2', label: '출하검사' },
+        // { id: '1.3', label: 'Edit Products' },
       ],
     },
-    {
-      id: '2',
-      label: 'Inventory',
-      children: [
-        { id: '2.1', label: 'All products' },
-        {
-          id: '2.2',
-          label: 'Categories',
-          children: [
-            { id: '2.2.1', label: 'Gadgets' },
-            { id: '2.2.2', label: 'Phones' },
-            { id: '2.2.3', label: 'Wearables' },
-          ],
-        },
-        { id: '2.3', label: 'Bestsellers' },
-        { id: '2.4', label: 'Sales' },
-      ],
-    },
-    { id: '3', label: 'Shipping' },
-    { id: '4', label: 'User Management', children: navUserGroups },
-    { id: '5', label: 'Contact' },
-    { id: '6', label: 'Help' },
-    {
-      id: '7',
-      label: 'Settings',
-      children: [
-        { id: '7.1', label: 'Profile' },
-        {
-          id: '7.2',
-          label: 'Account',
-        },
-      ],
-    },
+    // {
+    //   id: '2',
+    //   label: 'Inventory',
+    //   children: [
+    //     { id: '2.1', label: 'All products' },
+    //     {
+    //       id: '2.2',
+    //       label: 'Categories',
+    //       children: [
+    //         { id: '2.2.1', label: 'Gadgets' },
+    //         { id: '2.2.2', label: 'Phones' },
+    //         { id: '2.2.3', label: 'Wearables' },
+    //       ],
+    //     },
+    //     { id: '2.3', label: 'Bestsellers' },
+    //     { id: '2.4', label: 'Sales' },
+    //   ],
+    // },
+    // { id: '3', label: 'Shipping' },
+    // { id: '4', label: 'User Management', children: navUserGroups },
+    // { id: '5', label: 'Contact' },
+    // { id: '6', label: 'Help' },
+    // {
+    //   id: '7',
+    //   label: 'Settings',
+    //   children: [
+    //     { id: '7.1', label: 'Profile' },
+    //     {
+    //       id: '7.2',
+    //       label: 'Account',
+    //     },
+    //   ],
+    // },
   ];
 
   const onItemClick = (itemId: string) => {
@@ -175,7 +175,7 @@ const DashboardNav = ({
   return (
     <>
       <Typography component="h2" variant="subtitle2">
-        Dashboard
+        메뉴
       </Typography>
       <RichTreeView
         items={ITEMS}

@@ -29,6 +29,7 @@ export const AppRouter = () => {
   const { userGet } = useUsersHttp();
   // User store state
   const { account, headerMenu, setAccount, setHeaderMenu } = useUserStore();
+  const { accessToken } = useAuthStore();
 
   // GET user data mutation
   const userGetMutation = useMutation((id: string) => userGet(id), {
@@ -68,6 +69,8 @@ export const AppRouter = () => {
     return () => {};
     // eslint-disable-next-line
   }, []);
+
+  console.log('accessToken', accessToken, account);
 
   return (
     <Routes>

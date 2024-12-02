@@ -21,9 +21,9 @@ export const useUserStore = create<UserState>((set) => ({
   headerMenu: {
     dashboard: true,
     products: true,
-    inventory: false,
-    shipping: false,
-    user_management: false,
+    inventory: true,
+    shipping: true,
+    user_management: true,
   },
   setAccount: (accountData: Account | any | undefined) =>
     set({ account: accountData }),

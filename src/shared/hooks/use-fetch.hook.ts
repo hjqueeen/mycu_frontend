@@ -3,6 +3,7 @@ import {
   FetchDataOptions,
   UploadDataOptions,
 } from '../models/fetch-data.types';
+import { useAuthStore } from '../store/use-auth.store';
 
 class FetchError extends Error {
   constructor(public response: Response, message?: string) {
@@ -13,8 +14,8 @@ class FetchError extends Error {
 export const useFetch = () => {
   // const { t } = useTranslation();
 
-  // // Auth store state
-  // const [accessToken] = useAuthStore((state: AuthState) => [state.accessToken]);
+  // Auth store state
+  const { accessToken } = useAuthStore();
 
   /**
    * Fetch data by query.
@@ -33,7 +34,7 @@ export const useFetch = () => {
       return fetch(url, {
         method: options?.method,
         headers: {
-          Authorization: `Bearer ${'accessToken'}`,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
