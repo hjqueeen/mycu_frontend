@@ -91,7 +91,7 @@ export const useFetch = () => {
       method: options?.method,
       headers: {
         Accept: '*/*',
-        Authorization: `Bearer ${'accessToken'}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: options?.formData,
     }).then(async (response) => {
