@@ -97,7 +97,14 @@ export const Layout = ({
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        minWidth: '1200px',
+      }}
+    >
       <Header pageType={pageType} headerMenu={headerMenu} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
         <Drawer

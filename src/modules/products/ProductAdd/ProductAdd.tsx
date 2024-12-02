@@ -61,19 +61,20 @@ const businessIds = ['224-81-2409-81', '224-81-24096'];
 
 export const ProductAdd: React.FC = () => {
   const { categoriesGet, companiesGet } = useHttp();
-  const [businessId, setBusinessId] = useState('');
-  const [category, setCategory] = useState<string>('');
-  const [subCategory, setSubCategory] = useState<string>('');
-  const [productName, setProductName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [image, setImage] = useState<File | null>(null);
-  const [videoLink, setVideoLink] = useState<string>('');
-  const [accessories, setAccessories] = useState<string[]>([]);
-  const [versions, setVersions] = useState<string[]>([]);
-  // 오늘 날짜를 기본값으로 설정
-  const [inspectionDate, setInspectionDate] = useState(() => {
-    const today = new Date();
-    return today.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식
+
+  // State
+  const [formValues, setFormValues] = useState(() => {
+    const today = new Date(); // 오늘 날짜를 기본값으로 설정
+    return {
+      document: '',
+      inspector: '',
+      model_id: '',
+      company_id: '',
+      business_id: '',
+      quantity: '',
+      manufacture_date: '',
+      inspection_date: today.toISOString().split('T')[0], // "YYYY-MM-DD" 형식
+    };
   });
 
   const [barcode, setBarcode] = useState('');
@@ -92,11 +93,6 @@ export const ProductAdd: React.FC = () => {
     lot: '',
     serial: '',
   });
-  const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  const [selectedBusinessId, setSelectedBusinessId] = useState<string | null>(
-    null
-  );
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
 
   let scanBuffer = '';
 
@@ -133,38 +129,38 @@ export const ProductAdd: React.FC = () => {
   }, [barcode]);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInspectionDate(event.target.value); // 선택된 날짜로 업데이트
+    const selectedDate = event.target.value as string;
+    setFormValues((prev) => ({
+      ...prev,
+      ['inspection_date']: selectedDate,
+    }));
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent, name: string) => {
+    const selectedValue = event.target.value as string;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: selectedValue, // 필드 이름에 따라 상태 업데이트
+    }));
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | { name?: string; value: unknown }
+    >
+  ) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name as string]: value, // 필드 이름에 따라 상태 업데이트
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 데이터 제출 로직 (예: API 호출)
-    console.log({
-      category,
-      subCategory,
-      productName,
-      description,
-      image,
-      videoLink,
-      accessories,
-      versions,
-    });
-    // API 요청 등을 통해 DB에 저장하는 로직 구현
+    console.log('formValues', formValues);
   };
 
-  const handleModelChange = (event: SelectChangeEvent, child: ReactNode) => {
-    setSelectedModel(event.target.value as string);
-  };
-
-  const handleCompanyChange = (event: SelectChangeEvent, child: ReactNode) => {
-    setSelectedCompany(event.target.value as string);
-  };
-  const handleBusinessIdChange = (
-    event: SelectChangeEvent,
-    child: ReactNode
-  ) => {
-    setSelectedBusinessId(event.target.value as string);
-  };
   return (
     <Grid
       container
@@ -172,217 +168,215 @@ export const ProductAdd: React.FC = () => {
       className="flex flex-col py-10"
       sx={{ height: '100%' }}
     >
-      <Grid spacing={1} container className="w-full">
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>사업자등록번호</FormLabelStyled>
-          <Select
-            id="business_id"
-            name="business_name"
-            value={selectedBusinessId || ''}
-            onChange={handleBusinessIdChange}
-            displayEmpty
-            size="small"
-            sx={{ width: '100%', maxWidth: '300px' }}
-          >
-            <MenuItem value="" disabled>
-              <Typography>선택</Typography>
-            </MenuItem>
-            {businessIds?.map((id: string) => (
-              <MenuItem key={id} value={id}>
-                {id}
+      <form onSubmit={handleSubmit}>
+        <Grid spacing={1} container className="w-full">
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>사업자등록번호</FormLabelStyled>
+            <Select
+              id="business_id"
+              name="business_id"
+              value={formValues.business_id}
+              onChange={(e) => handleSelectChange(e, 'business_id')}
+              displayEmpty
+              size="small"
+              sx={{ width: '100%', maxWidth: '300px' }}
+            >
+              <MenuItem value="" disabled>
+                <Typography>선택</Typography>
               </MenuItem>
-            ))}
-          </Select>
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>문서번호</FormLabelStyled>
-          <OutlinedInputStyled
-            id="order_id"
-            name="order_id"
-            type="text"
-            size="small"
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>검사자</FormLabelStyled>
-          <OutlinedInputStyled
-            id="inspector"
-            name="inspector"
-            type="text"
-            size="small"
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>모델명</FormLabelStyled>
-          <Select
-            id="model_id"
-            name="model_name"
-            value={selectedModel || ''}
-            onChange={handleModelChange}
-            displayEmpty
-            size="small"
-            sx={{ width: '100%', maxWidth: '300px' }}
-          >
-            <MenuItem value="" disabled>
-              <Typography>모델 선택</Typography>
-            </MenuItem>
-            {models?.map((model: ICategory) => (
-              <MenuItem key={model.id} value={model.id}>
-                {model.model_name}
+              {businessIds?.map((id: string) => (
+                <MenuItem key={id} value={id}>
+                  {id}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>문서번호</FormLabelStyled>
+            <OutlinedInputStyled
+              id="document"
+              name="document"
+              type="text"
+              size="small"
+              value={formValues.document}
+              onChange={handleChange}
+            />
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>검사자</FormLabelStyled>
+            <OutlinedInputStyled
+              id="inspector"
+              name="inspector"
+              type="text"
+              size="small"
+              value={formValues.inspector}
+              onChange={handleChange}
+            />
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>모델명</FormLabelStyled>
+            <Select
+              id="model_id"
+              name="model_id"
+              value={formValues.model_id}
+              onChange={(e) => handleSelectChange(e, 'model_id')}
+              displayEmpty
+              size="small"
+              sx={{ width: '100%', maxWidth: '300px' }}
+            >
+              <MenuItem value="" disabled>
+                <Typography>모델 선택</Typography>
               </MenuItem>
-            ))}
-          </Select>
-          {/* <OutlinedInputStyled
-            id="model_name"
-            name="model_name"
-            type="text"
-            size="small"
-          /> */}
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>수량</FormLabelStyled>
-          <OutlinedInputStyled
-            id="quantity"
-            name="quantity"
-            type="number"
-            size="small"
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>제조일자</FormLabelStyled>
-          <OutlinedInputStyled
-            id="manufacture_date"
-            name="manufacture_date"
-            type="date"
-            size="small"
-          />
-        </FormGrid>
+              {models?.map((model: ICategory) => (
+                <MenuItem key={model.id} value={model.id}>
+                  {model.model_name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>수량</FormLabelStyled>
+            <OutlinedInputStyled
+              id="quantity"
+              name="quantity"
+              type="number"
+              size="small"
+              value={formValues.quantity}
+              onChange={handleChange}
+            />
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>제조일자</FormLabelStyled>
+            <OutlinedInputStyled
+              id="manufacture_date"
+              name="manufacture_date"
+              type="date"
+              size="small"
+              value={formValues.manufacture_date}
+              onChange={handleChange}
+            />
+          </FormGrid>
 
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>출고지</FormLabelStyled>
-          <Select
-            id="company_id"
-            name="company_name"
-            value={selectedCompany || ''}
-            onChange={handleCompanyChange}
-            displayEmpty
-            size="small"
-            sx={{ width: '100%', maxWidth: '300px' }}
-          >
-            <MenuItem value="" disabled>
-              <Typography>출고지 선택</Typography>
-            </MenuItem>
-            {companies?.map((company: ICompany) => (
-              <MenuItem key={company.id} value={company.id}>
-                {company.company_name}
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>출고지</FormLabelStyled>
+            <Select
+              id="company_id"
+              name="company_id"
+              value={formValues.company_id}
+              onChange={(e) => handleSelectChange(e, 'company_id')}
+              displayEmpty
+              size="small"
+              sx={{ width: '100%', maxWidth: '300px' }}
+            >
+              <MenuItem value="" disabled>
+                <Typography>출고지 선택</Typography>
               </MenuItem>
-            ))}
-          </Select>
-          {/* <OutlinedInputStyled
-            id="model_name"
-            name="model_name"
-            type="text"
-            size="small"
-          /> */}
-        </FormGrid>
-        <FormGrid size={{ xs: 4 }}>
-          <FormLabelStyled>출고일자</FormLabelStyled>
-          <OutlinedInputStyled
-            id="inspection_date"
-            name="inspection_date"
-            type="date"
-            size="small"
-            value={inspectionDate} // 상태로 관리
-            onChange={handleDateChange} // 변경 가능하도록
-          />
-        </FormGrid>
-      </Grid>
-      <Divider sx={{ width: '100%', marginY: '10px' }} />
+              {companies?.map((company: ICompany) => (
+                <MenuItem key={company.id} value={company.id}>
+                  {company.company_name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormGrid>
+          <FormGrid size={{ xs: 4 }}>
+            <FormLabelStyled>출고일자</FormLabelStyled>
+            <OutlinedInputStyled
+              id="inspection_date"
+              name="inspection_date"
+              type="date"
+              size="small"
+              value={formValues.inspection_date}
+              onChange={handleDateChange}
+            />
+          </FormGrid>
+        </Grid>
+        <Divider sx={{ width: '100%', marginY: '10px' }} />
 
-      <Grid spacing={1} container className="flex flex-col w-full">
-        <Grid
-          spacing={1}
-          size={{ xs: 4 }}
-          className="justify-between flex flex-row"
-        >
-          <Button
-            variant="contained"
+        <Grid spacing={1} container className="flex flex-col w-full">
+          <Grid
+            spacing={1}
+            size={{ xs: 4 }}
+            className="justify-between flex flex-row"
+          >
+            <Button
+              variant="contained"
+              sx={{
+                color: 'background.paper',
+                bgcolor: '#4BA36B',
+                alignSelf: 'start',
+                width: { xs: '300px', sm: 'auto' },
+              }}
+            >
+              + 제품스캔
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{
+                color: 'background.paper',
+                bgcolor: '#4BA36B',
+                alignSelf: 'start',
+                width: { xs: '300px', sm: 'auto' },
+              }}
+            >
+              스캔완료{' '}
+              <FontAwesomeIcon className="ml-2" icon={faChevronRight} />
+            </Button>
+          </Grid>
+          <Grid
+            container
+            size={{ xs: 4 }}
+            spacing={1}
             sx={{
-              color: 'background.paper',
-              bgcolor: '#4BA36B',
-              alignSelf: 'start',
-              width: { xs: '300px', sm: 'auto' },
+              border: '1px solid',
+              borderRadius: '8px',
+              padding: '8px',
+              borderColor: 'text.secondary',
             }}
+            className="flex flex-col"
           >
-            + 제품스캔
-          </Button>
+            <Typography variant="h6">AED</Typography>
 
-          <Button
-            variant="contained"
+            <BarcodeScanner barcode={aedBarcode} setBarcode={setAedBarcode} />
+          </Grid>
+          <Grid
+            container
+            size={{ xs: 4 }}
+            spacing={1}
             sx={{
-              color: 'background.paper',
-              bgcolor: '#4BA36B',
-              alignSelf: 'start',
-              width: { xs: '300px', sm: 'auto' },
+              border: '1px solid',
+              borderRadius: '8px',
+              padding: '8px',
+              borderColor: 'text.secondary',
             }}
+            className="flex flex-col"
           >
-            스캔완료 <FontAwesomeIcon className="ml-2" icon={faChevronRight} />
-          </Button>
-        </Grid>
-        <Grid
-          container
-          size={{ xs: 4 }}
-          spacing={1}
-          sx={{
-            border: '1px solid',
-            borderRadius: '8px',
-            padding: '8px',
-            borderColor: 'text.secondary',
-          }}
-          className="flex flex-col"
-        >
-          <Typography variant="h6">AED</Typography>
+            <Typography variant="h6">배터리</Typography>
+            <BarcodeScanner
+              barcode={batteryBarcode}
+              setBarcode={setBatteryBarcode}
+            />
+          </Grid>
+          <Grid
+            container
+            size={{ xs: 4 }}
+            spacing={1}
+            sx={{
+              border: '1px solid',
+              borderRadius: '8px',
+              padding: '8px',
+              borderColor: 'text.secondary',
+            }}
+            className="flex flex-col"
+          >
+            <Typography variant="h6">패즈</Typography>
 
-          <BarcodeScanner barcode={aedBarcode} setBarcode={setAedBarcode} />
+            <BarcodeScanner barcode={padsBarcode} setBarcode={setPadsBarcode} />
+          </Grid>
+          <Divider orientation="vertical" className="h-full" />
+          <Grid size={{ xs: 8 }}></Grid>
         </Grid>
-        <Grid
-          container
-          size={{ xs: 4 }}
-          spacing={1}
-          sx={{
-            border: '1px solid',
-            borderRadius: '8px',
-            padding: '8px',
-            borderColor: 'text.secondary',
-          }}
-          className="flex flex-col"
-        >
-          <Typography variant="h6">배터리</Typography>
-          <BarcodeScanner
-            barcode={batteryBarcode}
-            setBarcode={setBatteryBarcode}
-          />
-        </Grid>
-        <Grid
-          container
-          size={{ xs: 4 }}
-          spacing={1}
-          sx={{
-            border: '1px solid',
-            borderRadius: '8px',
-            padding: '8px',
-            borderColor: 'text.secondary',
-          }}
-          className="flex flex-col"
-        >
-          <Typography variant="h6">패즈</Typography>
-
-          <BarcodeScanner barcode={padsBarcode} setBarcode={setPadsBarcode} />
-        </Grid>
-        <Divider orientation="vertical" className="h-full" />
-        <Grid size={{ xs: 8 }}></Grid>
-      </Grid>
-      {/* <Box
+        {/* <Box
         sx={[
           {
             display: 'flex',
@@ -407,7 +401,7 @@ export const ProductAdd: React.FC = () => {
           Save
         </Button>
       </Box> */}
-      {/* <Box className="flex flex-row items-center">
+        {/* <Box className="flex flex-row items-center">
           <OutlinedInput
             id="product-barcode"
             name="product-barcode"
@@ -421,6 +415,19 @@ export const ProductAdd: React.FC = () => {
             onClick={() => setBarcode('')}
           />
         </Box> */}
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            color: 'background.paper',
+            bgcolor: '#4BA36B',
+            alignSelf: 'start',
+            width: { xs: '300px', sm: 'auto' },
+          }}
+        >
+          입력완료
+        </Button>
+      </form>
     </Grid>
   );
 };
