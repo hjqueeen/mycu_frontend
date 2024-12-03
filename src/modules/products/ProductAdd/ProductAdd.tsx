@@ -17,14 +17,6 @@ export interface Barcode {
   pads: string;
 }
 
-// {
-//   udi: string;
-//   lot: string;
-//   serial: string;
-//   manufacture_date?: string;
-//   expiration_date?: string | Date;
-// }
-
 export const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'row',
@@ -44,7 +36,6 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
 }));
 
 const columns: GridColDef[] = [
-  // { field: 'id', headerName: 'ID', width: 90 },
   {
     field: 'device_udi',
     headerName: '제품 UDI 바코드',
@@ -73,13 +64,6 @@ const columns: GridColDef[] = [
     width: 180,
     editable: false,
   },
-  // {
-  //   field: 'battery_lot',
-  //   headerName: '배터리 LOT 번호',
-  //   type: 'string',
-  //   width: 180,
-  //   editable: false,
-  // },
   {
     field: 'battery_serial',
     headerName: '배터리 SERIAL 번호',
@@ -87,20 +71,6 @@ const columns: GridColDef[] = [
     width: 180,
     editable: false,
   },
-  // {
-  //   field: 'battery_manufacture_date',
-  //   headerName: '배터리 생산일자',
-  //   type: 'string',
-  //   width: 180,
-  //   editable: false,
-  // },
-  // {
-  //   field: 'battery_expiration_date',
-  //   headerName: '배터리 유효기간',
-  //   type: 'string',
-  //   width: 180,
-  //   editable: false,
-  // },
   {
     field: 'pads_udi',
     headerName: '패즈 UDI 바코드',
@@ -115,20 +85,6 @@ const columns: GridColDef[] = [
     width: 180,
     editable: false,
   },
-  // {
-  //   field: 'pads_serial',
-  //   headerName: '패즈 SERIAL 번호',
-  //   type: 'string',
-  //   width: 180,
-  //   editable: false,
-  // },
-  // {
-  //   field: 'pads_manufacture_date',
-  //   headerName: '패즈 생산일자',
-  //   type: 'string',
-  //   width: 180,
-  //   editable: false,
-  // },
   {
     field: 'pads_expiration_date',
     headerName: '패즈 유효기간',
@@ -155,10 +111,6 @@ export const ProductAdd: React.FC = () => {
           editMode="row"
           rows={rows}
           columns={columns}
-          // processRowUpdate={handleProcessRowUpdate}
-          // rowModesModel={rowModesModel}
-          // onRowModesModelChange={handleRowModesModelChange}
-          // onRowEditStop={handleRowEditStop}
           getRowClassName={(params) =>
             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
           }

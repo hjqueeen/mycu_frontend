@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput/OutlinedInput';
-import React, { forwardRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useShared from '../../shared/hooks/use-shared.hook';
 import {
   Barcode,
   FormGrid,
@@ -11,34 +12,32 @@ import {
   OutlinedInputStyled,
 } from './ProductAdd/ProductAdd';
 
-const BarcodeScanner = (
-  {
-    active,
-    type,
-    title,
-    // code,
-    barcode,
-    // setCode,
-    disabled,
-    // setBarcode,
-    onClick,
-    onChange,
-  }: {
-    active: boolean;
-    type: 'device' | 'battery' | 'pads';
-    title: string;
-    barcode: Barcode;
-    // code: string;
-    disabled: boolean;
-    // setCode: React.Dispatch<React.SetStateAction<string>>;
-    // setBarcode: React.Dispatch<React.SetStateAction<Barcode>>;
-    onClick: () => void;
-    onChange: (event: any) => void;
-  },
-  ref: any
-) => {
-  // const [code, setCode] = useState('');
+const BarcodeScanner = ({
+  active,
+  type,
+  title,
+  barcode,
+  disabled,
+  onClick,
+  onChange,
+  setBatteryExpirationDate,
+}: {
+  active: boolean;
+  type: 'device' | 'battery' | 'pads';
+  title: string;
+  barcode: Barcode;
+  disabled: boolean;
+  onClick: () => void;
+  onChange: (event: any) => void;
+  setBatteryExpirationDate: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const inputRef = useRef<any>(null);
+  const { toDate, koreanDate } = useShared();
+
   const [showContent, setShowContent] = useState(false);
+  const [serial, setSerial] = useState('');
+  const [lot, setLot] = useState('');
+  const [expirationDate, setExpirationDate] = useState<Date | string>('');
 
   React.useEffect(() => {
     if (!active && barcode[type] === '') {
@@ -48,12 +47,24 @@ const BarcodeScanner = (
     }
   }, [active, barcode]);
 
-  // const handleInputChange = React.useCallback(
-  //   (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     setCode(event.target.value);
-  //   },
-  //   []
-  // );
+  React.useEffect(() => {
+    const scannedCode = barcode[type];
+    switch (type) {
+      case 'device':
+        setLot(scannedCode.slice(23, 24));
+        setSerial(scannedCode.slice(18, 29));
+        break;
+      case 'battery':
+        setSerial(scannedCode.slice(18, 27));
+        break;
+      case 'pads':
+        setLot(scannedCode.slice(26, 36));
+        setExpirationDate(toDate(scannedCode.slice(18, 24)));
+        break;
+      default:
+        break;
+    }
+  }, [barcode[type]]);
 
   return (
     <Grid
@@ -63,6 +74,11 @@ const BarcodeScanner = (
       sx={{
         cursor: active ? undefined : 'pointer',
         padding: 0,
+      }}
+      onClick={() => {
+        if (inputRef?.current) {
+          inputRef.current.focus();
+        }
       }}
     >
       {showContent ? (
@@ -80,42 +96,31 @@ const BarcodeScanner = (
               value={barcode[type]}
               onChange={onChange}
               autoFocus
-              // onKeyPress={(event) => {
-              //   if (event.key === 'Enter') handleScan();
-              // }}
               placeholder="바코드를 스캔하세요"
               sx={{ width: '100%' }}
+              ref={inputRef}
             />
             <FontAwesomeIcon
               className="cursor-pointer ml-2"
               icon={faRotateLeft}
-              onClick={() => {
-                // setCode('');
-                // setBarcode({
-                //   udi: '',
-                //   lot: '',
-                //   serial: '',
-                //   manufacture_date: '',
-                //   expiration_date: '',
-                // });
-              }}
+              onClick={() => {}}
             />
           </FormGrid>
-          <FormGrid>
-            <FormLabelStyled>LOT 번호</FormLabelStyled>
-            <OutlinedInputStyled
-              id="device_lot"
-              name="device_lot"
-              // value={barcode.lot}
-            />
-          </FormGrid>
-          {type === 'pads' ? (
+          {type === 'pads' || type === 'battery' ? (
             <FormGrid>
               <FormLabelStyled>유효기간</FormLabelStyled>
               <OutlinedInputStyled
                 id="expiration_date"
                 name="expiration_date"
-                // value={barcode.expiration_date}
+                value={koreanDate(expirationDate)}
+                onClick={onClick}
+                onChange={(event) => {
+                  setExpirationDate(event.target.value);
+                  type === 'battery' &&
+                    setBatteryExpirationDate(event.target.value);
+                }}
+                placeholder="예시 2024-12-03"
+                disabled={disabled}
               />
             </FormGrid>
           ) : (
@@ -124,7 +129,19 @@ const BarcodeScanner = (
               <OutlinedInputStyled
                 id="device_serial"
                 name="device_serial"
-                // value={barcode.serial}
+                value={serial}
+                disabled={disabled}
+              />
+            </FormGrid>
+          )}
+          {(type === 'pads' || type === 'device') && (
+            <FormGrid>
+              <FormLabelStyled>LOT 번호</FormLabelStyled>
+              <OutlinedInputStyled
+                id="device_lot"
+                name="device_lot"
+                value={lot}
+                disabled={disabled}
               />
             </FormGrid>
           )}

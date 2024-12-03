@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography/Typography';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import ShippingInformation from './ShippingInformation';
 import { Barcode } from './ProductAdd';
+import useShared from '../../../shared/hooks/use-shared.hook';
 
 const ProductScanner = ({
   rows,
@@ -18,7 +19,9 @@ const ProductScanner = ({
   rows: any[];
   setRows: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
-  // 현재 선택된 카드 상태
+  const { toDate } = useShared();
+
+  const [batteryExpirationDate, setBatteryExpirationDate] = useState('');
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
   // 각 카드의 바코드 상태
@@ -28,47 +31,29 @@ const ProductScanner = ({
     pads: '',
   });
 
-  // const addProductToRow = React.useCallback(() => {
-  //   const newRow = {
-  //     id: new Date(),
-  //     device_udi: deviceBarcode.udi,
-  //     device_lot: deviceBarcode.lot,
-  //     device_serial: deviceBarcode.serial,
-  //     battery_udi: batteryBarcode.udi,
-  //     battery_lot: batteryBarcode.lot,
-  //     battery_serial: batteryBarcode.serial,
-  //     battery_manufacture_date: batteryBarcode.manufacture_date,
-  //     battery_expiration_date: batteryBarcode.expiration_date,
-  //     pads_udi: padsBarcode.udi,
-  //     pads_lot: padsBarcode.lot,
-  //     pads_serial: padsBarcode.serial,
-  //     pads_manufacture_date: padsBarcode.manufacture_date,
-  //     pads_expiration_date: padsBarcode.expiration_date,
-  //   };
-  //   setRows([...rows, newRow]);
-  //   // setProductCode('');
-  //   // setBatteryCode('');
-  //   // setPadsCode('');
-  //   setDeviceBarcode({
-  //     udi: '',
-  //     lot: '',
-  //     serial: '',
-  //   });
-  //   setBatteryBarcode({
-  //     udi: '',
-  //     lot: '',
-  //     serial: '',
-  //     manufacture_date: '',
-  //     expiration_date: '',
-  //   });
-  //   setPadsBarcode({
-  //     udi: '',
-  //     lot: '',
-  //     serial: '',
-  //     manufacture_date: '',
-  //     expiration_date: '',
-  //   });
-  // }, [barcode]);
+  const addProductToRow = React.useCallback(() => {
+    const newRow = {
+      id: new Date(),
+      device_udi: barcode.device,
+      device_lot: barcode.device.slice(23, 24),
+      device_serial: barcode.device.slice(18, 29),
+
+      battery_udi: barcode.battery,
+      battery_serial: barcode.battery.slice(18, 27),
+      battery_expiration_date: batteryExpirationDate,
+
+      pads_udi: barcode.pads,
+      pads_lot: barcode.pads.slice(26, 36),
+      pads_expiration_date: toDate(barcode.pads.slice(18, 24)),
+    };
+    setRows([...rows, newRow]);
+    setSelectedCard(null);
+    setBarcode({
+      device: '',
+      battery: '',
+      pads: '',
+    });
+  }, [barcode]);
 
   // 카드 클릭 핸들러
   const handleCardClick = (cardType: 'device' | 'battery' | 'pads') => {
@@ -88,22 +73,6 @@ const ProductScanner = ({
     }));
   };
 
-  const toDate = React.useCallback((dateString: string): Date => {
-    // 입력 문자열 확인 (6자리)
-    if (dateString.length !== 6) {
-      throw new Error(
-        'Invalid date format. The input must be 6 characters long.'
-      );
-    }
-
-    // 년, 월, 일 추출
-    const year = parseInt(`20${dateString.slice(0, 2)}`, 10); // 앞 두 자리: 년도
-    const month = parseInt(dateString.slice(2, 4), 10) - 1; // 월 (0부터 시작하므로 -1)
-    const day = parseInt(dateString.slice(4, 6), 10); // 일
-
-    // Date 객체 생성
-    return new Date(year, month, day);
-  }, []);
   const cards: any[] = [
     {
       type: 'device',
@@ -153,6 +122,7 @@ const ProductScanner = ({
               onClick={() => handleCardClick(card.type)}
               onChange={(event) => handleBarcodeInput(event, card.type)}
               disabled={selectedCard !== card.type} // 선택된 카드 외에는 비활성화
+              setBatteryExpirationDate={setBatteryExpirationDate}
             />
           </Grid>
         ))}
@@ -162,7 +132,6 @@ const ProductScanner = ({
         spacing={1}
         size={2}
         className="flex flex-col justify-between"
-        // onClick={handleOutsideClick}
       >
         <Box></Box>
         <Button
@@ -170,10 +139,10 @@ const ProductScanner = ({
           sx={{
             color: 'background.paper',
             bgcolor: '#4BA36B',
-            alignSelf: 'center',
+            alignSelf: 'end',
             width: { xs: '300px', sm: 'auto' },
           }}
-          // onClick={() => addProductToRow()}
+          onClick={() => addProductToRow()}
         >
           <FontAwesomeIcon className="mr-2" icon={faChevronDown} />
           제품등록
