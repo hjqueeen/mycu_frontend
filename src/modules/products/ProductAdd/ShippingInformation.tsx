@@ -194,7 +194,7 @@ const ShippingInformation = () => {
         </Select>
       </FormGrid>
       <FormGrid size={{ xs: 4 }}>
-        <FormLabelStyled>출고일자</FormLabelStyled>
+        <FormLabelStyled>검사일자</FormLabelStyled>
         <OutlinedInputStyled
           id="inspection_date"
           name="inspection_date"
@@ -204,7 +204,7 @@ const ShippingInformation = () => {
           onChange={handleDateChange}
         />
       </FormGrid>
-      <FormGrid size={{ xs: 4 }} className="flex flex-row justify-between">
+      {/* <FormGrid size={{ xs: 4 }} className="flex flex-row justify-between">
         <Box></Box>
         <Button
           variant="contained"
@@ -218,7 +218,7 @@ const ShippingInformation = () => {
           <FontAwesomeIcon className="mr-2" icon={faChevronDown} />
           제품입력
         </Button>
-      </FormGrid>
+      </FormGrid> */}
     </Grid>
   );
 };

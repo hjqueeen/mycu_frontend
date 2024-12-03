@@ -12,12 +12,18 @@ import ShippingInformation from './ShippingInformation';
 import ProductScanner from './ProductScanner';
 
 export interface Barcode {
-  udi: string;
-  lot: string;
-  serial: string;
-  manufacture_date?: string;
-  expiration_date?: string | Date;
+  device: string;
+  battery: string;
+  pads: string;
 }
+
+// {
+//   udi: string;
+//   lot: string;
+//   serial: string;
+//   manufacture_date?: string;
+//   expiration_date?: string | Date;
+// }
 
 export const FormGrid = styled(Grid)(() => ({
   display: 'flex',
