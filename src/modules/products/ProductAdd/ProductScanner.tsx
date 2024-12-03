@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid2';
 import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '@mui/system';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faPrint } from '@fortawesome/free-solid-svg-icons';
 import BarcodeScanner from '../BarcodeScanner';
 import Typography from '@mui/material/Typography/Typography';
 
@@ -119,6 +119,7 @@ const ProductScanner = ({
               type={card.type}
               title={card.title}
               barcode={barcode}
+              setBarcode={setBarcode}
               onClick={() => handleCardClick(card.type)}
               onChange={(event) => handleBarcodeInput(event, card.type)}
               disabled={selectedCard !== card.type} // 선택된 카드 외에는 비활성화
@@ -131,14 +132,23 @@ const ProductScanner = ({
         container
         spacing={1}
         size={2}
-        className="flex flex-col justify-between"
+        className="flex flex-col justify-end"
+        onClick={() => setSelectedCard(null)}
       >
-        <Box></Box>
         <Button
           variant="contained"
           sx={{
-            color: 'background.paper',
-            bgcolor: '#4BA36B',
+            alignSelf: 'end',
+            width: { xs: '300px', sm: 'auto' },
+          }}
+          onClick={() => addProductToRow()}
+        >
+          <FontAwesomeIcon className="mr-2" icon={faPrint} />
+          라벨인쇄
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
             alignSelf: 'end',
             width: { xs: '300px', sm: 'auto' },
           }}

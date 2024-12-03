@@ -1,5 +1,4 @@
-import { ICategory, FetchDataParams, ICompany } from '../models/all.types';
-import { Product } from '../store/use-cart.store';
+import { ICategory, ICompany } from '../models/all.types';
 import { useFetch } from './use-fetch.hook';
 
 export const useHttp = () => {

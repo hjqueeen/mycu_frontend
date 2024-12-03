@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography/Typography';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import ShippingInformation from './ShippingInformation';
 import ProductScanner from './ProductScanner';
+import { thinScroll } from '../../../shared/models/shared.types';
 
 export interface Barcode {
   device: string;
@@ -100,14 +101,13 @@ export const ProductAdd: React.FC = () => {
     <Grid
       container
       spacing={2}
-      className="flex flex-col py-10"
+      className="flex flex-col py-10 overflow-y-hidden"
       sx={{ height: '100%' }}
     >
       <ShippingInformation />
       <ProductScanner rows={rows} setRows={setRows} />
-      <Grid className="w-full">
+      <Grid className="w-full h-[calc(100vh-520px)]">
         <DataGrid
-          autoHeight
           editMode="row"
           rows={rows}
           columns={columns}
@@ -115,7 +115,7 @@ export const ProductAdd: React.FC = () => {
             params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
           }
           initialState={{
-            pagination: { paginationModel: { pageSize: 20 } },
+            pagination: { paginationModel: { pageSize: 10 } },
           }}
           pageSizeOptions={[10, 20, 50]}
           disableColumnResize
@@ -152,8 +152,6 @@ export const ProductAdd: React.FC = () => {
         type="submit"
         variant="contained"
         sx={{
-          color: 'background.paper',
-          bgcolor: '#4BA36B',
           alignSelf: 'end',
           width: { xs: '300px', sm: 'auto' },
         }}

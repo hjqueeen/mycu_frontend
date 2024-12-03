@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { JwtPayload } from '../models/shared.types';
 
 // Models
 export interface AuthState {

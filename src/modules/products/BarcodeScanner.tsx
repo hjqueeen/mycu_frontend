@@ -1,4 +1,5 @@
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faScannerGun } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -20,6 +21,7 @@ const BarcodeScanner = ({
   disabled,
   onClick,
   onChange,
+  setBarcode,
   setBatteryExpirationDate,
 }: {
   active: boolean;
@@ -29,9 +31,15 @@ const BarcodeScanner = ({
   disabled: boolean;
   onClick: () => void;
   onChange: (event: any) => void;
+  setBarcode: React.Dispatch<
+    React.SetStateAction<{
+      device: string;
+      battery: string;
+      pads: string;
+    }>
+  >;
   setBatteryExpirationDate: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const inputRef = useRef<any>(null);
   const { toDate, koreanDate } = useShared();
 
   const [showContent, setShowContent] = useState(false);
@@ -75,16 +83,14 @@ const BarcodeScanner = ({
         cursor: active ? undefined : 'pointer',
         padding: 0,
       }}
-      onClick={() => {
-        if (inputRef?.current) {
-          inputRef.current.focus();
-        }
-      }}
     >
       {showContent ? (
-        <Box
-          className="p-2"
+        <Grid
+          container
+          spacing={1}
+          className="p-2 h-full"
           sx={{ backgroundColor: !active ? 'background.paper' : undefined }}
+          onClick={onClick}
         >
           <Typography variant="h6">{title}</Typography>
           <FormGrid>
@@ -95,15 +101,17 @@ const BarcodeScanner = ({
               size="small"
               value={barcode[type]}
               onChange={onChange}
+              onClick={onClick}
               autoFocus
               placeholder="바코드를 스캔하세요"
               sx={{ width: '100%' }}
-              ref={inputRef}
             />
             <FontAwesomeIcon
               className="cursor-pointer ml-2"
               icon={faRotateLeft}
-              onClick={() => {}}
+              onClick={() => {
+                setBarcode((prev) => ({ ...prev, [type]: '' }));
+              }}
             />
           </FormGrid>
           {type === 'pads' || type === 'battery' ? (
@@ -145,7 +153,7 @@ const BarcodeScanner = ({
               />
             </FormGrid>
           )}
-        </Box>
+        </Grid>
       ) : (
         <Box
           className="w-full h-full flex flex-row items-center justify-center rounded-lg"
@@ -154,7 +162,11 @@ const BarcodeScanner = ({
           }}
           onClick={onClick}
         >
-          <Typography variant="h5">{title} 스캔</Typography>
+          <Typography variant="h5">{title}</Typography>
+          <FontAwesomeIcon
+            icon={['far', 'scanner-gun']}
+            style={{ fontSize: '40px', paddingLeft: '10px' }}
+          />
         </Box>
       )}
     </Grid>
