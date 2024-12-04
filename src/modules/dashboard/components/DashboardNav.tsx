@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { PageType } from '../../../shared/components/Layout/Layout';
 import {
   ExtendedTreeItemProps,
-  ProductsContentType,
+  InspectionContentType,
   UserGroup,
 } from '../../../shared/models/all.types';
 import { useNavigate } from 'react-router-dom';

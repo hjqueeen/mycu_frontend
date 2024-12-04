@@ -1,15 +1,13 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { alpha, Box, Stack, Typography } from '@mui/material';
 
 import { Header } from '../Header/Header';
 import ContentHeader from './ContentHeader';
-import { ProductsContentType } from '../../models/all.types';
+import { InspectionContentType } from '../../models/all.types';
 
 import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import avatar from '../../../assets/picture/avatar.jpg';
-import OptionsMenu from '../../../modules/products/OptionsMenu';
+import OptionsMenu from '../../../modules/inspection/OptionsMenu';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 import { useUserStore } from '../../store/use-user.store';
 import { useAuthStore } from '../../store/use-auth.store';
@@ -44,7 +42,7 @@ export enum PageType {
 
 export type LayoutProps = {
   pageType: PageType;
-  contentType?: ProductsContentType;
+  contentType?: InspectionContentType;
   appNavbar?: ReactNode;
   navContent?: ReactNode;
   mainGrid: ReactNode;
@@ -70,15 +68,15 @@ export const Layout = ({
     defaultSelectedItems = undefined;
   } else if (pageType === PageType.Products) {
     switch (contentType) {
-      case ProductsContentType.All:
+      case InspectionContentType.All:
         defaultExpandedItems = ['1', '1.1'];
         defaultSelectedItems = '1.1';
         break;
-      case ProductsContentType.Add:
+      case InspectionContentType.Add:
         defaultExpandedItems = ['1', '1.2'];
         defaultSelectedItems = '1.2';
         break;
-      case ProductsContentType.Edit:
+      case InspectionContentType.Edit:
         defaultExpandedItems = ['1', '1.3'];
         defaultSelectedItems = '1.3';
         break;

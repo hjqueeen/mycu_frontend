@@ -1,6 +1,6 @@
 import { UserRole } from '../../modules/user/models/user.types';
 
-export enum ProductsContentType {
+export enum InspectionContentType {
   Add = 'ADD',
   All = 'ALL',
   Default = 'HOME',

@@ -68,7 +68,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-const ProductDataGrid = ({ rows }: { rows: any[] }) => {
+const InspectionAddData = ({ rows }: { rows: any[] }) => {
   return (
     <Grid className="w-full h-[calc(100vh-600px)]">
       <DataGrid
@@ -115,4 +115,4 @@ const ProductDataGrid = ({ rows }: { rows: any[] }) => {
   );
 };
 
-export default React.memo(ProductDataGrid);
+export default React.memo(InspectionAddData);

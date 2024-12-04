@@ -15,11 +15,11 @@ import ShippingInformation from './ShippingInformation';
 import ProductScanner from './ProductScanner';
 import { useHttp } from '../../../shared/hooks/use-http.hook';
 import { useMutation } from 'react-query';
-import ProductDataGrid from './ProductDataGrid';
 import { useAuthStore } from '../../../shared/store/use-auth.store';
 import { useUserStore } from '../../../shared/store/use-user.store';
 import useShared from '../../../shared/hooks/use-shared.hook';
 import { Account } from '../../../shared/models/all.types';
+import InspectionAddData from './InspectionAddData';
 
 export interface Barcode {
   device: string;
@@ -56,7 +56,7 @@ export interface ShippingInfo {
   inspection_date: string;
 }
 
-export const ProductAdd: React.FC = () => {
+export const InspectionAdd: React.FC = () => {
   const { addProductsPost, companiesGet } = useHttp();
   const { account } = useUserStore();
   const { fullNameGet } = useShared();
@@ -114,7 +114,7 @@ export const ProductAdd: React.FC = () => {
         setFormValues={setFormValues}
       />
       <ProductScanner rows={rows} setRows={setRows} />
-      <ProductDataGrid rows={rows} />
+      <InspectionAddData rows={rows} />
       <Button
         variant="contained"
         sx={{

@@ -10,7 +10,7 @@ import {
   FormGrid,
   FormLabelStyled,
   OutlinedInputStyled,
-} from './ProductAdd/ProductAdd';
+} from './InspectionAdd/InspectionAdd';
 
 const BarcodeScanner = ({
   active,

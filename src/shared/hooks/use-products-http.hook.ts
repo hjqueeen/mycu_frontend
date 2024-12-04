@@ -5,7 +5,9 @@ import { useFetch } from './use-fetch.hook';
 export const useProductsHttp = () => {
   const { fetchData } = useFetch();
 
-  const productsGet = async (params?: FetchDataParams): Promise<Product[]> => {
+  const productsGet = async (
+    params?: FetchDataParams
+  ): Promise<Inspection[]> => {
     return await fetchData(`product`, {
       params,
     });

@@ -5,7 +5,6 @@ import { Inventory } from '../modules/inventory/Inventory';
 import { Shipping } from '../modules/shipping/Shipping';
 import { UserManagement } from '../modules/user_management/UserManagement';
 import { Layout, PageType } from '../shared/components/Layout/Layout';
-import { ProductsRouter } from './ProductsRouter';
 import SignIn from '../modules/sign-in-up/SignIn';
 import SignUp from '../modules/sign-in-up/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
@@ -23,6 +22,7 @@ import Cart from '../modules/cart/Cart';
 import Checkout from '../modules/cart/Checkout';
 import { AccountPage } from '../modules/account/Account';
 import { Password } from '../modules/account/Password';
+import { InspectionRouter } from './InspectionRouter';
 
 export const AppRouter = () => {
   const { handleError, handleRetry } = useFetch();
@@ -99,7 +99,7 @@ export const AppRouter = () => {
           path="/inspection/*"
           element={
             <ProtectedRoute>
-              <ProductsRouter />
+              <InspectionRouter />
             </ProtectedRoute>
           }
         />

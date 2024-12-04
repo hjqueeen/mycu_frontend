@@ -20,7 +20,7 @@ import {
   FormLabelStyled,
   OutlinedInputStyled,
   ShippingInfo,
-} from './ProductAdd';
+} from './InspectionAdd';
 import useShared from '../../../shared/hooks/use-shared.hook';
 
 const businessIds = ['224-81-2409-81', '224-81-24096'];

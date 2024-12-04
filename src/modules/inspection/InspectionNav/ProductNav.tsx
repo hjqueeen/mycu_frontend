@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductsPageProps } from '../Products';
+import { ProductsPageProps } from '../Inspection';
 
-import { ProductsContentType } from '../../../shared/models/all.types';
+import { InspectionContentType } from '../../../shared/models/all.types';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -19,17 +19,17 @@ const mainListItems = [
   {
     text: 'All Products',
     icon: <HomeRoundedIcon />,
-    type: ProductsContentType.All,
+    type: InspectionContentType.All,
   },
   {
     text: 'Add Product',
     icon: <AnalyticsRoundedIcon />,
-    type: ProductsContentType.Add,
+    type: InspectionContentType.Add,
   },
   {
     text: 'Edit Product',
     icon: <PeopleRoundedIcon />,
-    type: ProductsContentType.Edit,
+    type: InspectionContentType.Edit,
   },
   // { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
 ];
@@ -40,17 +40,17 @@ const secondaryListItems = [
   { text: 'Feedback', icon: <HelpRoundedIcon /> },
 ];
 
-const ProductNav = ({ type }: ProductsPageProps) => {
+const InspectionNav = ({ type }: ProductsPageProps) => {
   const navigate = useNavigate();
-  const onNavClick = useCallback((type: ProductsContentType) => {
+  const onNavClick = useCallback((type: InspectionContentType) => {
     switch (type) {
-      case ProductsContentType.Add:
+      case InspectionContentType.Add:
         navigate('/inspection/add');
         break;
-      case ProductsContentType.All:
+      case InspectionContentType.All:
         navigate('/inspection/all');
         break;
-      case ProductsContentType.Edit:
+      case InspectionContentType.Edit:
         navigate('/inspection/edit');
         break;
       default:
