@@ -70,8 +70,6 @@ export const AppRouter = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log('accessToken', accessToken, account);
-
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" />} />

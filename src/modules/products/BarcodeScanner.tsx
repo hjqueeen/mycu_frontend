@@ -1,10 +1,9 @@
+import React, { useState } from 'react';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { faScannerGun } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Typography } from '@mui/material';
+import { Alert } from '@mui/lab';
+import { Box, Dialog, Snackbar, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import OutlinedInput from '@mui/material/OutlinedInput/OutlinedInput';
-import React, { useRef, useState } from 'react';
 import useShared from '../../shared/hooks/use-shared.hook';
 import {
   Barcode,
@@ -40,8 +39,9 @@ const BarcodeScanner = ({
   >;
   setBatteryExpirationDate: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { toDate, koreanDate } = useShared();
+  const { toDate, koreanDate, containsKorean } = useShared();
 
+  const [alertOpen, setAlertOpen] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [serial, setSerial] = useState('');
   const [lot, setLot] = useState('');
@@ -57,20 +57,24 @@ const BarcodeScanner = ({
 
   React.useEffect(() => {
     const scannedCode = barcode[type];
-    switch (type) {
-      case 'device':
-        setLot(scannedCode.slice(23, 24));
-        setSerial(scannedCode.slice(18, 29));
-        break;
-      case 'battery':
-        setSerial(scannedCode.slice(18, 27));
-        break;
-      case 'pads':
-        setLot(scannedCode.slice(26, 36));
-        setExpirationDate(toDate(scannedCode.slice(18, 24)));
-        break;
-      default:
-        break;
+    if (containsKorean(scannedCode)) {
+      setAlertOpen(true);
+    } else {
+      switch (type) {
+        case 'device':
+          setLot(scannedCode.slice(23, 24));
+          setSerial(scannedCode.slice(18, 29));
+          break;
+        case 'battery':
+          setSerial(scannedCode.slice(18, 27));
+          break;
+        case 'pads':
+          setLot(scannedCode.slice(26, 36));
+          setExpirationDate(toDate(scannedCode.slice(18, 24)));
+          break;
+        default:
+          break;
+      }
     }
   }, [barcode[type]]);
 
@@ -88,7 +92,7 @@ const BarcodeScanner = ({
         <Grid
           container
           spacing={1}
-          className="p-2 h-full"
+          className="p-2 h-full flex flex-col"
           sx={{ backgroundColor: !active ? 'background.paper' : undefined }}
           onClick={onClick}
         >
@@ -114,24 +118,7 @@ const BarcodeScanner = ({
               }}
             />
           </FormGrid>
-          {type === 'pads' || type === 'battery' ? (
-            <FormGrid>
-              <FormLabelStyled>유효기간</FormLabelStyled>
-              <OutlinedInputStyled
-                id="expiration_date"
-                name="expiration_date"
-                value={koreanDate(expirationDate)}
-                onClick={onClick}
-                onChange={(event) => {
-                  setExpirationDate(event.target.value);
-                  type === 'battery' &&
-                    setBatteryExpirationDate(event.target.value);
-                }}
-                placeholder="예시 2024-12-03"
-                disabled={disabled}
-              />
-            </FormGrid>
-          ) : (
+          {type !== 'pads' && (
             <FormGrid>
               <FormLabelStyled>SERIAL 번호</FormLabelStyled>
               <OutlinedInputStyled
@@ -153,24 +140,49 @@ const BarcodeScanner = ({
               />
             </FormGrid>
           )}
+          {(type === 'pads' || type === 'battery') && (
+            <FormGrid>
+              <FormLabelStyled>유효기간</FormLabelStyled>
+              <OutlinedInputStyled
+                id="expiration_date"
+                name="expiration_date"
+                value={koreanDate(expirationDate)}
+                onClick={onClick}
+                onChange={(event) => {
+                  setExpirationDate(event.target.value);
+                  type === 'battery' &&
+                    setBatteryExpirationDate(event.target.value);
+                }}
+                placeholder="예시 2024-12-03"
+                disabled={disabled}
+              />
+            </FormGrid>
+          )}
         </Grid>
       ) : (
         <Box
           className="w-full h-full flex flex-row items-center justify-center rounded-lg"
           sx={{
             backgroundColor: 'info.light',
+            color: 'text.secondary',
           }}
           onClick={onClick}
         >
-          <Typography variant="h5">{title}</Typography>
-          <FontAwesomeIcon
-            icon={['far', 'scanner-gun']}
-            style={{ fontSize: '40px', paddingLeft: '10px' }}
-          />
+          <Typography variant="h5">{title} 스캔</Typography>
         </Box>
       )}
+      <Dialog open={alertOpen}>
+        <Alert
+          severity="error"
+          onClose={() => setAlertOpen(false)}
+          className="flex flex-col items-center"
+        >
+          <Typography>바코드가 올바르게 입력되지 않았습니다.</Typography>
+          <Typography>키보드 언어를 영어로 바꿔주세요.</Typography>
+        </Alert>
+      </Dialog>
     </Grid>
   );
 };
 
-export default BarcodeScanner;
+export default React.memo(BarcodeScanner);

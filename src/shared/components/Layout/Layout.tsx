@@ -15,6 +15,7 @@ import { useUserStore } from '../../store/use-user.store';
 import { useAuthStore } from '../../store/use-auth.store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import useShared from '../../hooks/use-shared.hook';
 
 const drawerWidth = 240;
 
@@ -59,6 +60,7 @@ export const Layout = ({
   // User store state
   const { account, headerMenu } = useUserStore();
   const { accessToken } = useAuthStore();
+  const { fullNameGet } = useShared();
   // User store state
 
   let defaultExpandedItems;
@@ -150,7 +152,7 @@ export const Layout = ({
                 variant="body2"
                 sx={{ fontWeight: 500, lineHeight: '16px' }}
               >
-                {account?.first_name} {account?.last_name}
+                {fullNameGet(account)}
               </Typography>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 {account?.email}

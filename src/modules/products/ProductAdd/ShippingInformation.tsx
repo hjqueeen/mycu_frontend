@@ -15,27 +15,25 @@ import MenuItem from '@mui/material/MenuItem';
 import { useMutation } from 'react-query';
 import { ICategory, ICompany } from '../../../shared/models/all.types';
 import { useHttp } from '../../../shared/hooks/use-http.hook';
-import { FormGrid, FormLabelStyled, OutlinedInputStyled } from './ProductAdd';
+import {
+  FormGrid,
+  FormLabelStyled,
+  OutlinedInputStyled,
+  ShippingInfo,
+} from './ProductAdd';
+import useShared from '../../../shared/hooks/use-shared.hook';
 
 const businessIds = ['224-81-2409-81', '224-81-24096'];
 
-const ShippingInformation = () => {
+const ShippingInformation = ({
+  formValues,
+  setFormValues,
+}: {
+  formValues: ShippingInfo;
+  setFormValues: React.Dispatch<React.SetStateAction<ShippingInfo>>;
+}) => {
   const { categoriesGet, companiesGet } = useHttp();
-
-  // State
-  const [formValues, setFormValues] = useState(() => {
-    const today = new Date(); // 오늘 날짜를 기본값으로 설정
-    return {
-      document: '',
-      inspector: '',
-      model_id: '',
-      company_id: '',
-      business_id: '',
-      quantity: '',
-      manufacture_date: '',
-      inspection_date: today.toISOString().split('T')[0], // "YYYY-MM-DD" 형식
-    };
-  });
+  const { fullNameGet } = useShared();
 
   const { mutate: categoriesGetMutation, data: models } = useMutation(() =>
     categoriesGet()
@@ -50,38 +48,42 @@ const ShippingInformation = () => {
     companiesGetMutation();
   }, []);
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = event.target.value as string;
-    setFormValues((prev) => ({
-      ...prev,
-      ['inspection_date']: selectedDate,
-    }));
-  };
+  const handleDateChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedDate = event.target.value as string;
+      setFormValues((prev) => ({
+        ...prev,
+        ['inspection_date']: selectedDate,
+      }));
+    },
+    [setFormValues]
+  );
 
-  const handleSelectChange = (event: SelectChangeEvent, name: string) => {
-    const selectedValue = event.target.value as string;
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: selectedValue, // 필드 이름에 따라 상태 업데이트
-    }));
-  };
+  const handleSelectChange = React.useCallback(
+    (event: SelectChangeEvent, name: string) => {
+      const selectedValue = event.target.value as string;
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: selectedValue, // 필드 이름에 따라 상태 업데이트
+      }));
+    },
+    [setFormValues]
+  );
 
-  const handleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | { name?: string; value: unknown }
-    >
-  ) => {
-    const { name, value } = event.target;
-    setFormValues((prev) => ({
-      ...prev,
-      [name as string]: value, // 필드 이름에 따라 상태 업데이트
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('formValues', formValues);
-  };
+  const handleChange = React.useCallback(
+    (
+      event: React.ChangeEvent<
+        HTMLInputElement | { name?: string; value: unknown }
+      >
+    ) => {
+      const { name, value } = event.target;
+      setFormValues((prev) => ({
+        ...prev,
+        [name as string]: value, // 필드 이름에 따라 상태 업데이트
+      }));
+    },
+    [setFormValues]
+  );
 
   return (
     <Grid spacing={1} container className="w-full">
@@ -120,12 +122,13 @@ const ShippingInformation = () => {
       <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>검사자</FormLabelStyled>
         <OutlinedInputStyled
+          disabled
           id="inspector"
           name="inspector"
           type="text"
           size="small"
-          value={formValues.inspector}
-          onChange={handleChange}
+          value={fullNameGet(formValues.inspector)}
+          // onChange={handleChange}
         />
       </FormGrid>
       <FormGrid size={{ xs: 4 }}>
@@ -196,29 +199,15 @@ const ShippingInformation = () => {
       <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>검사일자</FormLabelStyled>
         <OutlinedInputStyled
+          disabled
           id="inspection_date"
           name="inspection_date"
           type="date"
           size="small"
           value={formValues.inspection_date}
-          onChange={handleDateChange}
+          // onChange={handleDateChange}
         />
       </FormGrid>
-      {/* <FormGrid size={{ xs: 4 }} className="flex flex-row justify-between">
-        <Box></Box>
-        <Button
-          variant="contained"
-          sx={{
-            color: 'background.paper',
-            bgcolor: '#4BA36B',
-            alignSelf: 'end',
-            width: { xs: '300px', sm: 'auto' },
-          }}
-        >
-          <FontAwesomeIcon className="mr-2" icon={faChevronDown} />
-          제품입력
-        </Button>
-      </FormGrid> */}
     </Grid>
   );
 };

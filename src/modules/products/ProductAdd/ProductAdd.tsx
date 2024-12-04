@@ -1,16 +1,17 @@
 import { Box, Button, FormLabel, OutlinedInput } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import BarcodeScanner from '../BarcodeScanner';
-import Typography from '@mui/material/Typography/Typography';
+import Grid from '@mui/material/Grid2';
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import ShippingInformation from './ShippingInformation';
 import ProductScanner from './ProductScanner';
-import { thinScroll } from '../../../shared/models/shared.types';
+import { useHttp } from '../../../shared/hooks/use-http.hook';
+import { useMutation } from 'react-query';
+import ProductDataGrid from './ProductDataGrid';
+import { useAuthStore } from '../../../shared/store/use-auth.store';
+import { useUserStore } from '../../../shared/store/use-user.store';
+import useShared from '../../../shared/hooks/use-shared.hook';
+import { Account } from '../../../shared/models/all.types';
 
 export interface Barcode {
   device: string;
@@ -36,66 +37,64 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
   maxWidth: '300px',
 }));
 
-const columns: GridColDef[] = [
-  {
-    field: 'device_udi',
-    headerName: '제품 UDI 바코드',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'device_lot',
-    headerName: 'LOT 번호',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'device_serial',
-    headerName: 'SERIAL 번호',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'battery_udi',
-    headerName: '배터리 UDI 바코드',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'battery_serial',
-    headerName: '배터리 SERIAL 번호',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'pads_udi',
-    headerName: '패즈 UDI 바코드',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'pads_lot',
-    headerName: '패즈 LOT 번호',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'pads_expiration_date',
-    headerName: '패즈 유효기간',
-    type: 'string',
-    width: 180,
-    editable: false,
-  },
-];
+export interface ShippingInfo {
+  document: string;
+  inspector: Account;
+  model_id: string;
+  company_id: string;
+  business_id: string;
+  quantity: string;
+  manufacture_date: string;
+  inspection_date: string;
+}
+
 export const ProductAdd: React.FC = () => {
+  const { addProductsPost, companiesGet } = useHttp();
+  const { account } = useUserStore();
+  const { fullNameGet } = useShared();
+
   const [rows, setRows] = useState<any[]>([]);
+  const [formValues, setFormValues] = useState<ShippingInfo>(() => {
+    const today = new Date(); // 오늘 날짜를 기본값으로 설정
+    return {
+      document: '',
+      inspector: account,
+      model_id: '',
+      company_id: '',
+      business_id: '',
+      quantity: '',
+      manufacture_date: '',
+      inspection_date: today.toISOString().split('T')[0], // "YYYY-MM-DD" 형식
+    };
+  });
+
+  React.useEffect(() => {
+    if (account) {
+      setFormValues((prev) => ({
+        ...prev,
+        inspector: account,
+      }));
+    }
+  }, [account]);
+
+  console.log('formValues', formValues, account);
+
+  const { mutate } = useMutation(addProductsPost, {
+    onSuccess() {
+      const today = new Date();
+      setFormValues({
+        document: '',
+        inspector: account,
+        model_id: '',
+        company_id: '',
+        business_id: '',
+        quantity: '',
+        manufacture_date: '',
+        inspection_date: today.toISOString().split('T')[0],
+      });
+      setRows([]);
+    },
+  });
 
   return (
     <Grid
@@ -104,56 +103,20 @@ export const ProductAdd: React.FC = () => {
       className="flex flex-col py-10 overflow-y-hidden"
       sx={{ height: '100%' }}
     >
-      <ShippingInformation />
+      <ShippingInformation
+        formValues={formValues}
+        setFormValues={setFormValues}
+      />
       <ProductScanner rows={rows} setRows={setRows} />
-      <Grid className="w-full h-[calc(100vh-520px)]">
-        <DataGrid
-          editMode="row"
-          rows={rows}
-          columns={columns}
-          getRowClassName={(params) =>
-            params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-          }
-          initialState={{
-            pagination: { paginationModel: { pageSize: 10 } },
-          }}
-          pageSizeOptions={[10, 20, 50]}
-          disableColumnResize
-          density="compact"
-          slotProps={{
-            filterPanel: {
-              filterFormProps: {
-                logicOperatorInputProps: {
-                  variant: 'outlined',
-                  size: 'small',
-                },
-                columnInputProps: {
-                  variant: 'outlined',
-                  size: 'small',
-                  sx: { mt: 'auto' },
-                },
-                operatorInputProps: {
-                  variant: 'outlined',
-                  size: 'small',
-                  sx: { mt: 'auto' },
-                },
-                valueInputProps: {
-                  InputComponentProps: {
-                    variant: 'outlined',
-                    size: 'small',
-                  },
-                },
-              },
-            },
-          }}
-        />
-      </Grid>
+      <ProductDataGrid rows={rows} />
       <Button
-        type="submit"
         variant="contained"
         sx={{
           alignSelf: 'end',
           width: { xs: '300px', sm: 'auto' },
+        }}
+        onClick={() => {
+          mutate({ ...formValues, products: rows });
         }}
       >
         입력완료

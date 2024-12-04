@@ -1,4 +1,5 @@
 import React from 'react';
+import { Account } from '../models/all.types';
 
 const useShared = () => {
   const toDate = React.useCallback((dateString: string): Date | string => {
@@ -16,7 +17,7 @@ const useShared = () => {
     return new Date(year, month, day);
   }, []);
 
-  const koreanDate = (date: Date | string) => {
+  const koreanDate = React.useCallback((date: Date | string) => {
     if (typeof date === 'string') {
       return date;
     } else {
@@ -27,8 +28,24 @@ const useShared = () => {
       const formattedDate = `${year}-${month}-${day}`;
       return formattedDate;
     }
-  };
-  return { toDate, koreanDate };
+  }, []);
+
+  const containsKorean = React.useCallback((str: string) => {
+    // 완성형 한글과 자음/모음을 포함하는 정규식
+    const regex = /[\u3131-\u3163\uac00-\ud7a3]/;
+    return regex.test(str);
+  }, []);
+
+  const fullNameGet = React.useCallback((account: Account) => {
+    if (account) {
+      const fullName = `${account.last_name}${account.first_name}`;
+      return fullName;
+    } else {
+      return '';
+    }
+  }, []);
+
+  return { toDate, koreanDate, containsKorean, fullNameGet };
 };
 
 export default useShared;

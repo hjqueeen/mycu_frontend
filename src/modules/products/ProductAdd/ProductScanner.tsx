@@ -12,6 +12,21 @@ import ShippingInformation from './ShippingInformation';
 import { Barcode } from './ProductAdd';
 import useShared from '../../../shared/hooks/use-shared.hook';
 
+const cards: any[] = [
+  {
+    type: 'device',
+    title: '제품',
+  },
+  {
+    type: 'battery',
+    title: '배터리',
+  },
+  {
+    type: 'pads',
+    title: '패즈',
+  },
+];
+
 const ProductScanner = ({
   rows,
   setRows,
@@ -53,59 +68,41 @@ const ProductScanner = ({
       battery: '',
       pads: '',
     });
-  }, [barcode]);
+  }, [
+    barcode,
+    batteryExpirationDate,
+    rows,
+    setRows,
+    setSelectedCard,
+    setBarcode,
+  ]);
 
   // 카드 클릭 핸들러
-  const handleCardClick = (cardType: 'device' | 'battery' | 'pads') => {
-    setSelectedCard(cardType);
-  };
+  const handleCardClick = React.useCallback(
+    (cardType: 'device' | 'battery' | 'pads') => {
+      setSelectedCard(cardType);
+    },
+    [setSelectedCard]
+  );
 
   // 바코드 입력 핸들러
-  const handleBarcodeInput = (
-    event: any,
-    cardType: 'device' | 'battery' | 'pads'
-  ) => {
-    const value = event.target.value;
+  const handleBarcodeInput = React.useCallback(
+    (event: any, cardType: 'device' | 'battery' | 'pads') => {
+      const value = event.target.value;
 
-    setBarcode((prevState) => ({
-      ...prevState,
-      [cardType]: value,
-    }));
-  };
-
-  const cards: any[] = [
-    {
-      type: 'device',
-      title: '제품',
-      // code: productCode,
-      // setCode: setProductCode,
-      // barcode: deviceBarcode,
-      // setBarcode: setDeviceBarcode,
+      setBarcode((prevState) => ({
+        ...prevState,
+        [cardType]: value,
+      }));
     },
-    {
-      type: 'battery',
-      title: '배터리',
-      // code: batteryCode,
-      // setCode: setBatteryCode,
-      // barcode: batteryBarcode,
-      // setBarcode: setBatteryBarcode,
-    },
-    {
-      type: 'pads',
-      title: '패즈',
-      // code: padsCode,
-      // setCode: setPadsCode,
-      // barcode: padsBarcode,
-      // setBarcode: setPadsBarcode,
-    },
-  ];
-
+    [setBarcode]
+  );
   return (
     <Grid spacing={1} container className="w-full flex flex-row">
       <Grid size={10} spacing={1} container className="flex flex-row">
         {cards.map((card) => (
           <Grid
-            key={card.id}
+            key={card.type}
             container
             spacing={1}
             size={4}

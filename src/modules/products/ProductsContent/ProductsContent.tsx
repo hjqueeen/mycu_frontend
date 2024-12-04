@@ -4,8 +4,6 @@ import { ProductsContentType } from '../../../shared/models/all.types';
 import ProductGrid from '../ProductGrid';
 
 const ProductsContent = ({ type }: ProductsPageProps) => {
-  console.log('ProductsContent', type);
-
   const ContentComponent = (type: ProductsContentType) => {
     switch (type) {
       case ProductsContentType.All:
