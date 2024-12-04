@@ -7,13 +7,13 @@ import { InspectionContentType } from '../../models/all.types';
 
 import { styled } from '@mui/material/styles';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import OptionsMenu from '../../../modules/inspection/OptionsMenu';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 import { useUserStore } from '../../store/use-user.store';
 import { useAuthStore } from '../../store/use-auth.store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import useShared from '../../hooks/use-shared.hook';
+import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
 
 const drawerWidth = 240;
 
@@ -102,7 +102,7 @@ export const Layout = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        minWidth: '1700px',
+        minWidth: '1200px',
         overflowY: 'hidden',
         overflowX: 'auto',
       }}

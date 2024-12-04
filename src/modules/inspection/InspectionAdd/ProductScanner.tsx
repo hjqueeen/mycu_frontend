@@ -6,7 +6,7 @@ import {
   faPrint,
   faIndustry,
 } from '@fortawesome/free-solid-svg-icons';
-import BarcodeScanner from '../BarcodeScanner';
+import BarcodeScanner from './BarcodeScanner';
 
 import useShared from '../../../shared/hooks/use-shared.hook';
 import JsBarcode from 'jsbarcode';

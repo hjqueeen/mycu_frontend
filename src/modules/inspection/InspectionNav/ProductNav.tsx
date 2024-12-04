@@ -88,4 +88,4 @@ const InspectionNav = ({ type }: ProductsPageProps) => {
   );
 };
 
-export default ProductNav;
+export default InspectionNav;

@@ -1,4 +1,4 @@
-import { ICategory, ICompany } from '../models/all.types';
+import { FetchDataParams, ICategory, ICompany } from '../models/all.types';
 import { useAuthStore } from '../store/use-auth.store';
 import { useFetch } from './use-fetch.hook';
 
@@ -20,5 +20,12 @@ export const useHttp = () => {
     }
   };
 
-  return { categoriesGet, companiesGet, addProductsPost };
+  const inspectionsGet = async (): Promise<{
+    inspections: any[];
+    products: any[];
+  }> => {
+    return await fetchData(`product/inspections`);
+  };
+
+  return { categoriesGet, companiesGet, addProductsPost, inspectionsGet };
 };

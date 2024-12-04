@@ -7,8 +7,8 @@ import {
   TextField,
   Box,
 } from '@mui/material';
-import useCartStore, { Product } from '../../shared/store/use-cart.store';
 import product_image from '../../assets/picture/cu-sp1.jpg';
+import useCartStore, { Product } from '../../../shared/store/use-cart.store';
 
 interface ProductCardProps {
   product: Product;

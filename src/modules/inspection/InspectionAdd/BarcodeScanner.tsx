@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from '@mui/lab';
 import { Box, Dialog, Snackbar, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import useShared from '../../shared/hooks/use-shared.hook';
+import useShared from '../../../shared/hooks/use-shared.hook';
 import {
   Barcode,
   FormGrid,
   FormLabelStyled,
   OutlinedInputStyled,
-} from './InspectionAdd/InspectionAdd';
+} from './InspectionAdd';
 
 const BarcodeScanner = ({
   active,

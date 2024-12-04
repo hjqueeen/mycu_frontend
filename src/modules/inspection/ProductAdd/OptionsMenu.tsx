@@ -11,8 +11,9 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../shared/store/use-auth.store';
-import { useUserStore } from '../../shared/store/use-user.store';
+import { useAuthStore } from '../../../shared/store/use-auth.store';
+import { useUserStore } from '../../../shared/store/use-user.store';
+
 // import MenuButton from './MenuButton';
 enum MenuType {
   Account = 'ACCOUNT',

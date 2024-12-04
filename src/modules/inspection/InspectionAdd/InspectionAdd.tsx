@@ -51,7 +51,7 @@ export interface ShippingInfo {
   model_id: string;
   company_id: string;
   business_id: string;
-  quantity: string;
+  quantity: number;
   manufacture_date: string;
   inspection_date: string;
 }
@@ -70,7 +70,7 @@ export const InspectionAdd: React.FC = () => {
       model_id: '',
       company_id: '',
       business_id: '',
-      quantity: '',
+      quantity: 0,
       manufacture_date: '',
       inspection_date: today.toISOString().split('T')[0], // "YYYY-MM-DD" 형식
     };
@@ -94,7 +94,7 @@ export const InspectionAdd: React.FC = () => {
         model_id: '',
         company_id: '',
         business_id: '',
-        quantity: '',
+        quantity: 0,
         manufacture_date: '',
         inspection_date: today.toISOString().split('T')[0],
       });

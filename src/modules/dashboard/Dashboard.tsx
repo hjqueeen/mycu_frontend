@@ -47,7 +47,7 @@ const data: StatCardProps[] = [
 
 export const Dashboard = React.memo(() => {
   return (
-    <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
+    <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1200px' } }}>
       {/* cards */}
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Overview

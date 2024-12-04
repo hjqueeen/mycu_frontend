@@ -8,7 +8,7 @@ import {
   faChevronRight,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import BarcodeScanner from '../BarcodeScanner';
+import BarcodeScanner from './BarcodeScanner';
 import Typography from '@mui/material/Typography/Typography';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -212,4 +212,4 @@ const ShippingInformation = ({
   );
 };
 
-export default React.memo(ShippingInformation);
+export default ShippingInformation;
