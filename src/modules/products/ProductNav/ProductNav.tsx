@@ -45,13 +45,13 @@ const ProductNav = ({ type }: ProductsPageProps) => {
   const onNavClick = useCallback((type: ProductsContentType) => {
     switch (type) {
       case ProductsContentType.Add:
-        navigate('/products/add');
+        navigate('/inspection/add');
         break;
       case ProductsContentType.All:
-        navigate('/products/all');
+        navigate('/inspection/all');
         break;
       case ProductsContentType.Edit:
-        navigate('/products/edit');
+        navigate('/inspection/edit');
         break;
       default:
         break;

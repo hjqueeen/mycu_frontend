@@ -59,7 +59,7 @@ export const Header = ({ pageType, headerMenu }: HeaderProps) => {
           )}
           {headerMenu?.products && (
             <HeaderIcon
-              path="/products"
+              path="/inspection"
               activ={pageType === PageType.Products}
               icon={['fal', 'chart-network']}
             />

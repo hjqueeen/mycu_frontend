@@ -70,7 +70,7 @@ const columns: GridColDef[] = [
 
 const ProductDataGrid = ({ rows }: { rows: any[] }) => {
   return (
-    <Grid className="w-full h-[calc(100vh-520px)]">
+    <Grid className="w-full h-[calc(100vh-600px)]">
       <DataGrid
         editMode="row"
         rows={rows}

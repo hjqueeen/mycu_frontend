@@ -1,16 +1,17 @@
-import { Box, Button, FormLabel, OutlinedInput } from '@mui/material';
+import { Alert, Box, Button, Dialog, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import React, { useEffect, useRef, useState } from 'react';
-import { styled } from '@mui/system';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faPrint } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import {
+  faChevronDown,
+  faPrint,
+  faIndustry,
+} from '@fortawesome/free-solid-svg-icons';
 import BarcodeScanner from '../BarcodeScanner';
-import Typography from '@mui/material/Typography/Typography';
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import ShippingInformation from './ShippingInformation';
-import { Barcode } from './ProductAdd';
 import useShared from '../../../shared/hooks/use-shared.hook';
+import JsBarcode from 'jsbarcode';
+import { useReactToPrint } from 'react-to-print';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cards: any[] = [
   {
@@ -34,17 +35,28 @@ const ProductScanner = ({
   rows: any[];
   setRows: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
-  const { toDate } = useShared();
+  const { toDate, containsKorean } = useShared();
 
-  const [batteryExpirationDate, setBatteryExpirationDate] = useState('');
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [alertOpen, setAlertOpen] = React.useState(false);
+  const [batteryExpirationDate, setBatteryExpirationDate] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState<string | null>(null);
 
   // 각 카드의 바코드 상태
-  const [barcode, setBarcode] = useState({
+  const [barcode, setBarcode] = React.useState({
     device: '',
     battery: '',
     pads: '',
   });
+
+  const deviceRef = React.useRef<any>(); // 바코드 캔버스 참조
+  const padsRef = React.useRef<any>();
+  const batteryRef = React.useRef<any>();
+  const printRef = React.useRef<React.RefObject<Element | Text>>(); // 인쇄 대상 참조
+  const today = new Date().toISOString().split('T')[0];
+
+  React.useEffect(() => {
+    handleGenerateBarcode();
+  }, [barcode]);
 
   const addProductToRow = React.useCallback(() => {
     const newRow = {
@@ -97,64 +109,207 @@ const ProductScanner = ({
     },
     [setBarcode]
   );
+
+  const handleGenerateBarcode = React.useCallback(() => {
+    if (
+      containsKorean(barcode.device) ||
+      containsKorean(barcode.battery) ||
+      containsKorean(barcode.pads)
+    ) {
+      setAlertOpen(true);
+    } else {
+      if (barcode.device.trim() !== '') {
+        JsBarcode(deviceRef.current, barcode.device, {
+          format: 'CODE128', // 바코드 형식
+          lineColor: '#000',
+          width: 2,
+          height: 20,
+          displayValue: true, // 바코드 아래 텍스트 표시
+        });
+      } else {
+        // 바코드가 없을 때 캔버스 초기화
+        JsBarcode(deviceRef.current, '0', {
+          format: 'CODE128',
+          lineColor: '#fff',
+        });
+        // const canvas = deviceRef.current;
+        // if (canvas && canvas.getContext) {
+        //   const ctx = canvas.getContext('2d');
+        //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // }
+      }
+      if (barcode.battery.trim() !== '') {
+        JsBarcode(batteryRef.current, barcode.battery, {
+          format: 'CODE128',
+          lineColor: '#000',
+          width: 2,
+          height: 20,
+          displayValue: true,
+        });
+      } else {
+        JsBarcode(batteryRef.current, '0', {
+          format: 'CODE128',
+          lineColor: '#fff',
+        });
+      }
+      if (barcode.pads.trim() !== '') {
+        JsBarcode(padsRef.current, barcode.pads, {
+          format: 'CODE128',
+          lineColor: '#000',
+          width: 2,
+          height: 20,
+          displayValue: true,
+        });
+      } else {
+        JsBarcode(padsRef.current, '0', {
+          format: 'CODE128',
+          lineColor: '#fff',
+        });
+      }
+    }
+  }, [barcode, deviceRef, batteryRef, padsRef]);
+
+  const handlePrint = useReactToPrint({
+    contentRef: printRef.current,
+    documentTitle: 'Barcode Label',
+    onAfterPrint: () => alert('바코드가 인쇄되었습니다. '),
+  });
   return (
-    <Grid spacing={1} container className="w-full flex flex-row">
-      <Grid size={10} spacing={1} container className="flex flex-row">
-        {cards.map((card) => (
-          <Grid
-            key={card.type}
-            container
-            spacing={1}
-            size={4}
-            sx={{
-              borderColor: 'divider',
-            }}
-            className="flex flex-col border border-solid rounded-lg"
-          >
-            <BarcodeScanner
-              active={selectedCard === card.type}
-              type={card.type}
-              title={card.title}
-              barcode={barcode}
-              setBarcode={setBarcode}
-              onClick={() => handleCardClick(card.type)}
-              onChange={(event) => handleBarcodeInput(event, card.type)}
-              disabled={selectedCard !== card.type} // 선택된 카드 외에는 비활성화
-              setBatteryExpirationDate={setBatteryExpirationDate}
-            />
-          </Grid>
-        ))}
-      </Grid>
+    <Grid
+      spacing={1}
+      container
+      className="w-full flex flex-row shrink-0 min-w-[1400px]"
+    >
       <Grid
-        container
+        size={12}
         spacing={1}
-        size={2}
-        className="flex flex-col justify-end"
-        onClick={() => setSelectedCard(null)}
+        container
+        className="flex flex-row flex-nowrap shrink-0"
       >
-        <Button
-          variant="contained"
-          sx={{
-            alignSelf: 'end',
-            width: { xs: '300px', sm: 'auto' },
-          }}
-          onClick={() => addProductToRow()}
+        <Grid spacing={1} container className="flex grow flex-nowrap">
+          {cards.map((card) => (
+            <Grid
+              key={card.type}
+              container
+              spacing={1}
+              size={4}
+              className="flex flex-col min-w-80 border border-solid rounded-lg"
+              sx={{
+                borderColor: 'divider',
+              }}
+            >
+              <BarcodeScanner
+                active={selectedCard === card.type}
+                type={card.type}
+                title={card.title}
+                barcode={barcode}
+                setBarcode={setBarcode}
+                onClick={() => handleCardClick(card.type)}
+                onChange={(event) => handleBarcodeInput(event, card.type)}
+                disabled={selectedCard !== card.type} // 선택된 카드 외에는 비활성화
+                setBatteryExpirationDate={setBatteryExpirationDate}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        {/******************************/}
+        {/*            라벨            */}
+        {/******************************/}
+        <Grid
+          container
+          spacing={1}
+          size={3}
+          className="flex flex-col justify-end max-w-[550px] "
+          onClick={() => setSelectedCard(null)}
         >
-          <FontAwesomeIcon className="mr-2" icon={faPrint} />
-          라벨인쇄
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            alignSelf: 'end',
-            width: { xs: '300px', sm: 'auto' },
-          }}
-          onClick={() => addProductToRow()}
-        >
-          <FontAwesomeIcon className="mr-2" icon={faChevronDown} />
-          제품등록
-        </Button>
+          <Box
+            component="div"
+            ref={printRef}
+            className="grow flex flex-col px-5 pt-5 rounded-lg border border-solid"
+            sx={{ borderColor: 'divider' }}
+          >
+            <Box className="flex flex-row items-center justify-between w-full pb-3">
+              <Grid size={6} className="flex flex-row items-center">
+                <Box
+                  className="border border-solid px-1 rounded-sm w-fit mr-2"
+                  sx={{ borderColor: '#ccc' }}
+                >
+                  SN
+                </Box>
+                <Typography>{barcode.device.slice(18, 29)}</Typography>
+              </Grid>
+              <Grid size={6}>
+                <FontAwesomeIcon
+                  icon={faIndustry}
+                  style={{ width: '16px', paddingRight: '4px' }}
+                />
+                {today}
+              </Grid>
+            </Box>
+            <Box className="flex flex-row items-start">
+              <Typography className="w-20">Product</Typography>
+              <Box
+                component="canvas"
+                className="h-10 w-fit"
+                ref={deviceRef}
+              ></Box>
+            </Box>
+            <Box className="flex flex-row items-start">
+              <Typography className="w-20">Battery</Typography>
+              <Box
+                component="canvas"
+                className="h-10 w-fit"
+                ref={batteryRef}
+              ></Box>
+            </Box>
+            <Box className="flex flex-row items-start">
+              <Typography className="w-20">Pads</Typography>
+              <Box
+                component="canvas"
+                className="h-10 w-fit"
+                ref={padsRef}
+              ></Box>
+            </Box>
+          </Box>
+          <Grid container spacing={1} className="flex flex-row justify-end">
+            <Button
+              variant="contained"
+              sx={{
+                alignSelf: 'end',
+                width: { xs: '300px', sm: 'auto' },
+              }}
+              onClick={() => handlePrint()}
+            >
+              <FontAwesomeIcon className="mr-2" icon={faPrint} />
+              라벨인쇄
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                alignSelf: 'end',
+                width: { xs: '300px', sm: 'auto' },
+              }}
+              onClick={() => addProductToRow()}
+            >
+              <FontAwesomeIcon className="mr-2" icon={faChevronDown} />
+              제품등록
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
+      <Dialog open={alertOpen}>
+        <Alert
+          severity="error"
+          onClose={() => setAlertOpen(false)}
+          className="flex flex-col items-center"
+        >
+          <Typography>바코드가 올바르게 입력되지 않았습니다.</Typography>
+          <Typography>
+            입력 필드를 클릭한 후, 키보드 언어를 영어로 바꿔주세요.
+          </Typography>
+        </Alert>
+      </Dialog>
     </Grid>
   );
 };

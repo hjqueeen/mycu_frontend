@@ -41,7 +41,6 @@ const BarcodeScanner = ({
 }) => {
   const { toDate, koreanDate, containsKorean } = useShared();
 
-  const [alertOpen, setAlertOpen] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [serial, setSerial] = useState('');
   const [lot, setLot] = useState('');
@@ -58,7 +57,6 @@ const BarcodeScanner = ({
   React.useEffect(() => {
     const scannedCode = barcode[type];
     if (containsKorean(scannedCode)) {
-      setAlertOpen(true);
     } else {
       switch (type) {
         case 'device':
@@ -82,17 +80,18 @@ const BarcodeScanner = ({
     <Grid
       container
       spacing={1}
-      className="flex flex-col min-h-[185px]"
+      className="flex flex-col min-h-[185px] h-full"
       sx={{
         cursor: active ? undefined : 'pointer',
         padding: 0,
+        fontSize: '10px',
       }}
     >
       {showContent ? (
         <Grid
           container
           spacing={1}
-          className="p-2 h-full flex flex-col"
+          className="p-2 h-full flex flex-col rounded-lg"
           sx={{ backgroundColor: !active ? 'background.paper' : undefined }}
           onClick={onClick}
         >
@@ -171,16 +170,6 @@ const BarcodeScanner = ({
           <Typography variant="h5">{title} 스캔</Typography>
         </Box>
       )}
-      <Dialog open={alertOpen}>
-        <Alert
-          severity="error"
-          onClose={() => setAlertOpen(false)}
-          className="flex flex-col items-center"
-        >
-          <Typography>바코드가 올바르게 입력되지 않았습니다.</Typography>
-          <Typography>키보드 언어를 영어로 바꿔주세요.</Typography>
-        </Alert>
-      </Dialog>
     </Grid>
   );
 };

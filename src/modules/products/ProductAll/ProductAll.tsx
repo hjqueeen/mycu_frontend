@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid2 as Grid } from '@mui/material';
-import ProductCard from './ProductCard';
-import { Product } from '../../shared/store/use-cart.store';
-import Cart from '../cart/Cart';
+import ProductCard from '../ProductCard';
+import { Product } from '../../../shared/store/use-cart.store';
+import Cart from '../../cart/Cart';
 import { useMutation } from 'react-query';
-import { useFetch } from '../../shared/hooks/use-fetch.hook';
-import { useProductsHttp } from '../../shared/hooks/use-products-http.hook';
+import { useFetch } from '../../../shared/hooks/use-fetch.hook';
+import { useProductsHttp } from '../../../shared/hooks/use-products-http.hook';
 
-const ProductGrid: React.FC = () => {
+const ProductAll: React.FC = () => {
   const { handleError, handleRetry } = useFetch();
   const { productsGet } = useProductsHttp();
   const [products, setProducts] = useState<Product[]>([]);
@@ -46,4 +46,4 @@ const ProductGrid: React.FC = () => {
   );
 };
 
-export default ProductGrid;
+export default ProductAll;

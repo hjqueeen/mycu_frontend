@@ -1,13 +1,13 @@
 import { ProductsPageProps } from '../Products';
 import { ProductAdd } from '../ProductAdd/ProductAdd';
 import { ProductsContentType } from '../../../shared/models/all.types';
-import ProductGrid from '../ProductGrid';
+import ProductAll from '../ProductAll/ProductAll';
 
 const ProductsContent = ({ type }: ProductsPageProps) => {
   const ContentComponent = (type: ProductsContentType) => {
     switch (type) {
       case ProductsContentType.All:
-        return <ProductGrid />;
+        return <ProductAll />;
       case ProductsContentType.Add:
         return <ProductAdd />;
       case ProductsContentType.Edit:

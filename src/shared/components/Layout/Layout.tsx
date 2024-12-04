@@ -104,8 +104,9 @@ export const Layout = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        minWidth: '1200px',
+        minWidth: '1700px',
         overflowY: 'hidden',
+        overflowX: 'auto',
       }}
     >
       <Header pageType={pageType} headerMenu={headerMenu} />

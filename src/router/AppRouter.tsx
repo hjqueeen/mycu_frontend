@@ -96,7 +96,7 @@ export const AppRouter = () => {
       )}
       {headerMenu?.products && (
         <Route
-          path="/products/*"
+          path="/inspection/*"
           element={
             <ProtectedRoute>
               <ProductsRouter />

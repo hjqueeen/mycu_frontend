@@ -159,13 +159,13 @@ const DashboardNav = ({
   const onItemClick = (itemId: string) => {
     switch (itemId) {
       case '1.1':
-        navigate('/products/all');
+        navigate('/inspection/all');
         break;
       case '1.2':
-        navigate('/products/add');
+        navigate('/inspection/add');
         break;
       case '1.3':
-        navigate('/products/edit');
+        navigate('/inspection/edit');
         break;
       default:
         break;

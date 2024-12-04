@@ -1,4 +1,12 @@
-import { Box, Button, FormLabel, OutlinedInput } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Dialog,
+  FormLabel,
+  OutlinedInput,
+  Typography,
+} from '@mui/material';
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import Grid from '@mui/material/Grid2';
@@ -76,8 +84,6 @@ export const ProductAdd: React.FC = () => {
       }));
     }
   }, [account]);
-
-  console.log('formValues', formValues, account);
 
   const { mutate } = useMutation(addProductsPost, {
     onSuccess() {
