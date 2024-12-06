@@ -22,6 +22,10 @@ export const InspectionRouter = () => {
         path="/edit"
         element={<Inspection type={InspectionContentType.Edit} />}
       />
+      <Route
+        path="/template"
+        element={<Inspection type={InspectionContentType.Template} />}
+      />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

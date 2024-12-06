@@ -45,6 +45,8 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
   maxWidth: '300px',
 }));
 
+const businessIds = '224-81-24096';
+
 export interface ShippingInfo {
   document: string;
   inspector: Account;
@@ -69,7 +71,7 @@ export const InspectionAdd: React.FC = () => {
       inspector: account,
       model_id: '',
       company_id: '',
-      business_id: '',
+      business_id: businessIds,
       quantity: 0,
       manufacture_date: '',
       inspection_date: today.toISOString().split('T')[0], // "YYYY-MM-DD" 형식
@@ -93,7 +95,7 @@ export const InspectionAdd: React.FC = () => {
         inspector: account,
         model_id: '',
         company_id: '',
-        business_id: '',
+        business_id: businessIds,
         quantity: 0,
         manufacture_date: '',
         inspection_date: today.toISOString().split('T')[0],

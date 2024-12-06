@@ -123,7 +123,7 @@ const ProductScanner = ({
           format: 'CODE128', // 바코드 형식
           lineColor: '#000',
           width: 2,
-          height: 20,
+          height: 50,
           displayValue: true, // 바코드 아래 텍스트 표시
         });
       } else {
@@ -143,7 +143,7 @@ const ProductScanner = ({
           format: 'CODE128',
           lineColor: '#000',
           width: 2,
-          height: 20,
+          height: 50,
           displayValue: true,
         });
       } else {
@@ -157,7 +157,7 @@ const ProductScanner = ({
           format: 'CODE128',
           lineColor: '#000',
           width: 2,
-          height: 20,
+          height: 50,
           displayValue: true,
         });
       } else {
@@ -178,7 +178,10 @@ const ProductScanner = ({
     <Grid
       spacing={1}
       container
-      className="w-full flex flex-row shrink-0 min-w-[1400px]"
+      className="w-full flex flex-row shrink-0"
+      sx={{
+        minWidth: '1200px',
+      }}
     >
       <Grid
         size={12}
@@ -186,16 +189,17 @@ const ProductScanner = ({
         container
         className="flex flex-row flex-nowrap shrink-0"
       >
-        <Grid spacing={1} container className="flex grow flex-nowrap">
+        <Grid flexGrow={1} spacing={1} container className="flex flex-nowrap">
           {cards.map((card) => (
             <Grid
               key={card.type}
               container
               spacing={1}
               size={4}
-              className="flex flex-col min-w-80 border border-solid rounded-lg"
+              className="flex flex-col border border-solid rounded-lg"
               sx={{
                 borderColor: 'divider',
+                minWidth: '240px',
               }}
             >
               <BarcodeScanner
@@ -219,8 +223,8 @@ const ProductScanner = ({
         <Grid
           container
           spacing={1}
-          size={3}
-          className="flex flex-col justify-end max-w-[550px] "
+          size={5}
+          className="flex flex-col justify-end max-w-[400px] "
           onClick={() => setSelectedCard(null)}
         >
           <Box
@@ -230,7 +234,7 @@ const ProductScanner = ({
             sx={{ borderColor: 'divider' }}
           >
             <Box className="flex flex-row items-center justify-between w-full pb-3">
-              <Grid size={6} className="flex flex-row items-center">
+              <Grid size={7} className="flex flex-row items-center">
                 <Box
                   className="border border-solid px-1 rounded-sm w-fit mr-2"
                   sx={{ borderColor: '#ccc' }}
@@ -239,7 +243,7 @@ const ProductScanner = ({
                 </Box>
                 <Typography>{barcode.device.slice(18, 29)}</Typography>
               </Grid>
-              <Grid size={6}>
+              <Grid size={5}>
                 <FontAwesomeIcon
                   icon={faIndustry}
                   style={{ width: '16px', paddingRight: '4px' }}
@@ -273,6 +277,17 @@ const ProductScanner = ({
             </Box>
           </Box>
           <Grid container spacing={1} className="flex flex-row justify-end">
+            <Button
+              variant="contained"
+              sx={{
+                alignSelf: 'end',
+                width: { xs: '300px', sm: 'auto' },
+              }}
+              onClick={() => handlePrint()}
+            >
+              <FontAwesomeIcon className="mr-2" icon={faPrint} />
+              검사성적서인쇄
+            </Button>
             <Button
               variant="contained"
               sx={{

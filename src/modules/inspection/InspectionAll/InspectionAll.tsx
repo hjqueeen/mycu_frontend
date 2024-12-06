@@ -71,7 +71,7 @@ const InspectionAll: React.FC = () => {
         field: 'transaction_quantity',
         headerName: '거래수량',
         type: 'string',
-        flex: 1,
+        flex: 5,
         resizable: true,
       },
     ],

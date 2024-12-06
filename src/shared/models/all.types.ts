@@ -5,6 +5,7 @@ export enum InspectionContentType {
   All = 'ALL',
   Default = 'HOME',
   Edit = 'EDIT',
+  Template = 'TEMPLATE',
 }
 
 export interface Account {

@@ -1,0 +1,1562 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Inspection Report</title>
+    <meta name="author" content="younggoo park" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+
+        p {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6.5pt;
+            margin: 0pt;
+        }
+
+        h1 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 20.5pt;
+        }
+
+        .s1 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 20.5pt;
+        }
+
+        .s2 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s3 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s4 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s5 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s6 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s7 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 4.5pt;
+        }
+
+        .s8 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 4.5pt;
+        }
+
+        .h2 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        .s9 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 4.5pt;
+        }
+
+        .s10 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 7.5pt;
+        }
+
+        .s11 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 5.5pt;
+        }
+
+        .s12 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 5.5pt;
+        }
+
+        .s13 {
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 5.5pt;
+        }
+
+        .s14 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 5.5pt;
+        }
+
+        .s15 {
+            color: black;
+            font-family: "Cambria Math", serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 4.5pt;
+            vertical-align: 3pt;
+        }
+
+        .s16 {
+            color: black;
+            font-family: "Cambria Math", serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 4.5pt;
+        }
+
+        .s17 {
+            color: black;
+            font-family: "맑은 고딕", monospace;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 4.5pt;
+        }
+
+        .s18 {
+            color: black;
+            font-family: "Cambria Math", serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 4.5pt;
+            vertical-align: 3pt;
+        }
+
+        li {
+            display: block;
+        }
+
+        #l1 {
+            padding-left: 0pt;
+            counter-reset: c1 1;
+        }
+
+        #l1>li>*:first-child:before {
+            counter-increment: c1;
+            content: counter(c1, decimal)". ";
+            color: black;
+            font-family: Calibri, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6.5pt;
+        }
+
+        #l1>li:first-child>*:first-child:before {
+            counter-increment: c1 0;
+        }
+
+        table,
+        tbody {
+            vertical-align: top;
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+
+
+    <h1 style="padding-top: 1pt;padding-left: 100pt;text-indent: 0pt;text-align: left;">SP1 <span class="s1">최종 검사
+            성적서</span>(Rev.2)</h1>
+    <ol id="l1">
+        <li data-list-text="1.">
+            <p style="padding-left: 13pt;padding-top: 10pt;text-indent: -6pt;text-align: left;"><a
+                    name="bookmark0">&zwnj;</a>기초정보 <span class="s2"
+                    style="padding-top: 1pt;padding-left: 251pt;text-indent: 0pt;text-align: left;">작성
+                    일자: </span> <span id="inspection_date" class="s3"></span></p>
+
+            <table style="border-collapse:collapse;margin-left:5.5pt" cellspacing="0">
+                <tr style="height:21pt">
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            제품명</p>
+                    </td>
+                    <td style="width:311pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="3">
+                        <p id="inspection_product" class="s5"
+                            style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">
+                        </p>
+                    </td>
+                    <td
+                        style="width:59pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">판정
+                        </p>
+                    </td>
+                    <td
+                        style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">승인
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:21pt">
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">제품
+                            <span class="s6">S/N</span>
+                        </p>
+                    </td>
+                    <td style="width:311pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="3">
+                        <p id="inspection_serial" class="s5"
+                            style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">
+                        </p>
+                    </td>
+                    <td style="width:59pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 18pt;text-indent: 0pt;text-align: left;">판정도장</p>
+                    </td>
+                    <td style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 18pt;text-indent: 0pt;text-align: left;">승인도장</p>
+                    </td>
+                </tr>
+                <tr style="height:21pt">
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            MAIN S/W</p>
+                    </td>
+                    <td
+                        style="width:134pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 4pt;padding-left: 10pt;text-indent: 0pt;text-align: left;">PIC
+                            S/W</p>
+                    </td>
+                    <td
+                        style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                </tr>
+            </table>
+            <table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">No.</p>
+                    </td>
+                    <td
+                        style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            계측기명</p>
+                    </td>
+                    <td style="width:126pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="2">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            관리번호</p>
+                    </td>
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 3pt;text-indent: 0pt;text-align: left;">No.</p>
+                    </td>
+                    <td
+                        style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 20pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            계측기명</p>
+                    </td>
+                    <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="2">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            관리번호</p>
+                    </td>
+                    <td
+                        style="width:41pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 14pt;text-indent: 0pt;line-height: 8pt;text-align: left;">비고
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">1
+                        </p>
+                    </td>
+                    <td
+                        style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            MULTIMETER</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            Q-C-M</p>
+                    </td>
+                    <td
+                        style="width:101pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">□001
+                            □008 □009 □010 □011 □012</p>
+                    </td>
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">3
+                        </p>
+                    </td>
+                    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 17pt;text-indent: 0pt;text-align: left;">
+                            DEFI-SIMUALTOR</p>
+                    </td>
+                    <td style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">
+                            Q-C-S</p>
+                    </td>
+                    <td
+                        style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;text-indent: 0pt;text-align: left;">□003 □004 □009 □012
+                            □013 □014</p>
+                    </td>
+                    <td style="width:41pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">2
+                        </p>
+                    </td>
+                    <td
+                        style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            POWER SUPPLY</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            Q-C-P</p>
+                    </td>
+                    <td
+                        style="width:101pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">□002
+                            □005 □006 □007 □008 □009</p>
+                    </td>
+                    <td
+                        style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;text-indent: 0pt;text-align: left;">□015 □016 □017 □018
+                            □019</p>
+                    </td>
+                </tr>
+            </table>
+            <p style="text-indent: 0pt;text-align: left;" />
+        </li>
+        <li data-list-text="2.">
+            <p style="padding-left: 13pt;text-indent: -6pt;text-align: left;">사용 계측기<span class="h2">(</span>검사 시 사용되는
+                계측기에 <span class="h2">&quot;V&quot; </span>식별 체크 할것<span class="h2">)</span></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="3.">
+            <p style="padding-left: 13pt;text-indent: -6pt;text-align: left;">외관검사</p>
+            <table style="border-collapse:collapse;margin-left:5.5pt" cellspacing="0">
+                <tr style="height:9pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">
+                            No.</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            검사항목</p>
+                    </td>
+                    <td
+                        style="width:244pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">검사
+                            세부 내용</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 3pt;text-indent: 0pt;line-height: 8pt;text-align: left;">측정
+                            계측기</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s4" style="padding-left: 3pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            비고<span class="s6">(</span>측정수치<span class="s6">)</span></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 3pt;text-indent: 0pt;line-height: 8pt;text-align: left;">검사결과
+                        </p>
+                    </td>
+                    <td
+                        style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 7pt;text-indent: 0pt;line-height: 8pt;text-align: left;">검사자
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:8pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">1
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: center;">
+                            Mold <span class="s9">검사</span></p>
+                    </td>
+                    <td
+                        style="width:244pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: left;">
+                            긁힘<span class="s8">, </span>휨<span class="s8">(</span>뒤틀림<span class="s8">),
+                            </span>스크러치<span class="s8">, </span>백화<span class="s8">, </span>얼룩 등의 없는지 확인한다<span
+                                class="s8">. </span>서로 들떠서 틈이 보이는지 확인한다<span class="s8">.</span></p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="3">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">육안</p>
+                    </td>
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="3">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">30cm <span
+                                class="s9">거리에서 확인</span></p>
+                    </td>
+                    <td style="width:34pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="3">
+                        <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                    <td style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="3">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                </tr>
+                <tr style="height:8pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">2
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: center;">인쇄
+                            상태 검사</p>
+                    </td>
+                    <td
+                        style="width:244pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: left;">인쇄
+                            문구 또는 심벌 등이 번지거나<span class="s8">, </span>인쇄불량이 없는지 확인한다<span class="s8">. </span>인쇄 문구의 색상
+                            및 위치의 이상이 없는지 확인한</p>
+                    </td>
+                </tr>
+                <tr style="height:8pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">3
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: center;">라벨
+                            부착 상태 검사</p>
+                    </td>
+                    <td
+                        style="width:244pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: left;">Top
+                            Cover Label<span class="s9">이 정해진 홈에 치우침 없이 붙어 있는지</span>, <span class="s9">라벨의 인쇄 상태가 번짐이나
+                                인쇄 불량이 없는지 확인한다</span>.</p>
+                    </td>
+                </tr>
+            </table>
+            <table style="border-collapse:collapse;margin-left:3pt" cellspacing="0">
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            No.</p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            검사항목</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">검사
+                            세부 내용</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">측정
+                            계측기</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 3pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            비고<span class="s6">(</span>측정수치<span class="s6">)</span></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-right: 1pt;text-indent: 0pt;line-height: 8pt;text-align: right;">
+                            검사결과</p>
+                    </td>
+                    <td
+                        style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s4" style="padding-left: 7pt;text-indent: 0pt;line-height: 8pt;text-align: left;">검사자
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:18pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 5pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">1
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 5pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            Initial</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="text-indent: 0pt;line-height: 7pt;text-align: left;">제품에 <span
+                                class="s8">BAT</span>를 삽입하였을 때 정상적으로 <span class="s8">Initial</span>이 완료되는가<span
+                                class="s8">? (</span>패즈 커넥터 삽입 후 검사 진행<span class="s8">)</span></p>
+                        <p class="s8" style="text-indent: 0pt;text-align: left;">(<span class="s9">상태표시 </span>LED:
+                            <span class="s9">녹색 </span>/ <span class="s9">상태 표시 </span>LCD: <span class="s9">시스템
+                                상태표시</span>: <span class="s10">O </span>, <span class="s9">패즈 표시</span>: ,<span
+                                class="s9">배터리 표시</span>: ) <span />
+                        </p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">육안
+                            <span class="s8">/ </span>청각
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 3pt;padding-left: 24pt;text-indent: 0pt;text-align: left;">-
+                            <span />
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 5pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                    <td style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="29">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="6">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">2</p>
+                    </td>
+                    <td style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="6">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">패즈 상태 인식 검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="padding-left: 13pt;text-indent: 0pt;text-align: left;">제품의 전원을 <span
+                                class="s8">ON</span>후 패즈를 연결했을 경우 상태 <span class="s8">LCD</span>에 패즈 상태가 정상적으로 표시되는가를
+                            확인한다<span class="s8">.</span></p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="6">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 6pt;text-indent: 0pt;text-align: left;">패드<span
+                                class="s8">JIG / </span>육안</p>
+                    </td>
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="2">
+                        <p class="s11" style="padding-top: 4pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">JIG
+                            <span class="s12">날짜 설정 기준</span>
+                        </p>
+                    </td>
+                    <td style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="6">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:16pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s12" style="text-indent: 0pt;line-height: 8pt;text-align: center;">기준</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s12" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            패드 커넥터 조건</p>
+                    </td>
+                    <td
+                        style="width:75pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s12" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            상태표시 <span class="s11">LED </span>색상</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s12" style="padding-left: 14pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            유효기간 표시 <span class="s11">LCD</span></p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:16pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s13" style="text-indent: 0pt;text-align: center;">a</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            패드 커넥터 <span class="s13">OFF</span></p>
+                    </td>
+                    <td
+                        style="width:75pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            적색 <span class="s13">(RED) </span>점멸</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s11" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">-</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:16pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s13" style="text-indent: 0pt;text-align: center;">b</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            정상 패드</p>
+                    </td>
+                    <td
+                        style="width:75pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            녹색 <span class="s13">(GREEN) </span>점멸</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            검사일<span class="s13">+4</span>개월 이상</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:16pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s13" style="text-indent: 0pt;text-align: center;">c</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            유효기간 <span class="s13">3</span>개월 미만</p>
+                    </td>
+                    <td
+                        style="width:75pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            황색 <span class="s13">(YELLOW) </span>점멸</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s14" style="padding-left: 2pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            검사일<span class="s13">+3</span>개월<span class="s13">-7</span>일</p>
+                    </td>
+                </tr>
+                <tr style="height:11pt">
+                    <td
+                        style="width:16pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s13" style="padding-top: 1pt;text-indent: 0pt;text-align: center;">d</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: center;">
+                            유효기간 만료</p>
+                    </td>
+                    <td
+                        style="width:75pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s14" style="padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: center;">
+                            적색 <span class="s13">(RED) </span>점멸</p>
+                    </td>
+                    <td
+                        style="width:76pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s14" style="padding-left: 2pt;text-indent: 0pt;line-height: 9pt;text-align: left;">
+                            검사일<span class="s13">-3</span>개월 이상</p>
+                    </td>
+                </tr>
+                <tr style="height:25pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">3</p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">패드 검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="padding-top: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">패드 미
+                            연결 시 음성 안내 및 패드 커넥터 연결 상태 등이 점멸하는가<span class="s8">?</span></p>
+                        <p class="s8" style="padding-right: 24pt;text-indent: 0pt;line-height: 86%;text-align: left;">
+                            (<span class="s9">음성안내</span>: <span class="s9">패드 커넥터를 제품에 삽입해 주십시오</span>.) <span
+                                class="s9">패드 연결 시 패드 커넥터 연결 상태등이 점등되고</span>, <span class="s9">패드 부착 위치 표시등
+                            </span>1<span class="s9">회 점멸하는가</span>? (<span class="s9">음성 안내</span>: <span class="s9">패드
+                                부착 관련 안내</span>)</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">육안 <span
+                                class="s8">/ </span>청각</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">-</p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">4</p>
+                    </td>
+                    <td style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9"
+                            style="padding-left: 14pt;padding-right: 3pt;text-indent: -9pt;line-height: 86%;text-align: left;">
+                            내부방전 회로검사<span class="s8">) (</span>대기방전<span class="s8">)</span></p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4" rowspan="2">
+                        <p class="s9" style="padding-top: 2pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            성<span class="s15">▶</span>인모드에서 충전 완료 후 <span class="s8">15</span>초 후에 자동 방전되고<span
+                                class="s8">, CPR Guide</span>가 실행 되는가<span class="s8">?</span></p>
+                        <p class="s16" style="padding-left: 1pt;text-indent: 0pt;line-height: 2pt;text-align: left;">▶
+                        </p>
+                        <p class="s7" style="padding-left: 6pt;text-indent: 0pt;line-height: 6pt;text-align: left;">SP1
+                            <span class="s17">성인</span>, SP1 PLUS <span class="s17">성언 </span>: 15<span
+                                class="s17">초</span>
+                        </p>
+                        <p class="s7" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">SP1
+                            AUTO <span class="s17">해당 없음</span></p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">육안 <span
+                                class="s8">/ </span>청각</p>
+                    </td>
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="2">
+                        <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">VFIB <span
+                                class="s9">파형 인가</span></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-left: 12pt;text-indent: 0pt;text-align: left;">15<span
+                                class="s9">초</span></p>
+                    </td>
+                </tr>
+                <tr style="height:21pt">
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 7pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="3">
+                        <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">5</p>
+                    </td>
+                    <td style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="3">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 13pt;text-indent: 0pt;line-height: 7pt;text-align: left;">
+                            충격에너지</p>
+                        <p class="s8" style="padding-left: 14pt;text-indent: 0pt;line-height: 7pt;text-align: left;">
+                            (<span class="s9">성인모드</span>)</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4" rowspan="3">
+                        <p class="s9" style="padding-top: 3pt;text-indent: 0pt;line-height: 68%;text-align: left;">제품을
+                            성인모드로 설정하여<span class="s8">, </span>제시된 파형들에 대해 <span class="s8">Shock </span>가 실행되며<span
+                                class="s8">, Shock </span>파형은 에너지 충전 후 쇼크버튼에 주<span class="s15">▶</span>황색 버튼이 깜박이고<span
+                                class="s8">, 15</span>초 이내에 에너지 인가 시 에너지 값이 정상적으로 출력되는가<span class="s8">?</span></p>
+                        <p class="s16" style="padding-left: 1pt;text-indent: 0pt;line-height: 0pt;text-align: left;">▶
+                        </p>
+                        <p class="s7" style="padding-left: 6pt;text-indent: 0pt;line-height: 6pt;text-align: left;">SP1,
+                            SP1 AUTO <span class="s17">성인 </span>: 150J ±15% -&gt; <span class="s17">최종검사시 사내규정을
+                            </span>150J ± 6J<span class="s17">로 관리함</span></p>
+                        <p class="s7" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">SP1
+                            PLUS <span class="s17">성인 </span>: 200J ±15% -&gt; <span class="s17">최종검사시 사내규정을 </span>200J
+                            ± 8J<span class="s17">로 관리함</span></p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="3">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            Defi-Simulator</p>
+                        <p class="s8"
+                            style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">
+                            /</p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">
+                            출하용 <span class="s8">Battery</span></p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">파형</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">인가여부</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            VT180</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">
+                            Shock</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            ASYS</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">No
+                            Shock</p>
+                    </td>
+                </tr>
+                <tr style="height:8pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">6</p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: center;">
+                            소아용 패즈검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="text-indent: 0pt;line-height: 6pt;text-align: left;">제품을 성인모드로 설정하고<span
+                                class="s8">, </span>소아용패드를 연결하여 소아모드로 인식하는지 확인한다<span class="s8">.</span></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 6pt;text-align: center;">청각
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">-</p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">7
+                        </p>
+                    </td>
+                    <td style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s9"
+                            style="padding-top: 1pt;padding-left: 13pt;text-indent: 0pt;line-height: 7pt;text-align: left;">
+                            충격에너지</p>
+                        <p class="s8" style="padding-left: 14pt;text-indent: 0pt;line-height: 7pt;text-align: left;">
+                            (<span class="s9">소아모드</span>)</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4" rowspan="2">
+                        <p class="s9" style="text-indent: 0pt;line-height: 9pt;text-align: left;">제<span
+                                class="s15">▶</span>품을 소아모드로 설정한 후 파형들에 대해 <span class="s8">Shock </span>가 실행되며 인가 시 에너지
+                            값이 정상적으로 출력 되는가<span class="s8">?</span></p>
+                        <p class="s17" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">소아
+                            <span class="s7">: 50J ±15% -&gt; </span>최종검사시 사내규정을 <span class="s7">50J ± 3J</span>로 관리함
+                        </p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">
+                            Defi-Simulator</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">파형</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s9" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">인가여부</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            VFIB</p>
+                    </td>
+                    <td
+                        style="width:25pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">
+                            Shock</p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">8
+                        </p>
+                    </td>
+                    <td style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 5pt;padding-left: 9pt;text-indent: 0pt;text-align: left;">
+                            Impedance<span class="s9">검사</span></p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8" style="text-indent: 0pt;text-align: left;">Shock<span class="s9">인가용
+                            </span>25ΩLoad JIG<span class="s9">를 이용하여 정상적으로 </span>Shock<span class="s9">가 인가되는가</span>?
+                        </p>
+                    </td>
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 3pt;padding-left: 8pt;text-indent: -1pt;text-align: left;">
+                            Defi-Simulator/ 25,175Ω<span class="s9">지그</span></p>
+                    </td>
+                    <td style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt"
+                        rowspan="2">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">-
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8" style="text-indent: 0pt;text-align: left;">Shock<span class="s9">인가용
+                            </span>175ΩLoad JIG<span class="s9">를 이용하여 정상적으로 </span>Shock<span class="s9">가
+                                인가되는가</span>?</p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">9
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            Voice Prompts</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="padding-top: 2pt;text-indent: 0pt;line-height: 86%;text-align: left;">전원을 켤
+                            때<span class="s8">, </span>아래와 같은 음성 안내가 나타나고 <span class="s8">Speaker</span>에서 나오는 음성에 잡음이
+                            발생으며 음성이 끊기는 현상이 없어야 한다<span class="s8">. </span>음성 메시지 <span class="s8">: “</span>응급 의료 센터에
+                            신고하여 주십시오<span class="s8">.”</span></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">10
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            음성가변검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="padding-top: 4pt;text-indent: 0pt;text-align: left;">주변 소음에 반응하여 출력음이 커지는지
+                            확인한다</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">11
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">CPR<span
+                                class="s9">가이드 검사</span></p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8" style="text-indent: 0pt;text-align: left;">CPR <span class="s9">가이드시 ⓘ 버튼을 점멸 중에
+                                누르면 상세 가이드로 전환되는가</span>?</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">청각</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">-
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:10pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">12
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">CPR <span
+                                class="s9">행위감지</span></p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8" style="text-indent: 0pt;text-align: left;">CPR<span class="s9">시 심폐소생술 감지 표시등이
+                                깜박이고</span>, CPR JIG<span class="s9">에 연결하면 심폐소생술 감지 표시등이 켜져 있는가</span>?</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">육안 <span
+                                class="s8">/ </span>청각</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">-
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 1pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">13
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">
+                            패드커넥터</p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">
+                            연결표시등적색 <span class="s8">LED</span></p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">확인
+                            검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="text-indent: 0pt;line-height: 9pt;text-align: left;">배<span
+                                class="s18">▶</span>터리 측정 기능 검사 후 에러상태를 만들고 <span class="s8">LED</span>에 적색등이 점멸되는지
+                            확인한다<span class="s8">.</span></p>
+                        <p class="s8" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">SP1
+                            <span class="s9">일본향에 한함</span>
+                        </p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">육안
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">14
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8"
+                            style="padding-top: 2pt;padding-left: 16pt;text-indent: 0pt;line-height: 5pt;text-align: left;">
+                            ECG Data</p>
+                        <p class="s9" style="padding-left: 15pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            전송검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="padding-top: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">제품의 ⓘ
+                            버튼을 눌러 <span class="s8">“</span>관리자 모드<span class="s8">”</span>를 실행한 후 <span class="s8">ECG
+                                Data</span>를 <span class="s8">SD Card</span>로 전송하였을 때<span class="s8">, Noise </span>현상이
+                            없고</p>
+                        <p class="s8" style="text-indent: 0pt;line-height: 7pt;text-align: left;">CU-EX1<span
+                                class="s9">에서 </span>Data<span class="s9">가 제대로 출력되는가</span>? (NSR <span
+                                class="s9">파형</span>: 10mm±2mm) <b>*SD Card </b><span class="s17">포맷 후 확인
+                                요망</span><b>*</b></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">PC
+                            / <span class="s9">육안</span></p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 4pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">NSR
+                            <span class="s9">파형</span>: 10mm±2mm
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">15
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8"
+                            style="padding-top: 2pt;padding-left: 1pt;text-indent: 0pt;line-height: 5pt;text-align: center;">
+                            LOW BAT</p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">측정
+                            기능 검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8" style="padding-top: 1pt;text-indent: 0pt;line-height: 7pt;text-align: left;">
+                            Battery Insertion Test<span class="s9">시 </span>10.8V<span class="s9">에서 정상동작</span>, 10.2V
+                            <span class="s9">에서 </span>Low Battery Error<span class="s9">가 발생되는지 확인한다</span>.
+                        </p>
+                        <p class="s8" style="text-indent: 0pt;line-height: 7pt;text-align: left;">Error <span
+                                class="s9">발생시 음성 안내 </span>: “<span class="s9">깜박이는 붉은색 ⓘ 버튼을 눌러주세요</span>”</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            PWR</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8"
+                            style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">
+                            10.8V : <span class="s9">정상동작</span></p>
+                        <p class="s8" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">
+                            10.2V(±0.1) : <span class="s9">에러 발생</span></p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">16
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            소비전류 측정검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9" style="text-indent: 0pt;line-height: 9pt;text-align: left;">소<span
+                                class="s15">▶</span>비전류 검사용 배터리 <span class="s8">JIG </span>삽입 후 대기 상태의 전류를 확인한다<span
+                                class="s8">. (JIG</span>의 <span class="s8">S/W </span>위치가 <span class="s8">“ON”</span>상태
+                            확인 후 진행<span class="s8">)</span></p>
+                        <p class="s17" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">기준
+                            <span class="s7">: 41</span>㎂ 이하 일 것<span class="s7">.</span>
+                        </p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            PWR/DMM</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 2pt;text-indent: 0pt;text-align: left;">입력전압
+                            <span class="s8">: 12.0~12.2V</span>
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s9" style="padding-top: 4pt;text-indent: 0pt;text-align: right;">㎂</p>
+                    </td>
+                </tr>
+                <tr style="height:19pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 6pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">17
+                        </p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">
+                            초기화 <span class="s8">&amp; </span>확인검사</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s8"
+                            style="padding-top: 2pt;padding-right: 24pt;text-indent: 0pt;line-height: 86%;text-align: left;">
+                            Factory Mode<span class="s9">에서 </span>System Clear <span class="s9">를 실행한 후</span>, <span
+                                class="s9">관리자 모드로 진입하여 환자 치료 내역이 정상적으로 삭제되었는지 확인한다</span>. (<span class="s9">버튼
+                                조작순서</span>: <span class="s9">ⓢⓢⓘⓢⓘⓘ </span>-&gt; <span class="s9">ⓘⓘ</span>)</p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9" style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;text-align: center;">육안
+                            <span class="s8">/ </span>청각
+                        </p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">-
+                        </p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p class="s8" style="padding-top: 6pt;padding-left: 2pt;text-indent: 0pt;text-align: center;">P
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:40pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">18</p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9"
+                            style="padding-left: 12pt;padding-right: 11pt;text-indent: 0pt;line-height: 86%;text-align: left;">
+                            방출 에너지 선택 및 표시</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s9"
+                            style="padding-top: 3pt;padding-right: 24pt;text-indent: 0pt;line-height: 86%;text-align: left;">
+                            심장충격기에는 방출 에너지를 연속적으로 또는 단계별로 선택할 수 있는 수단이 구비되어야 한다<span class="s8">. </span>방출 에너지를 주울 단위로
+                            표시하는 지시기가 포함되어야 한다<span class="s8">. </span>선택된 에너지 수준에 도달하면 정확히</p>
+                        <p class="s9" style="padding-top: 1pt;text-indent: 0pt;line-height: 25%;text-align: left;">
+                            그<span class="s15">▶ </span>값을 지시할 수 있도록 구성한다<span class="s8">.(</span>계기<span
+                                class="s8">(measuring instrument) </span>또는 <span class="s8">&quot;</span>방전준비<span
+                                class="s8">(charge ready)&quot; </span>지시기 등<span class="s8">)</span></p>
+                        <p class="s17" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            <span class="s15">▶ </span>환경 조건 <span class="s7">: </span>조도 <span class="s7">100Lux,
+                            </span>케이블 길이 거리
+                        </p>
+                        <p class="s17" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">충전
+                            완료 후 주황색 쇼크버튼이 깜빡이는지 육안으로 확인한다<span class="s7">.</span></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s9" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">육안</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">-</p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                </tr>
+                <tr style="height:24pt">
+                    <td
+                        style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s7" style="padding-left: 1pt;text-indent: 0pt;text-align: center;">19</p>
+                    </td>
+                    <td
+                        style="width:51pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s9"
+                            style="padding-top: 4pt;padding-left: 9pt;text-indent: -4pt;line-height: 86%;text-align: left;">
+                            외부 적외선 입력에 의한 알람 발생</p>
+                    </td>
+                    <td style="width:243pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        colspan="4">
+                        <p class="s16" style="padding-left: 1pt;text-indent: 0pt;line-height: 2pt;text-align: left;">▶
+                        </p>
+                        <p class="s8" style="text-indent: 0pt;line-height: 5pt;text-align: left;">800nm~900nm<span
+                                class="s9">의 파장을 갖는 </span>IrDA LED<span class="s9">를 </span>4Hz(±1Hz)<span class="s9">로
+                            </span>IrDA <span class="s9">포트로 입력하여 알람 발생여부를 확인한다</span>.</p>
+                        <p class="s17" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: left;">
+                            <span class="s15">▶ </span>제품이 꺼진 상태에서 <span class="s7">IrDA </span>포트로 적외선 입력이 있을 경우 알람이
+                            발생해야 한다<span class="s7">.</span>
+                        </p>
+                        <p class="s17" style="padding-left: 6pt;text-indent: 0pt;line-height: 7pt;text-align: left;">입력
+                            주파수 <span class="s7">: 4Hz(±1Hz)</span></p>
+                    </td>
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">IrDA</p>
+                    </td>
+                    <td
+                        style="width:50pt;border-top-style:solid;border-top-width:2pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 3pt;text-indent: 0pt;text-align: center;">CU-SP1 O <span
+                                class="s9">만 해당</span></p>
+                        <p class="s8" style="text-indent: 0pt;text-align: center;">□ N/A</p>
+                    </td>
+                    <td
+                        style="width:34pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:2pt;border-right-style:solid;border-right-width:2pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                        <p class="s8" style="padding-left: 2pt;text-indent: 0pt;text-align: center;">P</p>
+                    </td>
+                </tr>
+            </table>
+            <p style="text-indent: 0pt;text-align: left;" />
+            <p style="text-indent: 0pt;text-align: left;"><span /></p>
+            <p style="text-indent: 0pt;text-align: left;"><span /></p>
+        </li>
+        <li data-list-text="4.">
+            <p style="padding-left: 13pt;text-indent: -6pt;text-align: left;">기능검사</p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="padding-left: 273pt;text-indent: 0pt;text-align: left;"><span /></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="5.">
+            <p style="padding-left: 13pt;text-indent: -6pt;text-align: left;">불량내역 및 조치사항</p>
+        </li>
+    </ol>
+    <table style="border-collapse:collapse;margin-left:5.5pt" cellspacing="0">
+        <tr style="height:10pt">
+            <td
+                style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">No.</p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">불량 내역</p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s4" style="padding-left: 1pt;text-indent: 0pt;line-height: 8pt;text-align: center;">조치사항</p>
+            </td>
+            <td
+                style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s4" style="padding-left: 7pt;text-indent: 0pt;line-height: 8pt;text-align: left;">조치자</p>
+            </td>
+        </tr>
+        <tr style="height:10pt">
+            <td
+                style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">1</p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+        </tr>
+        <tr style="height:10pt">
+            <td
+                style="width:17pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-left: 1pt;text-indent: 0pt;line-height: 7pt;text-align: center;">2</p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:210pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:33pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+        </tr>
+    </table>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+</body>
+
+</html>

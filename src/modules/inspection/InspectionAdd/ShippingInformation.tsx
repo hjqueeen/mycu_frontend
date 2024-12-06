@@ -23,8 +23,6 @@ import {
 } from './InspectionAdd';
 import useShared from '../../../shared/hooks/use-shared.hook';
 
-const businessIds = ['224-81-2409-81', '224-81-24096'];
-
 const ShippingInformation = ({
   formValues,
   setFormValues,
@@ -89,24 +87,14 @@ const ShippingInformation = ({
     <Grid spacing={1} container className="w-full">
       <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>사업자등록번호</FormLabelStyled>
-        <Select
+        <OutlinedInputStyled
+          disabled
           id="business_id"
           name="business_id"
-          value={formValues.business_id}
-          onChange={(e) => handleSelectChange(e, 'business_id')}
-          displayEmpty
+          type="text"
           size="small"
-          sx={{ width: '100%', maxWidth: '300px' }}
-        >
-          <MenuItem value="" disabled>
-            <Typography>선택</Typography>
-          </MenuItem>
-          {businessIds?.map((id: string) => (
-            <MenuItem key={id} value={id}>
-              {id}
-            </MenuItem>
-          ))}
-        </Select>
+          value={formValues.business_id}
+        />
       </FormGrid>
       <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>문서번호</FormLabelStyled>

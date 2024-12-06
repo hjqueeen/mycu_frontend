@@ -118,7 +118,8 @@ const DashboardNav = ({
           // ],
         },
         { id: '1.2', label: '출하검사' },
-        // { id: '1.3', label: 'Edit Products' },
+        { id: '1.3', label: '출하검사서' },
+        { id: '1.4', label: '수정관리' },
       ],
     },
     // {
@@ -165,6 +166,9 @@ const DashboardNav = ({
         navigate('/inspection/add');
         break;
       case '1.3':
+        navigate('/inspection/template');
+        break;
+      case '1.4':
         navigate('/inspection/edit');
         break;
       default:

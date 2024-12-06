@@ -31,6 +31,11 @@ const mainListItems = [
     icon: <PeopleRoundedIcon />,
     type: InspectionContentType.Edit,
   },
+  {
+    text: 'Insection Template',
+    icon: <PeopleRoundedIcon />,
+    type: InspectionContentType.Template,
+  },
   // { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
 ];
 
@@ -52,6 +57,9 @@ const InspectionNav = ({ type }: ProductsPageProps) => {
         break;
       case InspectionContentType.Edit:
         navigate('/inspection/edit');
+        break;
+      case InspectionContentType.Template:
+        navigate('/inspection/template');
         break;
       default:
         break;
