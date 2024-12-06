@@ -8,10 +8,6 @@
 .header-container {
   @apply box-border flex items-center h-full justify-between relative w-full px-8;
   &-logo {
-    @apply flex p-2 ml-2;
-    & img {
-      @apply w-10;
-    }
     &-breadcrumbs {
       @apply flex ml-2 align-bottom;
     }

@@ -17,6 +17,57 @@ import { useUsersHttp } from '../../../shared/hooks/use-users-http.hook';
 import { useFetch } from '../../../shared/hooks/use-fetch.hook';
 import { useUserStore } from '../../../shared/store/use-user.store';
 
+// const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
+//   color: theme.palette.grey[200],
+//   [`& .${treeItemClasses.content}`]: {
+//     borderRadius: theme.spacing(0.5),
+//     padding: theme.spacing(0.5, 1),
+//     margin: theme.spacing(0.2, 0),
+//     [`& .${treeItemClasses.label}`]: {
+//       fontSize: '0.8rem',
+//       fontWeight: 500,
+//     },
+//   },
+//   [`& .${treeItemClasses.iconContainer}`]: {
+//     borderRadius: '50%',
+//     backgroundColor: theme.palette.primary.dark,
+//     padding: theme.spacing(0, 1.2),
+//     ...theme.applyStyles('light', {
+//       backgroundColor: alpha(theme.palette.warning.dark, 0.25),
+//       color: theme.palette.background.paper,
+//     }),
+//     ...theme.applyStyles('dark', {
+//       backgroundColor: alpha(theme.palette.warning.dark, 0.25),
+//       color: theme.palette.primary.contrastText,
+//     }),
+//   },
+//   [`& .${treeItemClasses.groupTransition}`]: {
+//     marginLeft: 15,
+//     paddingLeft: 18,
+//     borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
+//   },
+//   [`& .${treeItemClasses.selected}`]: {
+//     backgroundColor: theme.palette.warning.dark,
+//     color: theme.palette.primary.contrastText,
+//     '&:not(:focus):not(:hover)': {
+//       backgroundColor: theme.palette.warning.dark,
+//       color: theme.palette.primary.contrastText,
+//     },
+//     '&:hover, &:focus': {
+//       backgroundColor: theme.palette.warning.dark,
+//       color: theme.palette.primary.contrastText,
+//     },
+//     '&:hover, &:not(:focus)': {
+//       backgroundColor: theme.palette.warning.dark,
+//       color: theme.palette.primary.contrastText,
+//     },
+//   },
+
+//   ...theme.applyStyles('light', {
+//     color: theme.palette.grey[800],
+//   }),
+// }));
+
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   color: theme.palette.grey[200],
   [`& .${treeItemClasses.content}`]: {
@@ -33,11 +84,9 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
     padding: theme.spacing(0, 1.2),
     ...theme.applyStyles('light', {
-      backgroundColor: alpha(theme.palette.warning.dark, 0.25),
-      color: theme.palette.background.paper,
+      backgroundColor: alpha(theme.palette.primary.main, 0.25),
     }),
     ...theme.applyStyles('dark', {
-      backgroundColor: alpha(theme.palette.warning.dark, 0.25),
       color: theme.palette.primary.contrastText,
     }),
   },
@@ -46,27 +95,10 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
     paddingLeft: 18,
     borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
   },
-  [`& .${treeItemClasses.selected} `]: {
-    backgroundColor: theme.palette.warning.dark,
-    color: theme.palette.primary.contrastText,
-    '&:not(:focus):not(:hover)': {
-      backgroundColor: theme.palette.warning.dark,
-      color: theme.palette.primary.contrastText,
-    },
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.warning.dark,
-      color: theme.palette.primary.contrastText,
-    },
-    '&:hover, &:not(:focus)': {
-      backgroundColor: theme.palette.warning.dark,
-      color: theme.palette.primary.contrastText,
-    },
-  },
   ...theme.applyStyles('light', {
     color: theme.palette.grey[800],
   }),
 }));
-
 type DashboardNavProps = {
   defaultExpandedItems: string[] | undefined;
   defaultSelectedItems: string | undefined;

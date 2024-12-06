@@ -96,3 +96,58 @@ export enum ShippingArea {
   Domestic = '국내',
   International = '해외',
 }
+
+export interface GetProductDatailsResponse {
+  id: string;
+  document: string;
+  model_number: string;
+  model_name: string;
+
+  manufacture_date: Date;
+  shipping_history: Shipping[];
+
+  device_udi: string;
+  device_lot: string;
+  device_serial: string;
+
+  battery_udi: string;
+  battery_expiration_date: Date;
+
+  pads_udi: string;
+  pads_lot: string;
+  pads_expiration_date: Date;
+}
+
+export interface GetProductResponse {
+  id: string;
+  document: string;
+  inspector: Account;
+  model_id: string;
+  company_id: string;
+  business_id: string;
+  // quantity: number;
+  manufacture_date: Date;
+  inspection_date: Date;
+  shipping_date: Date;
+
+  device_udi: string;
+  device_lot: string;
+  device_serial: string;
+
+  battery_udi: string;
+  battery_expiration_date: Date;
+
+  pads_udi: string;
+  pads_lot: string;
+  pads_expiration_date: Date;
+}
+
+export interface Shipping {
+  id: string;
+  product: GetProductResponse;
+  company: ICompany; // 업체정보
+  shipping_date: Date; // 출고일자
+  shipping_type: string; // 출고구분
+  delivery_address: string; // 배송지
+  remarks: string; // 비고
+}

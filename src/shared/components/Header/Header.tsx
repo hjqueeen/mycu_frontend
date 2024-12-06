@@ -11,6 +11,7 @@ import {
   Toolbar,
   Drawer,
   Stack,
+  Typography,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
@@ -45,8 +46,11 @@ export const Header = ({ pageType, headerMenu }: HeaderProps) => {
           boxShadow: 0,
         }}
       >
-        <Box className={styles['header-container-logo']}>
-          <img src={cuLogo} alt="cu-logo" />
+        <Box className="flex p-2 ml-2 flex-row items-center">
+          <img src={cuLogo} alt="cu-logo" className="w-8 mr-2" />
+          <Typography variant="h4" sx={{ color: 'text.secondary' }}>
+            CU Medical
+          </Typography>
         </Box>
 
         <Box className="flex flex-row mr-24">

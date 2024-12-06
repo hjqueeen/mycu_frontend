@@ -12,6 +12,7 @@ import {
   treeViewCustomizations,
 } from './shared/theme/customizations';
 import AppTheme from './shared/theme/AppTheme';
+import { LicenseInfo } from '@mui/x-license-pro';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -19,6 +20,9 @@ const xThemeComponents = {
   ...datePickersCustomizations,
   ...treeViewCustomizations,
 };
+// Set mui license key before app render
+process.env.REACT_APP_MUI_LICENSE_KEY &&
+  LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_LICENSE_KEY);
 
 function App() {
   const queryClient = new QueryClient();
