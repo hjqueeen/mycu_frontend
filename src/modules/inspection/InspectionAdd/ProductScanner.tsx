@@ -1,4 +1,13 @@
-import { Alert, Box, Button, Dialog, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React from 'react';
 import {
@@ -12,6 +21,7 @@ import useShared from '../../../shared/hooks/use-shared.hook';
 import JsBarcode from 'jsbarcode';
 import { useReactToPrint } from 'react-to-print';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InspectionReport from './InspectionReport';
 
 const cards: any[] = [
   {
@@ -29,9 +39,11 @@ const cards: any[] = [
 ];
 
 const ProductScanner = ({
+  selectedModelNumber,
   rows,
   setRows,
 }: {
+  selectedModelNumber: string;
   rows: any[];
   setRows: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
@@ -40,6 +52,7 @@ const ProductScanner = ({
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [batteryExpirationDate, setBatteryExpirationDate] = React.useState('');
   const [selectedCard, setSelectedCard] = React.useState<string | null>(null);
+  const [report, setReport] = React.useState(false);
 
   // 각 카드의 바코드 상태
   const [barcode, setBarcode] = React.useState({
@@ -51,8 +64,10 @@ const ProductScanner = ({
   const deviceRef = React.useRef<any>(); // 바코드 캔버스 참조
   const padsRef = React.useRef<any>();
   const batteryRef = React.useRef<any>();
-  const printRef = React.useRef<React.RefObject<Element | Text>>(); // 인쇄 대상 참조
   const today = new Date().toISOString().split('T')[0];
+  const barcodePrintRef = React.useRef<React.RefObject<Element | Text>>(); // 인쇄 대상 참조
+  const reportPrintRef = React.useRef<any>(); // 검사서 인쇄 영역 참조
+  const templateContainerRef = React.useRef<any>(null); // DOM 노드를 참조
 
   React.useEffect(() => {
     handleGenerateBarcode();
@@ -170,10 +185,57 @@ const ProductScanner = ({
   }, [barcode, deviceRef, batteryRef, padsRef]);
 
   const handlePrint = useReactToPrint({
-    contentRef: printRef.current,
+    contentRef: barcodePrintRef.current,
     documentTitle: 'Barcode Label',
     onAfterPrint: () => alert('바코드가 인쇄되었습니다. '),
   });
+
+  const handleInpsectionReportPrint = () => {
+    if (templateContainerRef.current) {
+      // DOM 노드가 존재하는 경우에만 실행
+      fetch('/inspection_template.html')
+        .then((response) => response.text())
+        .then((html) => {
+          templateContainerRef.current.innerHTML = html; // 템플릿 로드
+          handleUpdateTemplate();
+          return html;
+        })
+        .then((html) => {
+          console.log('html', html);
+
+          const printWindow = window.open('', '_blank');
+          printWindow?.document.write(`${html}`);
+          printWindow?.document.open();
+          printWindow?.document.close();
+          printWindow?.focus();
+          printWindow?.print();
+          printWindow?.close();
+        });
+    }
+  };
+
+  const handleUpdateTemplate = () => {
+    if (templateContainerRef.current) {
+      const dateField =
+        templateContainerRef.current.querySelector('#inspection_date');
+      const productField = templateContainerRef.current.querySelector(
+        '#inspection_product'
+      );
+      const serialField =
+        templateContainerRef.current.querySelector('#inspection_serial');
+      if (dateField) {
+        const today = new Date();
+        dateField.textContent = today.toISOString().split('T')[0];
+      }
+      if (productField) {
+        productField.textContent = selectedModelNumber;
+      }
+      if (serialField) {
+        serialField.textContent = barcode.device.slice(18, 29);
+      }
+    }
+  };
+
   return (
     <Grid
       spacing={1}
@@ -229,7 +291,7 @@ const ProductScanner = ({
         >
           <Box
             component="div"
-            ref={printRef}
+            ref={barcodePrintRef}
             className="grow flex flex-col px-5 pt-5 rounded-lg border border-solid"
             sx={{ borderColor: 'divider' }}
           >
@@ -283,7 +345,7 @@ const ProductScanner = ({
                 alignSelf: 'end',
                 width: { xs: '300px', sm: 'auto' },
               }}
-              onClick={() => handlePrint()}
+              onClick={() => setReport(true)}
             >
               <FontAwesomeIcon className="mr-2" icon={faPrint} />
               검사성적서인쇄
@@ -324,6 +386,40 @@ const ProductScanner = ({
             입력 필드를 클릭한 후, 키보드 언어를 영어로 바꿔주세요.
           </Typography>
         </Alert>
+      </Dialog>
+      <Dialog
+        open={report}
+        onClose={() => setReport(false)}
+        fullWidth
+        maxWidth="md"
+        className="p-0 m-0"
+      >
+        {/* <DialogTitle>
+          인쇄 미리보기
+       //   인쇄 버튼
+          <Button
+            onClick={() => handleInpsectionReportPrint()}
+            style={{
+              float: 'right',
+              marginRight: '10px',
+              background: '#1976d2',
+              color: 'white',
+            }}
+          >
+            인쇄
+          </Button>
+        </DialogTitle>
+        <DialogContent> */}
+        {/* 인쇄 미리보기 영역 */}
+        <InspectionReport
+          ref={reportPrintRef}
+          device_number={selectedModelNumber}
+          device_serial={barcode.device.slice(18, 29)}
+        />
+        {/* <DialogActions>
+            <Button onClick={() => setReport(false)}>닫기</Button>
+          </DialogActions>
+        </DialogContent> */}
       </Dialog>
     </Grid>
   );

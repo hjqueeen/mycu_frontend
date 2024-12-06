@@ -64,6 +64,7 @@ export const InspectionAdd: React.FC = () => {
   const { fullNameGet } = useShared();
 
   const [rows, setRows] = useState<any[]>([]);
+  const [selectedModelNumber, setSelectedModelNumber] = useState('');
   const [formValues, setFormValues] = useState<ShippingInfo>(() => {
     const today = new Date(); // 오늘 날짜를 기본값으로 설정
     return {
@@ -114,8 +115,13 @@ export const InspectionAdd: React.FC = () => {
       <ShippingInformation
         formValues={formValues}
         setFormValues={setFormValues}
+        setSelectedModelNumber={setSelectedModelNumber}
       />
-      <ProductScanner rows={rows} setRows={setRows} />
+      <ProductScanner
+        rows={rows}
+        setRows={setRows}
+        selectedModelNumber={selectedModelNumber}
+      />
       <InspectionAddData rows={rows} />
       <Button
         variant="contained"

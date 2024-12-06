@@ -26,9 +26,11 @@ import useShared from '../../../shared/hooks/use-shared.hook';
 const ShippingInformation = ({
   formValues,
   setFormValues,
+  setSelectedModelNumber,
 }: {
   formValues: ShippingInfo;
   setFormValues: React.Dispatch<React.SetStateAction<ShippingInfo>>;
+  setSelectedModelNumber: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const { categoriesGet, companiesGet } = useHttp();
   const { fullNameGet } = useShared();
@@ -60,10 +62,20 @@ const ShippingInformation = ({
   const handleSelectChange = React.useCallback(
     (event: SelectChangeEvent, name: string) => {
       const selectedValue = event.target.value as string;
+
       setFormValues((prev) => ({
         ...prev,
         [name]: selectedValue, // 필드 이름에 따라 상태 업데이트
       }));
+      console.log('name', name);
+
+      // Export model number for inspection report
+      if (name === 'model_id') {
+        const model = models?.find((m) => m.id === selectedValue);
+        console.log('model', model);
+
+        setSelectedModelNumber(model?.model_number || '');
+      }
     },
     [setFormValues]
   );
@@ -193,7 +205,6 @@ const ShippingInformation = ({
           type="date"
           size="small"
           value={formValues.inspection_date}
-          // onChange={handleDateChange}
         />
       </FormGrid>
     </Grid>
