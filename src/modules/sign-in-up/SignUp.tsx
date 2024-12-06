@@ -218,7 +218,7 @@ export default function SignUp() {
             Sign up
           </Button>
         </Box>
-        <Divider>or</Divider>
+        {/* <Divider>or</Divider>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Button
             fullWidth
@@ -236,7 +236,7 @@ export default function SignUp() {
           >
             Sign up with Facebook
           </Button>
-        </Box>
+        </Box> */}
       </Card>
     </SignInContainer>
   );

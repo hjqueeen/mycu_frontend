@@ -186,7 +186,7 @@ export default function SignIn() {
             Forgot your password?
           </Link>
         </Box>
-        <Divider>or</Divider>
+        {/* <Divider>or</Divider>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Button
             fullWidth
@@ -209,7 +209,7 @@ export default function SignIn() {
             Don&apos;t have an account?{' '}
             <Navigate to="/signup">Sign up</Navigate>
           </Typography>
-        </Box>
+        </Box> */}
       </Card>
     </SignInContainer>
   );
