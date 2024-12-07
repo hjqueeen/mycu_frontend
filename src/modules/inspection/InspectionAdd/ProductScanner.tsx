@@ -231,7 +231,7 @@ const ProductScanner = ({
       container
       className="w-full flex flex-row shrink-0"
       sx={{
-        minWidth: '1200px',
+        minWidth: '1200px', // 바코드 카드가 겹치지 않는 지점
       }}
     >
       <Grid
@@ -250,7 +250,7 @@ const ProductScanner = ({
               className="flex flex-col border border-solid rounded-lg"
               sx={{
                 borderColor: 'divider',
-                minWidth: '240px',
+                minWidth: '280px',
               }}
             >
               <BarcodeScanner
@@ -275,13 +275,13 @@ const ProductScanner = ({
           container
           spacing={1}
           size={5}
-          className="flex flex-col justify-end max-w-[400px] "
+          className="flex flex-col justify-end max-w-[400px]"
           onClick={() => setSelectedCard(null)}
         >
           <Box
             component="div"
             ref={barcodePrintRef}
-            className="grow flex flex-col px-5 pt-5 rounded-lg border border-solid"
+            className="grow flex flex-col px-5 pt-5 rounded-lg border border-solid h-[200px]"
             sx={{ borderColor: 'divider' }}
           >
             <Box className="flex flex-row items-center justify-between w-full pb-3">

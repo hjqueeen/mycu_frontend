@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import {
-  Barcode,
-  FormGrid,
-  FormLabelStyled,
-  OutlinedInputStyled,
-} from './InspectionAdd';
+  Box,
+  FormLabel,
+  OutlinedInput,
+  styled,
+  Typography,
+} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { Barcode, FormGrid } from './InspectionAdd';
 import {
   containsKorean,
   koreanDate,
   toDate,
 } from '../../../shared/utils/shared.util';
+
+const FormLabelStyled = styled(FormLabel)(() => ({
+  minWidth: '80px',
+  width: '80px',
+  marginRight: '6px',
+  fontSize: '12px',
+}));
+
+const OutlinedInputStyled = styled(OutlinedInput)(() => ({
+  width: '100%',
+  maxWidth: '300px',
+  fontSize: '12px',
+}));
 
 const BarcodeScanner = ({
   active,
@@ -81,18 +95,18 @@ const BarcodeScanner = ({
     <Grid
       container
       spacing={1}
-      className="flex flex-col min-h-[185px] h-full"
+      className="flex flex-col min-h-[185px] h-full min-w-[280px]"
       sx={{
         cursor: active ? undefined : 'pointer',
         padding: 0,
-        fontSize: '10px',
       }}
+      onClick={onClick}
     >
       {showContent ? (
         <Grid
           container
           spacing={1}
-          className="p-2 h-full flex flex-col rounded-lg"
+          className="p-2 h-full flex flex-col rounded-lg "
           sx={{ backgroundColor: !active ? 'background.paper' : undefined }}
           onClick={onClick}
         >
@@ -126,6 +140,7 @@ const BarcodeScanner = ({
                 name="device_serial"
                 value={serial}
                 disabled={disabled}
+                onClick={onClick}
               />
             </FormGrid>
           )}
@@ -137,11 +152,12 @@ const BarcodeScanner = ({
                 name="device_lot"
                 value={lot}
                 disabled={disabled}
+                onClick={onClick}
               />
             </FormGrid>
           )}
           {(type === 'pads' || type === 'battery') && (
-            <FormGrid lang="ko">
+            <FormGrid>
               <FormLabelStyled>유효기간</FormLabelStyled>
               <OutlinedInputStyled
                 id="expiration_date"

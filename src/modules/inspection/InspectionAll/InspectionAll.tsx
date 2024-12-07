@@ -11,6 +11,8 @@ import {
   DialogTitle,
   styled,
   OutlinedInput,
+  Typography,
+  Box,
 } from '@mui/material';
 import { DataGridPro } from '@mui/x-data-grid-pro';
 import { FormLabelStyled } from '../InspectionAdd/InspectionAdd';
@@ -20,6 +22,7 @@ import {
   columns,
   shippingDetailscolumns,
   productscolumns,
+  countryColumns,
 } from './DataGridColumns';
 
 const GridStyled = styled(Grid)(() => ({
@@ -38,15 +41,8 @@ const InspectionAll: React.FC = () => {
     useHttp();
 
   const [viewType, setViewType] = React.useState<InspectionViewType>(
-    InspectionViewType.Inspections
+    InspectionViewType.Country
   );
-  const [rows, setRows] = React.useState<{
-    inspections: any[];
-    products: any[];
-  }>({
-    inspections: [],
-    products: [],
-  });
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [productDetailOpen, setProductDetailOpen] = React.useState(false);
@@ -56,6 +52,7 @@ const InspectionAll: React.FC = () => {
   /********************/
   /*     Mutation     */
   /********************/
+
   const {
     mutate: inspectionsGetMutate,
     data: data,
@@ -123,7 +120,29 @@ const InspectionAll: React.FC = () => {
       spacing={2}
       className="flex flex-col p-5 w-full h-[calc(100vh-60px)]"
     >
-      <Grid container spacing={2} className="flex flex-row">
+      <Grid container spacing={2} className="flex flex-row items-center">
+        <Grid container spacing={1} className="flex flex-row items-center">
+          <Typography variant="h6">검색기간설정: </Typography>
+          <Typography>시작</Typography>
+          <OutlinedInput
+            id="start_date"
+            name="start_date"
+            type="date"
+            value="2024-01-01"
+            disabled
+          />
+          <Typography>끝</Typography>
+          <OutlinedInput
+            id="end_date"
+            name="end_date"
+            type="date"
+            value="2024-01-31"
+            disabled
+          />
+          <Box />
+        </Grid>
+        <Box className="grow" />
+
         <Button
           className="border border-solid"
           sx={{ borderColor: 'divider' }}
@@ -153,12 +172,20 @@ const InspectionAll: React.FC = () => {
         editMode="row"
         rows={
           data
-            ? viewType === 'inspections'
+            ? viewType === InspectionViewType.Country
+              ? data.country
+              : viewType === InspectionViewType.Inspections
               ? data.inspections
               : data.products
             : []
         }
-        columns={viewType === 'inspections' ? columns : productscolumns}
+        columns={
+          viewType === InspectionViewType.Country
+            ? countryColumns
+            : viewType === InspectionViewType.Inspections
+            ? columns
+            : productscolumns
+        }
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
         }
@@ -169,32 +196,6 @@ const InspectionAll: React.FC = () => {
         density="compact"
         loading={isLoading}
         onRowClick={handleRowClick} // 행 클릭 이벤트 핸들러
-        // slotProps={{
-        //   filterPanel: {
-        //     filterFormProps: {
-        //       logicOperatorInputProps: {
-        //         variant: 'outlined',
-        //         size: 'small',
-        //       },
-        //       columnInputProps: {
-        //         variant: 'outlined',
-        //         size: 'small',
-        //         sx: { mt: 'auto' },
-        //       },
-        //       operatorInputProps: {
-        //         variant: 'outlined',
-        //         size: 'small',
-        //         sx: { mt: 'auto' },
-        //       },
-        //       valueInputProps: {
-        //         InputComponentProps: {
-        //           variant: 'outlined',
-        //           size: 'small',
-        //         },
-        //       },
-        //     },
-        //   },
-        // }}
         slots={{ toolbar: GridToolbar }}
         slotProps={{
           toolbar: {

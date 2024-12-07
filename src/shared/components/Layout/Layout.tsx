@@ -97,7 +97,7 @@ export const Layout = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        minWidth: '1200px',
+        minWidth: '1600px', // 스크롤바 생기는 시점
         overflowY: 'hidden',
         overflowX: 'auto',
       }}

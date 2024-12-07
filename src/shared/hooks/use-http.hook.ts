@@ -25,6 +25,7 @@ export const useHttp = () => {
   };
 
   const inspectionsGet = async (): Promise<{
+    country: any[];
     inspections: any[];
     products: any[];
   }> => {
