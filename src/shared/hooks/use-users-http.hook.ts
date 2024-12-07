@@ -40,9 +40,6 @@ export const useUsersHttp = () => {
     | {
         account: Account;
         headerMenu: HeaderMenu;
-        // profile: Profile;
-        // communities?: Community[];
-        // theme?: Theme;
       }
     | undefined
   > => {

@@ -8,7 +8,7 @@ export const InspectionRouter = () => {
     <Routes>
       <Route
         path="/"
-        element={<Inspection type={InspectionContentType.Default} />}
+        element={<Inspection type={InspectionContentType.All} />}
       />
       <Route
         path="/add"

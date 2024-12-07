@@ -1,14 +1,5 @@
-import { Box, Button, Divider, FormLabel, OutlinedInput } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import React, { useEffect, useState } from 'react';
-import { styled } from '@mui/system';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronDown,
-  faChevronRight,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import BarcodeScanner from './BarcodeScanner';
+import React, { useEffect } from 'react';
 import Typography from '@mui/material/Typography/Typography';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,7 +12,7 @@ import {
   OutlinedInputStyled,
   ShippingInfo,
 } from './InspectionAdd';
-import useShared from '../../../shared/hooks/use-shared.hook';
+import { fullNameGet } from '../../../shared/utils/shared.util';
 
 const ShippingInformation = ({
   formValues,
@@ -33,7 +24,6 @@ const ShippingInformation = ({
   setSelectedModelNumber: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const { categoriesGet, companiesGet } = useHttp();
-  const { fullNameGet } = useShared();
 
   const { mutate: categoriesGetMutation, data: models } = useMutation(() =>
     categoriesGet()

@@ -1,23 +1,12 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Dialog,
-  FormLabel,
-  OutlinedInput,
-  Typography,
-} from '@mui/material';
+import { Button, FormLabel, OutlinedInput } from '@mui/material';
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import Grid from '@mui/material/Grid2';
-
 import ShippingInformation from './ShippingInformation';
 import ProductScanner from './ProductScanner';
 import { useHttp } from '../../../shared/hooks/use-http.hook';
 import { useMutation } from 'react-query';
-import { useAuthStore } from '../../../shared/store/use-auth.store';
 import { useUserStore } from '../../../shared/store/use-user.store';
-import useShared from '../../../shared/hooks/use-shared.hook';
 import { Account } from '../../../shared/models/all.types';
 import InspectionAddData from './InspectionAddData';
 
@@ -61,7 +50,6 @@ export interface ShippingInfo {
 export const InspectionAdd: React.FC = () => {
   const { addProductsPost, companiesGet } = useHttp();
   const { account } = useUserStore();
-  const { fullNameGet } = useShared();
 
   const [rows, setRows] = useState<any[]>([]);
   const [selectedModelNumber, setSelectedModelNumber] = useState('');

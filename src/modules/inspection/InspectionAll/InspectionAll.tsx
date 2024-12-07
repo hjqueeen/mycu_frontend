@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid2';
-import { GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { GridToolbar } from '@mui/x-data-grid';
 import { useMutation } from 'react-query';
 import { useFetch } from '../../../shared/hooks/use-fetch.hook';
 import { useHttp } from '../../../shared/hooks/use-http.hook';
 import {
-  Box,
   Button,
   Dialog,
   DialogContent,
@@ -13,13 +12,15 @@ import {
   styled,
   OutlinedInput,
 } from '@mui/material';
-import useShared from '../../../shared/hooks/use-shared.hook';
 import { DataGridPro } from '@mui/x-data-grid-pro';
+import { FormLabelStyled } from '../InspectionAdd/InspectionAdd';
+import { InspectionViewType } from '../../../shared/models/all.types';
 import {
-  FormGrid,
-  FormLabelStyled,
-  ShippingInfo,
-} from '../InspectionAdd/InspectionAdd';
+  inspectionDetailscolumns,
+  columns,
+  shippingDetailscolumns,
+  productscolumns,
+} from './DataGridColumns';
 
 const GridStyled = styled(Grid)(() => ({
   display: 'flex',
@@ -32,13 +33,12 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
 }));
 
 const InspectionAll: React.FC = () => {
-  const { koreanDate } = useShared();
   const { handleRetry } = useFetch();
   const { inspectionsGet, inspectionsDetailsGet, productDetailsGet } =
     useHttp();
 
-  const [viewType, setViewType] = React.useState<'inspections' | 'products'>(
-    'inspections'
+  const [viewType, setViewType] = React.useState<InspectionViewType>(
+    InspectionViewType.Inspections
   );
   const [rows, setRows] = React.useState<{
     inspections: any[];
@@ -48,23 +48,21 @@ const InspectionAll: React.FC = () => {
     products: [],
   });
 
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [productDetailOpen, setProductDetailOpen] = React.useState(false);
+  const [selectedDocument, setSelectedDocument] = React.useState('');
+  const [productDetailTitle, setProductDetailTitle] = useState('');
+
+  /********************/
+  /*     Mutation     */
+  /********************/
   const {
-    mutate: inspectionsGetMutation,
+    mutate: inspectionsGetMutate,
     data: data,
     isLoading,
   } = useMutation(() => inspectionsGet(), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
-    // onSuccess(data, variables, context) {
-    //   if (data) {
-    //     setRows(data);
-    //   }
-    // },
   });
-
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [productDetailOpen, setProductDetailOpen] = React.useState(false);
-  const [selectedRowId, setSelectedRowId] = React.useState('');
-  const [selectedDocument, setSelectedDocument] = React.useState('');
 
   const {
     mutate: inspectionsDetailsGetMutate,
@@ -90,237 +88,31 @@ const InspectionAll: React.FC = () => {
     },
   });
 
+  /********************/
+  /*      EFFECT      */
+  /********************/
+
   React.useEffect(() => {
-    inspectionsGetMutation();
+    inspectionsGetMutate();
   }, []);
 
-  const columns: GridColDef[] = React.useMemo(
-    () => [
-      {
-        field: 'business_registration_number',
-        headerName: '사업자등록번호',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'document_number',
-        headerName: '문서번호',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'model_number',
-        headerName: '제품명',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'company_name',
-        headerName: '출고지',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'shipping_date',
-        headerName: '출고일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-      {
-        field: 'transaction_quantity',
-        headerName: '거래수량',
-        type: 'string',
-        flex: 5,
-        resizable: true,
-      },
-    ],
-    []
-  );
-  const productscolumns: GridColDef[] = React.useMemo(
-    () => [
-      {
-        field: 'business_id',
-        headerName: '사업자등록번호',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'document',
-        headerName: '문서번호',
-        type: 'string',
-        flex: 1.5,
-        resizable: true,
-      },
-      {
-        field: 'model_id',
-        headerName: '제품명',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'device_udi',
-        headerName: 'UDI 바코드',
-        type: 'string',
-        flex: 2.5,
-        resizable: true,
-      },
-      {
-        field: 'device_lot',
-        headerName: 'LOT 번호',
-        type: 'string',
-        flex: 0.8,
-        resizable: true,
-      },
-      {
-        field: 'device_serial',
-        headerName: 'SERIAL 번호',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'manufacture_date',
-        headerName: '제조일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-      {
-        field: 'company_id',
-        headerName: '출고지',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'shipping_date',
-        headerName: '출고일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-    ],
-    []
-  );
-  const inspectionDetailscolumns: GridColDef[] = React.useMemo(
-    () => [
-      {
-        field: 'model_id',
-        headerName: '제품명',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'device_udi',
-        headerName: 'UDI 바코드',
-        type: 'string',
-        flex: 2.5,
-        resizable: true,
-      },
-      {
-        field: 'device_lot',
-        headerName: 'LOT 번호',
-        type: 'string',
-        flex: 0.8,
-        resizable: true,
-      },
-      {
-        field: 'device_serial',
-        headerName: 'SERIAL 번호',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'manufacture_date',
-        headerName: '제조일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-      {
-        field: 'company_id',
-        headerName: '출고지',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'shipping_date',
-        headerName: '출고일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-    ],
-    []
-  );
-
-  const shippingDetailscolumns: GridColDef[] = React.useMemo(
-    () => [
-      {
-        field: 'shipping_area',
-        headerName: '출고지역',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-      {
-        field: 'company',
-        headerName: '출고지',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) => params.value.company_name,
-      },
-      {
-        field: 'shipping_date',
-        headerName: '출고일자',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-        renderCell: (params) =>
-          params.value ? koreanDate(new Date(params.value)) : '',
-      },
-      {
-        field: 'remarks',
-        headerName: '비고',
-        type: 'string',
-        flex: 1,
-        resizable: true,
-      },
-    ],
-    []
-  );
+  /********************/
+  /*     CALLBACK     */
+  /********************/
 
   // DataGrid 행 클릭 이벤트 핸들러
   const handleRowClick = (params: any) => {
     const rowId = params.id; // 선택된 행의 ID
-    setSelectedRowId(rowId);
-    if (viewType === 'inspections') {
+    if (viewType === 'inspections' && !dialogOpen) {
       setSelectedDocument(params.row.document_number);
       inspectionsDetailsGetMutate(rowId); // 백엔드 요청 실행
     }
+    if (viewType === 'inspections' && dialogOpen) {
+      setProductDetailTitle(params.row.model_id);
+      productDetailsGetMutate(rowId); // 백엔드 요청 실행
+    }
     if (viewType === 'products') {
-      setSelectedDocument(params.row.model_id);
+      setProductDetailTitle(params.row.model_id);
       productDetailsGetMutate(rowId);
     }
   };
@@ -336,17 +128,25 @@ const InspectionAll: React.FC = () => {
           className="border border-solid"
           sx={{ borderColor: 'divider' }}
           variant="contained"
-          onClick={() => setViewType('inspections')}
+          onClick={() => setViewType(InspectionViewType.Country)}
         >
-          모아보기
+          국가별보기
         </Button>
         <Button
           className="border border-solid"
           sx={{ borderColor: 'divider' }}
           variant="contained"
-          onClick={() => setViewType('products')}
+          onClick={() => setViewType(InspectionViewType.Inspections)}
         >
-          펼쳐보기
+          출고별보기
+        </Button>
+        <Button
+          className="border border-solid"
+          sx={{ borderColor: 'divider' }}
+          variant="contained"
+          onClick={() => setViewType(InspectionViewType.Products)}
+        >
+          모두보기
         </Button>
       </Grid>
       <DataGridPro
@@ -415,7 +215,7 @@ const InspectionAll: React.FC = () => {
         fullWidth
       >
         <DialogTitle>
-          출하내역 상세보기 (문서번호: ${selectedDocument})
+          출하내역 상세보기 (문서번호: {selectedDocument})
         </DialogTitle>
         <DialogContent>
           {/* 두 번째 DataGrid */}
@@ -432,6 +232,7 @@ const InspectionAll: React.FC = () => {
             initialState={{
               pagination: { paginationModel: { pageSize: 10 } },
             }}
+            onRowClick={handleRowClick}
             pageSizeOptions={[10, 20, 50, 100]}
             loading={
               viewType === 'inspections'
@@ -450,7 +251,7 @@ const InspectionAll: React.FC = () => {
         fullWidth
       >
         <DialogTitle className="mb-4">
-          상세보기 (제품: {selectedDocument})
+          상세보기 (제품: {productDetailTitle})
         </DialogTitle>
         <DialogContent sx={{ bgColor: 'background.paper' }}>
           <Grid container spacing={1} className="w-full flex">

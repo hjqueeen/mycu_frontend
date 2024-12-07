@@ -86,29 +86,6 @@ export enum Theme {
   Light = 'Light',
 }
 
-export interface Address {
-  country?: string;
-  house_number?: string;
-  place?: string;
-  street?: string;
-  zip_code?: string;
-}
-
-export interface Alert {
-  subtitle?: string | TFunctionResult | ReactNode;
-  title: string | TFunctionResult;
-}
-
-export interface Attachment {
-  id: string;
-  url: string;
-}
-
-export interface AttachmentFile extends Attachment {
-  name: string;
-  type: string;
-}
-
 export interface Avatar {
   id: string;
   date: string;
@@ -121,18 +98,6 @@ export interface BreadcrumbPath {
   location?: string;
 }
 
-export interface CreateChangeInfo {
-  changed_at: string;
-  created_at: string;
-  created_by: Partial<UserEntity>;
-  changed_by?: Partial<UserEntity>;
-}
-export interface FilePreview {
-  icon?: [IconPrefix, IconName];
-  image?: string;
-  name: string;
-}
-
 export interface JwtPayload {
   id: string;
   email: string;
@@ -141,122 +106,10 @@ export interface JwtPayload {
   role: string;
 }
 
-export interface MenuItem {
-  action: any;
-  disabled?: boolean;
-  title: string | TFunctionResult;
-  tooltip?: string | TFunctionResult;
-  tooltip_placement?:
-    | 'bottom-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'left-end'
-    | 'left-start'
-    | 'left'
-    | 'right-end'
-    | 'right-start'
-    | 'right'
-    | 'top-end'
-    | 'top-start'
-    | 'top';
-  icon?: [IconPrefix, IconName];
-}
-
-export interface PopoverItem {
-  id: string;
-  image?: Attachment;
-  name: string;
-}
-
-export interface Notification extends Alert {
-  state?: ResultState;
-  timeout?: number;
-}
-
-export interface Notifications {
-  send_email: boolean;
-  send_sms: boolean;
-}
-
 export interface PasswordChange {
   passwordNew: string;
   passwordNewConfirm: string;
   [key: string]: string;
-}
-
-export interface Option {
-  color?: string;
-  placeholder: string;
-  value: OptionValueType;
-  listHeader?: boolean;
-  name?: string;
-}
-
-export interface OptionVote {
-  type: OptionVoteType;
-  values: number;
-}
-
-export enum OptionVoteType {
-  Star = 'STAR',
-  Grade = 'GRADE',
-  Count = 'COUNT',
-}
-
-export interface SocketEventSubscriptionResponse {
-  data?: { [key: string]: any };
-  error?: any;
-  status: ResultState;
-}
-
-export interface RemoveRoomUsersSocketResponse {
-  data?: { room_id: string; user_name: string };
-  error?: any;
-  status: ResultState;
-}
-
-export interface TanData {
-  tan: boolean;
-}
-
-export interface SecurityWordData {
-  word: string;
-}
-
-export type OptionValueType = number | string | undefined | [];
-
-export interface NicknameChange {
-  nickname: string;
-}
-
-export interface NicknameChangeRequest {
-  id: string;
-  data: NicknameChange;
-}
-
-export interface MetaTags {
-  title: string;
-  description: string;
-  keywords: string;
-  imgsrc: string;
-  url: string;
-}
-
-export interface SelectGroup {
-  title: string | TFunctionResult;
-  options: Option[];
-}
-
-export interface UserCard {
-  name: string;
-  avatar: string;
-}
-
-export interface CustomCardProps {
-  title: string;
-  description: string;
-  user: UserCard;
-  autoid: string;
 }
 
 export const thinScroll = {

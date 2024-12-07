@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Alert } from '@mui/lab';
-import { Box, Dialog, Snackbar, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import useShared from '../../../shared/hooks/use-shared.hook';
 import {
   Barcode,
   FormGrid,
   FormLabelStyled,
   OutlinedInputStyled,
 } from './InspectionAdd';
+import {
+  containsKorean,
+  koreanDate,
+  toDate,
+} from '../../../shared/utils/shared.util';
 
 const BarcodeScanner = ({
   active,
@@ -39,8 +42,6 @@ const BarcodeScanner = ({
   >;
   setBatteryExpirationDate: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { toDate, koreanDate, containsKorean } = useShared();
-
   const [showContent, setShowContent] = useState(false);
   const [serial, setSerial] = useState('');
   const [lot, setLot] = useState('');
@@ -140,11 +141,12 @@ const BarcodeScanner = ({
             </FormGrid>
           )}
           {(type === 'pads' || type === 'battery') && (
-            <FormGrid>
+            <FormGrid lang="ko">
               <FormLabelStyled>유효기간</FormLabelStyled>
               <OutlinedInputStyled
                 id="expiration_date"
                 name="expiration_date"
+                type={type === 'battery' ? 'month' : 'date'}
                 value={koreanDate(expirationDate)}
                 onClick={onClick}
                 onChange={(event) => {

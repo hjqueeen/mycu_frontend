@@ -1,13 +1,7 @@
 import { create } from 'zustand';
 
 // Models
-import {
-  Alert,
-  AlertAction,
-  BreadcrumbPath,
-  Notification,
-  Theme,
-} from '../models/shared.types';
+import { AlertAction, BreadcrumbPath, Theme } from '../models/shared.types';
 
 // Models
 
@@ -17,7 +11,6 @@ export interface SharedState {
   newsCenter: boolean;
   workbench: boolean;
   userRouter: boolean;
-  alert: Alert | undefined;
   alertAction: AlertAction | undefined;
   network: boolean;
   dialogContacts: boolean;
@@ -31,7 +24,6 @@ export interface SharedState {
   setNewsCenter: (newscenter: boolean) => void;
   setWorkbench: (workbench: boolean) => void;
   setUserRouter: (userRouter: boolean) => void;
-  setAlert: (alert: Alert | undefined) => void;
   setAlertAction: (alertAction: AlertAction | undefined) => void;
   setDialogContacts: (dialogContacts: boolean) => void;
   setNetwork: (network: boolean) => void;
@@ -58,7 +50,6 @@ export const useSharedStore = create<SharedState>((set) => ({
   newsCenter: false,
   workbench: false,
   userRouter: false,
-  alert: undefined,
   alertAction: undefined,
   network: false,
   dialogContacts: false,
@@ -73,7 +64,6 @@ export const useSharedStore = create<SharedState>((set) => ({
   setNewsCenter: (newsCenter: boolean) => set({ newsCenter }),
   setWorkbench: (workbench: boolean) => set({ workbench }),
   setUserRouter: (userRouter: boolean) => set({ userRouter }),
-  setAlert: (alert: Alert | undefined) => set({ alert }),
   setAlertAction: (alertAction: AlertAction | undefined) => {
     set({ alertAction });
     setTimeout(() => {

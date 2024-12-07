@@ -1,13 +1,4 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Typography,
-} from '@mui/material';
+import { Alert, Box, Button, Dialog, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import React from 'react';
 import {
@@ -17,11 +8,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import BarcodeScanner from './BarcodeScanner';
 
-import useShared from '../../../shared/hooks/use-shared.hook';
 import JsBarcode from 'jsbarcode';
 import { useReactToPrint } from 'react-to-print';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InspectionReport from './InspectionReport';
+import { containsKorean, toDate } from '../../../shared/utils/shared.util';
 
 const cards: any[] = [
   {
@@ -47,8 +38,6 @@ const ProductScanner = ({
   rows: any[];
   setRows: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
-  const { toDate, containsKorean } = useShared();
-
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [batteryExpirationDate, setBatteryExpirationDate] = React.useState('');
   const [selectedCard, setSelectedCard] = React.useState<string | null>(null);

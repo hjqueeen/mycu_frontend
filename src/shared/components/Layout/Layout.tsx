@@ -1,19 +1,16 @@
 import { ReactNode } from 'react';
 import { alpha, Box, Stack, Typography } from '@mui/material';
-
-import { Header } from '../Header/Header';
+import Header from '../Header/Header';
 import ContentHeader from './ContentHeader';
 import { InspectionContentType } from '../../models/all.types';
-
 import { styled } from '@mui/material/styles';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
 import { useUserStore } from '../../store/use-user.store';
-import { useAuthStore } from '../../store/use-auth.store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import useShared from '../../hooks/use-shared.hook';
 import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
+import { fullNameGet } from '../../utils/shared.util';
 
 const drawerWidth = 240;
 
@@ -57,8 +54,6 @@ export const Layout = ({
 }: LayoutProps) => {
   // User store state
   const { account, headerMenu } = useUserStore();
-  const { accessToken } = useAuthStore();
-  const { fullNameGet } = useShared();
   // User store state
 
   let defaultExpandedItems;

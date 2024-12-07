@@ -12,8 +12,6 @@ class FetchError extends Error {
 }
 
 export const useFetch = () => {
-  // const { t } = useTranslation();
-
   // Auth store state
   const { accessToken } = useAuthStore();
 

@@ -1,21 +1,13 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
-import ForgotPassword from './ForgotPassword';
 import ColorModeSelect from '../../shared/theme/ColorModeSelect';
 import { useAuth } from '../../shared/hooks/use-auth.hook';
 import { useFetch } from '../../shared/hooks/use-fetch.hook';
-import { FacebookIcon, GoogleIcon } from './CustomIcons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { SignUpData } from '../../shared/models/auth.types';
 import { useAuthStore } from '../../shared/store/use-auth.store';
@@ -36,7 +28,6 @@ export default function SignUp() {
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [open, setOpen] = useState(false);
 
   // Auth store state
   const { setAccessToken } = useAuthStore();

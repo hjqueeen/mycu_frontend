@@ -7,6 +7,11 @@ export enum InspectionContentType {
   Edit = 'EDIT',
   Template = 'TEMPLATE',
 }
+export enum InspectionViewType {
+  Country = 'country',
+  Inspections = 'inspections',
+  Products = 'products',
+}
 
 export interface Account {
   id: string;
