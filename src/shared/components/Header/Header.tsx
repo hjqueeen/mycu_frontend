@@ -50,9 +50,9 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
               icon={faHouse}
             />
           )}
-          {headerMenu?.alarm && (
+          {headerMenu?.notification && (
             <HeaderIcon
-              path="/alarm"
+              path="/notification"
               activ={pageType === PageType.Alarm}
               icon={faBell}
             />
@@ -113,7 +113,7 @@ const HeaderIcon = React.memo(
     return (
       <Link to={path}>
         <Box
-          className="mr-4 py-5 px-4"
+          className="py-5 px-4"
           sx={{
             color: 'text.primary',
             fontWeight: activ ? 600 : undefined,

@@ -81,7 +81,7 @@ export interface HeaderMenu {
   inventory: boolean;
   shipping: boolean;
   user_management: boolean;
-  alarm: boolean;
+  notification: boolean;
 }
 
 export enum State {

@@ -19,7 +19,7 @@ import { FormLabelStyled } from '../InspectionAdd/InspectionAdd';
 import { InspectionViewType } from '../../../shared/models/all.types';
 import {
   inspectionDetailscolumns,
-  columns,
+  inpectionColumns,
   shippingDetailscolumns,
   productscolumns,
   countryColumns,
@@ -41,7 +41,7 @@ const InspectionAll: React.FC = () => {
     useHttp();
 
   const [viewType, setViewType] = React.useState<InspectionViewType>(
-    InspectionViewType.Country
+    InspectionViewType.Inspections
   );
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -171,19 +171,21 @@ const InspectionAll: React.FC = () => {
       <DataGridPro
         editMode="row"
         rows={
-          data
-            ? viewType === InspectionViewType.Country
-              ? data.country
-              : viewType === InspectionViewType.Inspections
-              ? data.inspections
-              : data.products
-            : []
+          data || []
+
+          //   ? viewType === InspectionViewType.Country
+          //     ? data.country
+          //     : viewType === InspectionViewType.Inspections
+          //     ? data.inspections
+          //     : data.products
+          //   :
+          // []
         }
         columns={
           viewType === InspectionViewType.Country
             ? countryColumns
             : viewType === InspectionViewType.Inspections
-            ? columns
+            ? inpectionColumns
             : productscolumns
         }
         getRowClassName={(params) =>
@@ -227,7 +229,9 @@ const InspectionAll: React.FC = () => {
                 : []
             } // 받아온 데이터를 사용
             columns={
-              viewType === 'inspections' ? inspectionDetailscolumns : columns
+              viewType === 'inspections'
+                ? inspectionDetailscolumns
+                : inpectionColumns
             }
             density="compact"
             initialState={{

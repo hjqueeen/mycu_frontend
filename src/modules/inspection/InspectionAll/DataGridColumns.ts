@@ -1,14 +1,14 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { koreanDate } from '../../../shared/utils/shared.util';
 
-export const columns: GridColDef[] = [
-  {
-    field: 'business_registration_number',
-    headerName: '사업자등록번호',
-    type: 'string',
-    flex: 1,
-    resizable: true,
-  },
+export const inpectionColumns: GridColDef[] = [
+  // {
+  //   field: 'business_registration_number',
+  //   headerName: '사업자등록번호',
+  //   type: 'string',
+  //   flex: 1,
+  //   resizable: true,
+  // },
   {
     field: 'document_number',
     headerName: '문서번호',
@@ -24,6 +24,13 @@ export const columns: GridColDef[] = [
     resizable: true,
   },
   {
+    field: 'area_type',
+    headerName: '출고지역',
+    type: 'string',
+    flex: 1,
+    resizable: true,
+  },
+  {
     field: 'country',
     headerName: '출고국가',
     type: 'string',
@@ -32,7 +39,7 @@ export const columns: GridColDef[] = [
   },
   {
     field: 'company_name',
-    headerName: '출고지',
+    headerName: '출고업체',
     type: 'string',
     flex: 1,
     resizable: true,
@@ -83,8 +90,8 @@ export const countryColumns: GridColDef[] = [
     type: 'number',
     flex: 1,
     resizable: true,
-    renderCell: (params: GridRenderCellParams) =>
-      params.value ? params.value.length : null,
+    // renderCell: (params: GridRenderCellParams) =>
+    //   params.value ? params.value?.length : null,
   },
   {
     field: 'shipping_date',

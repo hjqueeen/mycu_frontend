@@ -78,7 +78,7 @@ export default function OptionsMenu({ name }: { name: string }) {
           borderColor: 'primary.light',
           bgColor: 'primary.main',
         }}
-        className="rounded-full border border-solid"
+        className="ml-2 rounded-full border border-solid"
       >
         <Typography
           variant="body2"

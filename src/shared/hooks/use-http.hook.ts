@@ -24,11 +24,7 @@ export const useHttp = () => {
     }
   };
 
-  const inspectionsGet = async (): Promise<{
-    country: any[];
-    inspections: any[];
-    products: any[];
-  }> => {
+  const inspectionsGet = async (): Promise<any[]> => {
     return await fetchData(`product/inspections`);
   };
 
