@@ -24,6 +24,7 @@ export const useUserStore = create<UserState>((set) => ({
     inventory: true,
     shipping: true,
     user_management: true,
+    alarm: true,
   },
   setAccount: (accountData: Account | any | undefined) =>
     set({ account: accountData }),

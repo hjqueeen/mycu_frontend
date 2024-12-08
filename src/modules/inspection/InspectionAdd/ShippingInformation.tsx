@@ -87,8 +87,8 @@ const ShippingInformation = ({
 
   return (
     <Grid spacing={1} container className="w-full">
-      <FormGrid size={{ xs: 4 }}>
-        <FormLabelStyled>사업자등록번호</FormLabelStyled>
+      {/*  <FormGrid size={{ xs: 4 }}>
+     <FormLabelStyled>사업자등록번호</FormLabelStyled>
         <OutlinedInputStyled
           disabled
           id="business_id"
@@ -97,7 +97,7 @@ const ShippingInformation = ({
           size="small"
           value={formValues.business_id}
         />
-      </FormGrid>
+      </FormGrid> */}
       <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>문서번호</FormLabelStyled>
         <OutlinedInputStyled
@@ -110,6 +110,17 @@ const ShippingInformation = ({
         />
       </FormGrid>
       <FormGrid size={{ xs: 4 }}>
+        <FormLabelStyled>검사일자</FormLabelStyled>
+        <OutlinedInputStyled
+          disabled
+          id="inspection_date"
+          name="inspection_date"
+          type="date"
+          size="small"
+          value={formValues.inspection_date}
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>검사자</FormLabelStyled>
         <OutlinedInputStyled
           disabled
@@ -118,6 +129,18 @@ const ShippingInformation = ({
           type="text"
           size="small"
           value={fullNameGet(formValues.inspector)}
+          // onChange={handleChange}
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 4 }}>
+        <FormLabelStyled>모델구분</FormLabelStyled>
+        <OutlinedInputStyled
+          disabled
+          id="model_type"
+          name="model_type"
+          type="text"
+          size="small"
+          value={formValues.model_type}
           // onChange={handleChange}
         />
       </FormGrid>
@@ -153,7 +176,7 @@ const ShippingInformation = ({
           onChange={handleChange}
         />
       </FormGrid>
-      <FormGrid size={{ xs: 4 }}>
+      {/* <FormGrid size={{ xs: 4 }}>
         <FormLabelStyled>제조일자</FormLabelStyled>
         <OutlinedInputStyled
           id="manufacture_date"
@@ -163,10 +186,20 @@ const ShippingInformation = ({
           value={formValues.manufacture_date}
           onChange={handleChange}
         />
-      </FormGrid>
-
+      </FormGrid> */}
       <FormGrid size={{ xs: 4 }}>
-        <FormLabelStyled>출고지</FormLabelStyled>
+        <FormLabelStyled>출고지역</FormLabelStyled>
+        <OutlinedInputStyled
+          id="area"
+          name="area"
+          type="number"
+          size="small"
+          value={formValues.company_area}
+          onChange={handleChange}
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 4 }}>
+        <FormLabelStyled>출고나라</FormLabelStyled>
         <Select
           id="company_id"
           name="company_id"
@@ -187,14 +220,14 @@ const ShippingInformation = ({
         </Select>
       </FormGrid>
       <FormGrid size={{ xs: 4 }}>
-        <FormLabelStyled>검사일자</FormLabelStyled>
+        <FormLabelStyled>업체명</FormLabelStyled>
         <OutlinedInputStyled
-          disabled
-          id="inspection_date"
-          name="inspection_date"
-          type="date"
+          id="company_name"
+          name="company_name"
+          type="number"
           size="small"
-          value={formValues.inspection_date}
+          value={formValues.company_name}
+          onChange={handleChange}
         />
       </FormGrid>
     </Grid>

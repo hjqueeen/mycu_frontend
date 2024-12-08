@@ -40,7 +40,10 @@ export interface ShippingInfo {
   document: string;
   inspector: Account;
   model_id: string;
+  model_type: string;
+  company_area: string;
   company_id: string;
+  company_name: string;
   business_id: string;
   quantity: number;
   manufacture_date: string;
@@ -59,7 +62,10 @@ export const InspectionAdd: React.FC = () => {
       document: '',
       inspector: account,
       model_id: '',
+      model_type: '',
+      company_area: '',
       company_id: '',
+      company_name: '',
       business_id: businessIds,
       quantity: 0,
       manufacture_date: '',
@@ -83,7 +89,10 @@ export const InspectionAdd: React.FC = () => {
         document: '',
         inspector: account,
         model_id: '',
+        model_type: '',
+        company_area: '',
         company_id: '',
+        company_name: '',
         business_id: businessIds,
         quantity: 0,
         manufacture_date: '',

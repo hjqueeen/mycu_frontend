@@ -81,6 +81,7 @@ export interface HeaderMenu {
   inventory: boolean;
   shipping: boolean;
   user_management: boolean;
+  alarm: boolean;
 }
 
 export enum State {
@@ -100,13 +101,13 @@ export interface ICategory {
 
 export interface ICompany {
   id: string;
-  shipping_area?: ShippingArea; // 출고지
+  shipping_area?: AreaType; // 출고지
   company_name: string; // 업체명
   final_shipping_location?: string; // 최종출고지
   shipping_address?: string; // 최종출고지
 }
 
-export enum ShippingArea {
+export enum AreaType {
   Domestic = '국내',
   International = '해외',
 }
@@ -136,10 +137,13 @@ export interface GetProductResponse {
   id: string;
   document: string;
   inspector: Account;
-  model_id: string;
-  company_id: string;
-  business_id: string;
-  // quantity: number;
+  model_number: string;
+  area_type: AreaType;
+  continental: string;
+  country: string;
+  company_name: string;
+  shipping_history_length: number;
+
   manufacture_date: Date;
   inspection_date: Date;
   shipping_date: Date;
@@ -155,7 +159,6 @@ export interface GetProductResponse {
   pads_lot: string;
   pads_expiration_date: Date;
 }
-
 export interface Shipping {
   id: string;
   product: GetProductResponse;

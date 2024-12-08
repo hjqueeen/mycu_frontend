@@ -18,6 +18,7 @@ export enum PageType {
   Checkout = 'CHECKOUT',
   Account = 'ACCOUNT',
   Password = 'PASSWORD',
+  Alarm = 'ALARM',
 }
 
 export type LayoutProps = {

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Box, AppBar, Toolbar, Drawer, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
+import {
+  IconDefinition,
+  IconName,
+  IconPrefix,
+} from '@fortawesome/fontawesome-svg-core';
 import { PageType } from '../Layout/Layout';
 import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
 import { HeaderMenu } from '../../models/all.types';
@@ -10,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { firstAlphabetGet } from '../../utils/shared.util';
 import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
 import { useUserStore } from '../../store/use-user.store';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
 
 export type HeaderProps = {
   pageType: PageType;
@@ -38,43 +42,45 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
             CU Medical
           </Typography>
         </Box>
-
         <Box className="flex flex-row items-center">
           {headerMenu?.dashboard && (
             <HeaderIcon
               path="/dashboard"
               activ={pageType === PageType.Dashboard}
-              icon={['fal', 'objects-column']}
+              icon={faHouse}
             />
           )}
-          {headerMenu?.products && (
+          {headerMenu?.alarm && (
+            <HeaderIcon
+              path="/alarm"
+              activ={pageType === PageType.Alarm}
+              icon={faBell}
+            />
+          )}
+          {/* {headerMenu?.products && (
             <HeaderIcon
               path="/inspection"
               activ={pageType === PageType.Products}
-              icon={['fal', 'chart-network']}
             />
           )}
           {headerMenu?.inventory && (
             <HeaderIcon
               path="/inventory"
               activ={pageType === PageType.Inventory}
-              icon={['fal', 'chart-network']}
             />
           )}
           {headerMenu?.shipping && (
             <HeaderIcon
               path="/shipping"
               activ={pageType === PageType.Shipping}
-              icon={['fal', 'chart-network']}
             />
           )}
           {headerMenu?.user_management && (
             <HeaderIcon
               path="/user_management"
               activ={pageType === PageType.UserManagement}
-              icon={['fal', 'users']}
             />
-          )}
+          )} */}
 
           {/* <CartIcon
             path="/cart"
@@ -102,7 +108,7 @@ const HeaderIcon = React.memo(
   }: {
     activ: boolean;
     path: string;
-    icon: [IconPrefix, IconName];
+    icon: IconDefinition;
   }) => {
     return (
       <Link to={path}>
@@ -117,7 +123,7 @@ const HeaderIcon = React.memo(
             },
           }}
         >
-          {path.slice(1).replace('_', ' ').toUpperCase()}
+          <FontAwesomeIcon className="text-lg" icon={icon} />
         </Box>
       </Link>
     );

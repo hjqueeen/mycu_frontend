@@ -91,12 +91,11 @@ const DashboardNav = ({
         {
           id: '1.1',
           label: '출하내역',
-          // children: [
-          //   { id: '1.1.1', label: 'Category 1' },
-          //   { id: '1.1.2', label: 'Category 2' },
-          //   { id: '1.1.3', label: 'Category 3' },
-          //   { id: '1.1.4', label: 'Category 4' },
-          // ],
+          children: [
+            { id: '1.1.1', label: '국가별보기' },
+            { id: '1.1.2', label: '출고별보기' },
+            { id: '1.1.3', label: '제품별보기' },
+          ],
         },
         { id: '1.2', label: '출하검사' },
         { id: '1.3', label: '출하검사서' },
@@ -145,6 +144,15 @@ const DashboardNav = ({
         navigate('/dashboard');
         break;
       case '1.1':
+        navigate('/inspection/all');
+        break;
+      case '1.1.1':
+        navigate('/inspection/all');
+        break;
+      case '1.1.2':
+        navigate('/inspection/all');
+        break;
+      case '1.1.3':
         navigate('/inspection/all');
         break;
       case '1.2':
