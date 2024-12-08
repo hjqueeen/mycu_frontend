@@ -24,7 +24,6 @@ export type LayoutProps = {
   pageType: PageType;
   contentType?: InspectionContentType;
   appNavbar?: ReactNode;
-  navContent?: ReactNode;
   mainGrid: ReactNode;
 };
 
@@ -32,7 +31,6 @@ export const Layout = ({
   pageType,
   contentType,
   appNavbar, // for Mobile
-  navContent,
   mainGrid,
 }: LayoutProps) => {
   // User store state

@@ -6,6 +6,11 @@ import { PageType } from '../Layout/Layout';
 import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
 import { HeaderMenu } from '../../models/all.types';
 import Cart from '../../../modules/cart/Cart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { firstAlphabetGet } from '../../utils/shared.util';
+import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
+import { useUserStore } from '../../store/use-user.store';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 export type HeaderProps = {
   pageType: PageType;
@@ -14,10 +19,12 @@ export type HeaderProps = {
 
 const Header = ({ pageType, headerMenu }: HeaderProps) => {
   const [drawer, setDrawer] = useState(false);
+  const { account } = useUserStore();
+
   return (
     <AppBar position="fixed" elevation={0}>
       <Toolbar
-        className="flex flex-row justify-between"
+        className="flex flex-row justify-between pl-5 pr-8"
         sx={{
           bgcolor: 'background.default',
           borderBottom: '1px solid',
@@ -25,14 +32,14 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
           boxShadow: 0,
         }}
       >
-        <Box className="flex p-2 ml-2 flex-row items-center">
+        <Box className="flex p-2 flex-row items-center">
           <img src={cuLogo} alt="cu-logo" className="w-8 mr-2" />
           <Typography variant="h5" sx={{ color: 'text.secondary' }}>
             CU Medical
           </Typography>
         </Box>
 
-        <Box className="flex flex-row mr-24">
+        <Box className="flex flex-row items-center">
           {headerMenu?.dashboard && (
             <HeaderIcon
               path="/dashboard"
@@ -68,12 +75,14 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
               icon={['fal', 'users']}
             />
           )}
+
           {/* <CartIcon
             path="/cart"
             activ={pageType === PageType.Cart}
             icon={['fas', 'cart-shopping']}
             onClick={() => setDrawer(true)}
           /> */}
+          <OptionsMenu name={firstAlphabetGet(account)} />
           <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
             <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
               <Cart />

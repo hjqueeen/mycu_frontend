@@ -12,11 +12,11 @@ export const Dashboard = React.memo(() => {
       <Typography component="h2" variant="h6">
         Overview
       </Typography>
-      <Box className="flex grow mt-5 w-full">
+      <Box className="flex grow mt-5">
         <img
           src={dashboard_img}
           alt="dashboard_img"
-          className="h-auto"
+          className="w-11/12 h-auto"
           style={{
             objectFit: 'contain',
             transition: 'opacity 0.3s',

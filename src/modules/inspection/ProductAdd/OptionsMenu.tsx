@@ -13,6 +13,7 @@ import MenuButton from './MenuButton';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../../shared/store/use-auth.store';
 import { useUserStore } from '../../../shared/store/use-user.store';
+import { Typography } from '@mui/material';
 
 // import MenuButton from './MenuButton';
 enum MenuType {
@@ -25,7 +26,7 @@ const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
 });
 
-export default function OptionsMenu() {
+export default function OptionsMenu({ name }: { name: string }) {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -73,9 +74,21 @@ export default function OptionsMenu() {
       <MenuButton
         aria-label="Open menu"
         onClick={handleClick}
-        sx={{ borderColor: 'transparent' }}
+        sx={{
+          borderColor: 'primary.light',
+          bgColor: 'primary.main',
+        }}
+        className="rounded-full border border-solid"
       >
-        <MoreVertRoundedIcon />
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: 500,
+            lineHeight: '16px',
+          }}
+        >
+          {name}
+        </Typography>
       </MenuButton>
       <Menu
         anchorEl={anchorEl}

@@ -42,3 +42,11 @@ export const fullNameGet = (account: Account) => {
     return '';
   }
 };
+
+export const firstAlphabetGet = (account: Account) => {
+  if (account) {
+    return account.first_name.slice(0, 1);
+  } else {
+    return 'U';
+  }
+};

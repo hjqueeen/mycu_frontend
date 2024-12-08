@@ -1,13 +1,7 @@
-import { Box, Stack, Typography } from '@mui/material';
-
+import { Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
-import { useUserStore } from '../../store/use-user.store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
-import { fullNameGet } from '../../utils/shared.util';
 import { InspectionContentType } from '../../models/all.types';
 import { PageType } from './Layout';
 
@@ -30,8 +24,6 @@ type Props = {
 };
 
 const MainSideMenu = ({ contentType, pageType }: Props) => {
-  const { account } = useUserStore();
-
   let defaultExpandedItems;
   let defaultSelectedItems;
   const newLocal = pageType === PageType.Products;
@@ -85,39 +77,6 @@ const MainSideMenu = ({ contentType, pageType }: Props) => {
           defaultExpandedItems={defaultExpandedItems}
           defaultSelectedItems={defaultSelectedItems}
         />
-      </Stack>
-      <Stack
-        direction="row"
-        sx={{
-          p: 2,
-          gap: 1,
-          alignItems: 'center',
-          borderTop: '1px solid',
-          borderColor: 'divider',
-        }}
-      >
-        {/* <Avatar
-              sizes="small"
-              alt="Riley Carter"
-              src={avatar}
-              sx={{ width: 36, height: 36 }}
-            /> */}
-        <FontAwesomeIcon
-          icon={faUser}
-          style={{ width: 30, height: 30, color: '#999999' }}
-        />
-        <Box sx={{ mr: 'auto' }}>
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 500, lineHeight: '16px' }}
-          >
-            {fullNameGet(account)}
-          </Typography>
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            {account?.email}
-          </Typography>
-        </Box>
-        <OptionsMenu />
       </Stack>
     </Drawer>
   );

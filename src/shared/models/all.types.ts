@@ -7,10 +7,19 @@ export enum InspectionContentType {
   Edit = 'EDIT',
   Template = 'TEMPLATE',
 }
+
 export enum InspectionViewType {
   Country = 'country',
   Inspections = 'inspections',
   Products = 'products',
+}
+
+export enum ShippingContentType {
+  // Add = 'ADD',
+  // All = 'ALL',
+  // Default = 'HOME',
+  Edit = 'EDIT',
+  // Template = 'TEMPLATE',
 }
 
 export interface Account {

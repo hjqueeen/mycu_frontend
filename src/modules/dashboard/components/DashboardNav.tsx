@@ -80,6 +80,11 @@ const DashboardNav = ({
 
   const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
     {
+      id: '0',
+      label: '대시보드',
+      children: [],
+    },
+    {
       id: '1',
       label: '출하관리',
       children: [
@@ -95,27 +100,28 @@ const DashboardNav = ({
         },
         { id: '1.2', label: '출하검사' },
         { id: '1.3', label: '출하검사서' },
-        { id: '1.4', label: '수정관리' },
       ],
     },
-    // {
-    //   id: '2',
-    //   label: 'Inventory',
-    //   children: [
-    //     { id: '2.1', label: 'All products' },
-    //     {
-    //       id: '2.2',
-    //       label: 'Categories',
-    //       children: [
-    //         { id: '2.2.1', label: 'Gadgets' },
-    //         { id: '2.2.2', label: 'Phones' },
-    //         { id: '2.2.3', label: 'Wearables' },
-    //       ],
-    //     },
-    //     { id: '2.3', label: 'Bestsellers' },
-    //     { id: '2.4', label: 'Sales' },
-    //   ],
-    // },
+    {
+      id: '2',
+      label: '출고관리',
+      children: [
+        { id: '2.1', label: '제품출고' },
+        { id: '2.2', label: '출고이력수정' },
+
+        // {
+        //   id: '2.2',
+        //   label: 'Categories',
+        //   children: [
+        //     { id: '2.2.1', label: 'Gadgets' },
+        //     { id: '2.2.2', label: 'Phones' },
+        //     { id: '2.2.3', label: 'Wearables' },
+        //   ],
+        // },
+        // { id: '2.3', label: 'Bestsellers' },
+        // { id: '2.4', label: 'Sales' },
+      ],
+    },
     // { id: '3', label: 'Shipping' },
     // { id: '4', label: 'User Management', children: navUserGroups },
     // { id: '5', label: 'Contact' },
@@ -135,6 +141,9 @@ const DashboardNav = ({
 
   const onItemClick = (itemId: string) => {
     switch (itemId) {
+      case '0':
+        navigate('/dashboard');
+        break;
       case '1.1':
         navigate('/inspection/all');
         break;
@@ -144,8 +153,8 @@ const DashboardNav = ({
       case '1.3':
         navigate('/inspection/template');
         break;
-      case '1.4':
-        navigate('/inspection/edit');
+      case '2.2':
+        navigate('/shipping/edit');
         break;
       default:
         break;
@@ -154,9 +163,6 @@ const DashboardNav = ({
 
   return (
     <>
-      <Typography component="h2" variant="subtitle2">
-        메뉴
-      </Typography>
       <RichTreeView
         items={ITEMS}
         aria-label="pages"

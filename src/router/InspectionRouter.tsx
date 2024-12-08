@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Inspection } from '../modules/inspection/Inspection';
 import { InspectionContentType } from '../shared/models/all.types';
