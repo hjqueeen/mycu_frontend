@@ -2,13 +2,6 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { koreanDate } from '../../../shared/utils/shared.util';
 
 export const inpectionColumns: GridColDef[] = [
-  // {
-  //   field: 'business_registration_number',
-  //   headerName: '사업자등록번호',
-  //   type: 'string',
-  //   flex: 1,
-  //   resizable: true,
-  // },
   {
     field: 'document_number',
     headerName: '문서번호',

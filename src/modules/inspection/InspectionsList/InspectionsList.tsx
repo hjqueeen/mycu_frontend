@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid2';
-import { GridToolbar } from '@mui/x-data-grid';
 import { useMutation } from 'react-query';
 import { useFetch } from '../../../shared/hooks/use-fetch.hook';
 import { useHttp } from '../../../shared/hooks/use-http.hook';
@@ -14,7 +13,6 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import { DataGridPro } from '@mui/x-data-grid-pro';
 import { FormLabelStyled } from '../InspectionAdd/InspectionAdd';
 import { InspectionViewType } from '../../../shared/models/all.types';
 import {
@@ -24,6 +22,7 @@ import {
   productscolumns,
   countryColumns,
 } from './DataGridColumns';
+import CustomDataGrid from '../../../shared/components/CustomDataGrid';
 
 const GridStyled = styled(Grid)(() => ({
   display: 'flex',
@@ -35,14 +34,15 @@ export const OutlinedInputStyled = styled(OutlinedInput)(() => ({
   maxWidth: '400px',
 }));
 
-const InspectionAll: React.FC = () => {
+const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
   const { handleRetry } = useFetch();
-  const { inspectionsGet, inspectionsDetailsGet, productDetailsGet } =
-    useHttp();
-
-  const [viewType, setViewType] = React.useState<InspectionViewType>(
-    InspectionViewType.Inspections
-  );
+  const {
+    inspectionsGet,
+    inspectionsCountryGet,
+    inspectionsProductsGet,
+    inspectionsDetailsGet,
+    productDetailsGet,
+  } = useHttp();
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [productDetailOpen, setProductDetailOpen] = React.useState(false);
@@ -55,9 +55,25 @@ const InspectionAll: React.FC = () => {
 
   const {
     mutate: inspectionsGetMutate,
-    data: data,
+    data: inspectionsStandardData,
     isLoading,
   } = useMutation(() => inspectionsGet(), {
+    retry: (failureCount, error: any) => handleRetry(failureCount, error),
+  });
+
+  const {
+    mutate: inspectionsCountryGetMutate,
+    data: inspectionsCountryData,
+    isLoading: inspectionsCountryLoading,
+  } = useMutation(() => inspectionsCountryGet(), {
+    retry: (failureCount, error: any) => handleRetry(failureCount, error),
+  });
+
+  const {
+    mutate: inspectionsProductsGetMutate,
+    data: inspectionsProductDdata,
+    isLoading: inspectionsProductLoading,
+  } = useMutation(() => inspectionsProductsGet(), {
     retry: (failureCount, error: any) => handleRetry(failureCount, error),
   });
 
@@ -90,8 +106,20 @@ const InspectionAll: React.FC = () => {
   /********************/
 
   React.useEffect(() => {
-    inspectionsGetMutate();
-  }, []);
+    switch (pageType) {
+      case InspectionViewType.Country:
+        inspectionsCountryGetMutate();
+        break;
+      case InspectionViewType.Inspections:
+        inspectionsGetMutate();
+        break;
+      case InspectionViewType.Products:
+        inspectionsProductsGetMutate();
+        break;
+      default:
+        break;
+    }
+  }, [pageType]);
 
   /********************/
   /*     CALLBACK     */
@@ -100,15 +128,15 @@ const InspectionAll: React.FC = () => {
   // DataGrid 행 클릭 이벤트 핸들러
   const handleRowClick = (params: any) => {
     const rowId = params.id; // 선택된 행의 ID
-    if (viewType === 'inspections' && !dialogOpen) {
+    if (pageType === InspectionViewType.Inspections && !dialogOpen) {
       setSelectedDocument(params.row.document_number);
       inspectionsDetailsGetMutate(rowId); // 백엔드 요청 실행
     }
-    if (viewType === 'inspections' && dialogOpen) {
+    if (pageType === InspectionViewType.Inspections && dialogOpen) {
       setProductDetailTitle(params.row.model_id);
       productDetailsGetMutate(rowId); // 백엔드 요청 실행
     }
-    if (viewType === 'products') {
+    if (pageType === InspectionViewType.Products) {
       setProductDetailTitle(params.row.model_id);
       productDetailsGetMutate(rowId);
     }
@@ -143,7 +171,7 @@ const InspectionAll: React.FC = () => {
         </Grid>
         <Box className="grow" />
 
-        <Button
+        {/* <Button
           className="border border-solid"
           sx={{ borderColor: 'divider' }}
           variant="contained"
@@ -166,49 +194,27 @@ const InspectionAll: React.FC = () => {
           onClick={() => setViewType(InspectionViewType.Products)}
         >
           모두보기
-        </Button>
+        </Button> */}
       </Grid>
-      <DataGridPro
-        editMode="row"
+      <CustomDataGrid
         rows={
-          data || []
-
-          //   ? viewType === InspectionViewType.Country
-          //     ? data.country
-          //     : viewType === InspectionViewType.Inspections
-          //     ? data.inspections
-          //     : data.products
-          //   :
-          // []
+          pageType === InspectionViewType.Country
+            ? inspectionsCountryData || []
+            : pageType === InspectionViewType.Inspections
+            ? inspectionsStandardData || []
+            : pageType === InspectionViewType.Products
+            ? inspectionsProductDdata || []
+            : []
         }
         columns={
-          viewType === InspectionViewType.Country
+          pageType === InspectionViewType.Country
             ? countryColumns
-            : viewType === InspectionViewType.Inspections
+            : pageType === InspectionViewType.Inspections
             ? inpectionColumns
             : productscolumns
         }
-        getRowClassName={(params) =>
-          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-        }
-        initialState={{
-          pagination: { paginationModel: { pageSize: 50 } },
-        }}
-        pageSizeOptions={[20, 50, 100]}
-        density="compact"
         loading={isLoading}
         onRowClick={handleRowClick} // 행 클릭 이벤트 핸들러
-        slots={{ toolbar: GridToolbar }}
-        slotProps={{
-          toolbar: {
-            showQuickFilter: true,
-          },
-        }}
-        sx={{
-          '& .MuiDataGrid-row:hover': {
-            cursor: 'pointer',
-          },
-        }}
       />
       {/* Dialog */}
       <Dialog
@@ -222,29 +228,25 @@ const InspectionAll: React.FC = () => {
         </DialogTitle>
         <DialogContent>
           {/* 두 번째 DataGrid */}
-          <DataGridPro
+          <CustomDataGrid
             rows={
-              inspectionsData && viewType === 'inspections'
+              inspectionsData && pageType === InspectionViewType.Inspections
                 ? inspectionsData
                 : []
-            } // 받아온 데이터를 사용
+            }
             columns={
-              viewType === 'inspections'
+              pageType === InspectionViewType.Inspections
                 ? inspectionDetailscolumns
                 : inpectionColumns
             }
-            density="compact"
-            initialState={{
-              pagination: { paginationModel: { pageSize: 10 } },
-            }}
+            pageSize={10}
             onRowClick={handleRowClick}
             pageSizeOptions={[10, 20, 50, 100]}
             loading={
-              viewType === 'inspections'
+              pageType === InspectionViewType.Inspections
                 ? inspectionsDetailsGetLoading
                 : productDetailsGetLoading
             }
-            style={{ height: 400, width: '100%' }}
           />
         </DialogContent>
       </Dialog>
@@ -385,17 +387,13 @@ const InspectionAll: React.FC = () => {
 
             <Grid className="flex flex-col" size={12}>
               <FormLabelStyled>출고 이력</FormLabelStyled>
-              <DataGridPro
+              <CustomDataGrid
                 rows={productData?.shipping_history || []}
                 columns={shippingDetailscolumns}
-                density="compact"
-                initialState={{
-                  pagination: { paginationModel: { pageSize: 5 } },
-                }}
+                pageSize={5}
                 pageSizeOptions={[5, 10, 20]}
                 loading={productDetailsGetLoading}
                 disableRowSelectionOnClick
-                style={{ height: 400, width: '100%' }}
               />
             </Grid>
           </Grid>
@@ -405,4 +403,4 @@ const InspectionAll: React.FC = () => {
   );
 };
 
-export default InspectionAll;
+export default InspectionsList;

@@ -1,17 +1,20 @@
 import { UserRole } from '../../modules/user/models/user.types';
 
+export enum InspectionViewType {
+  Country = 'country',
+  Inspections = 'inspections',
+  Products = 'products',
+}
+
 export enum InspectionContentType {
   Add = 'ADD',
   All = 'ALL',
   Default = 'HOME',
   Edit = 'EDIT',
   Template = 'TEMPLATE',
-}
-
-export enum InspectionViewType {
-  Country = 'country',
-  Inspections = 'inspections',
-  Products = 'products',
+  CountryView = 'country_view',
+  InspectionsView = 'inspections_view',
+  ProductsView = 'products_view',
 }
 
 export enum ShippingContentType {

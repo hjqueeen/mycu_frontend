@@ -25,6 +25,18 @@ export const InspectionRouter = () => {
         path="/template"
         element={<Inspection type={InspectionContentType.Template} />}
       />
+      <Route
+        path="/country"
+        element={<Inspection type={InspectionContentType.CountryView} />}
+      />
+      <Route
+        path="/standard"
+        element={<Inspection type={InspectionContentType.InspectionsView} />}
+      />
+      <Route
+        path="/products"
+        element={<Inspection type={InspectionContentType.ProductsView} />}
+      />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

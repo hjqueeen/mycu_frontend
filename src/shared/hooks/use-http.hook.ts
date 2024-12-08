@@ -25,7 +25,15 @@ export const useHttp = () => {
   };
 
   const inspectionsGet = async (): Promise<any[]> => {
-    return await fetchData(`product/inspections`);
+    return await fetchData(`product/inspections/standard`);
+  };
+
+  const inspectionsCountryGet = async (): Promise<any[]> => {
+    return await fetchData(`product/inspections/country`);
+  };
+
+  const inspectionsProductsGet = async (): Promise<any[]> => {
+    return await fetchData(`product/inspections/products`);
   };
 
   const inspectionsDetailsGet = async (rowId: string): Promise<any[]> => {
@@ -48,6 +56,8 @@ export const useHttp = () => {
     companiesGet,
     addProductsPost,
     inspectionsGet,
+    inspectionsCountryGet,
+    inspectionsProductsGet,
     inspectionsDetailsGet,
     productDetailsGet,
   };

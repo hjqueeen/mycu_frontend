@@ -143,17 +143,14 @@ const DashboardNav = ({
       case '0':
         navigate('/dashboard');
         break;
-      case '1.1':
-        navigate('/inspection/all');
-        break;
       case '1.1.1':
-        navigate('/inspection/all');
+        navigate('/inspection/country');
         break;
       case '1.1.2':
-        navigate('/inspection/all');
+        navigate('/inspection/standard');
         break;
       case '1.1.3':
-        navigate('/inspection/all');
+        navigate('/inspection/products');
         break;
       case '1.2':
         navigate('/inspection/add');
