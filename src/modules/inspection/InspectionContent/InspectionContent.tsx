@@ -4,6 +4,7 @@ import InspectionAll from '../InspectionAll/InspectionAll';
 import { InspectionAdd } from '../InspectionAdd/InspectionAdd';
 import InspectionReport from '../InspectionAdd/InspectionReport';
 import { Box } from '@mui/material';
+import ShippingEdit from '../../shipping/ShippingEdit';
 
 const InspectionContent = ({ type }: ProductsPageProps) => {
   const ContentComponent = (type: InspectionContentType) => {
@@ -13,7 +14,7 @@ const InspectionContent = ({ type }: ProductsPageProps) => {
       case InspectionContentType.Add:
         return <InspectionAdd />;
       case InspectionContentType.Edit:
-        return <div>Edit</div>;
+        return <ShippingEdit />;
       case InspectionContentType.Template:
         return (
           <Box className="w-[210mm]">

@@ -27,7 +27,7 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
       >
         <Box className="flex p-2 ml-2 flex-row items-center">
           <img src={cuLogo} alt="cu-logo" className="w-8 mr-2" />
-          <Typography variant="h4" sx={{ color: 'text.secondary' }}>
+          <Typography variant="h5" sx={{ color: 'text.secondary' }}>
             CU Medical
           </Typography>
         </Box>
