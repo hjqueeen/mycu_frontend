@@ -127,7 +127,7 @@ export const navigationCustomizations: Components<Theme> = {
       root: ({ theme }: any) => ({
         color: (theme.vars || theme).palette.text.primary,
         fontWeight: 500,
-        position: 'relative',
+        // position: 'relative',
         textDecoration: 'none',
         width: 'fit-content',
         '&::before': {

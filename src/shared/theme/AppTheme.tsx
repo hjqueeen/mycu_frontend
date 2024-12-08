@@ -37,7 +37,7 @@ export default function AppTheme({
           shape,
           components: {
             ...inputsCustomizations,
-            ...dataDisplayCustomizations,
+            // ...dataDisplayCustomizations,
             ...feedbackCustomizations,
             ...navigationCustomizations,
             ...surfacesCustomizations,

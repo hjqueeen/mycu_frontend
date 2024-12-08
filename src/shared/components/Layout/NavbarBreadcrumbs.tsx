@@ -3,9 +3,8 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
-import { ContentHeaderProps } from './ContentHeader';
 
-const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }: any) => ({
+const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   margin: theme.spacing(1, 0),
   [`& .${breadcrumbsClasses.separator}`]: {
     color: (theme.vars || theme).palette.action.disabled,
@@ -16,21 +15,15 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }: any) => ({
   },
 }));
 
-export default function NavbarBreadcrumbs({
-  pageType,
-  contentType,
-}: ContentHeaderProps) {
+export default function NavbarBreadcrumbs() {
   return (
     <StyledBreadcrumbs
       aria-label="breadcrumb"
       separator={<NavigateNextRoundedIcon fontSize="small" />}
     >
-      <Typography variant="body1">{pageType}</Typography>
-      <Typography
-        variant="body1"
-        sx={{ color: 'text.primary', fontWeight: 600 }}
-      >
-        {contentType ? contentType : 'Home'}
+      <Typography variant="body1">Dashboard</Typography>
+      <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 600 }}>
+        Home
       </Typography>
     </StyledBreadcrumbs>
   );

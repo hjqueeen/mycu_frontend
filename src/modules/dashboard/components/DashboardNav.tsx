@@ -95,7 +95,7 @@ const DashboardNav = ({
         },
         { id: '1.2', label: '출하검사' },
         { id: '1.3', label: '출하검사서' },
-        { id: '1.4', label: '수정관리' },
+        { id: '1.4', label: '출고관리' },
       ],
     },
     // {
