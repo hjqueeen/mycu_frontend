@@ -9,6 +9,7 @@ const CustomDataGrid = ({
   pageSize,
   pageSizeOptions,
   disableRowSelectionOnClick,
+  style,
   onRowClick,
 }: {
   columns: GridColDef[];
@@ -17,6 +18,7 @@ const CustomDataGrid = ({
   pageSize?: number;
   pageSizeOptions?: number[];
   disableRowSelectionOnClick?: boolean;
+  style?: React.CSSProperties;
   onRowClick?: (params: any) => void;
 }) => {
   return (
@@ -45,6 +47,7 @@ const CustomDataGrid = ({
           cursor: 'pointer',
         },
       }}
+      style={style}
       disableRowSelectionOnClick={disableRowSelectionOnClick}
     />
   );

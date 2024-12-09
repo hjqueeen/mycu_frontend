@@ -83,8 +83,8 @@ export const countryColumns: GridColDef[] = [
     type: 'number',
     flex: 1,
     resizable: true,
-    // renderCell: (params: GridRenderCellParams) =>
-    //   params.value ? params.value?.length : null,
+    renderCell: (params: GridRenderCellParams) =>
+      params.value ? params.value.length : null,
   },
   {
     field: 'shipping_date',
@@ -99,13 +99,6 @@ export const countryColumns: GridColDef[] = [
 
 export const productscolumns: GridColDef[] = [
   {
-    field: 'business_id',
-    headerName: '사업자등록번호',
-    type: 'string',
-    flex: 1,
-    resizable: true,
-  },
-  {
     field: 'document',
     headerName: '문서번호',
     type: 'string',
@@ -113,7 +106,7 @@ export const productscolumns: GridColDef[] = [
     resizable: true,
   },
   {
-    field: 'model_id',
+    field: 'model_number',
     headerName: '제품명',
     type: 'string',
     flex: 1,
@@ -150,8 +143,22 @@ export const productscolumns: GridColDef[] = [
       params.value ? koreanDate(new Date(params.value)) : '',
   },
   {
-    field: 'company_id',
-    headerName: '출고지',
+    field: 'area_type',
+    headerName: '출고지역',
+    type: 'string',
+    flex: 1,
+    resizable: true,
+  },
+  {
+    field: 'country',
+    headerName: '출고국가',
+    type: 'string',
+    flex: 1,
+    resizable: true,
+  },
+  {
+    field: 'company_name',
+    headerName: '출고업체',
     type: 'string',
     flex: 1,
     resizable: true,
@@ -225,19 +232,25 @@ export const inspectionDetailscolumns: GridColDef[] = [
 
 export const shippingDetailscolumns: GridColDef[] = [
   {
-    field: 'shipping_area',
+    field: 'area_type',
     headerName: '출고지역',
     type: 'string',
     flex: 1,
     resizable: true,
   },
   {
-    field: 'company',
-    headerName: '출고지',
+    field: 'country',
+    headerName: '출고국가',
     type: 'string',
     flex: 1,
     resizable: true,
-    renderCell: (params: GridRenderCellParams) => params.value.company_name,
+  },
+  {
+    field: 'company_name',
+    headerName: '출고업체',
+    type: 'string',
+    flex: 1,
+    resizable: true,
   },
   {
     field: 'shipping_date',

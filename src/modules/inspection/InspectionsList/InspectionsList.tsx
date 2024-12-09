@@ -133,11 +133,10 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
       inspectionsDetailsGetMutate(rowId); // 백엔드 요청 실행
     }
     if (pageType === InspectionViewType.Inspections && dialogOpen) {
-      setProductDetailTitle(params.row.model_id);
+      setProductDetailTitle(params.row.model_name);
       productDetailsGetMutate(rowId); // 백엔드 요청 실행
     }
     if (pageType === InspectionViewType.Products) {
-      setProductDetailTitle(params.row.model_id);
       productDetailsGetMutate(rowId);
     }
   };
@@ -213,7 +212,9 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
             ? inpectionColumns
             : productscolumns
         }
-        loading={isLoading}
+        loading={
+          isLoading || inspectionsCountryLoading || inspectionsProductLoading
+        }
         onRowClick={handleRowClick} // 행 클릭 이벤트 핸들러
       />
       {/* Dialog */}
@@ -222,6 +223,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
         onClose={() => setDialogOpen(false)}
         maxWidth="xl"
         fullWidth
+        className="mt-20 ml-48"
       >
         <DialogTitle>
           출하내역 상세보기 (문서번호: {selectedDocument})
@@ -247,6 +249,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
                 ? inspectionsDetailsGetLoading
                 : productDetailsGetLoading
             }
+            style={{ height: '500px' }}
           />
         </DialogContent>
       </Dialog>
@@ -258,7 +261,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
         fullWidth
       >
         <DialogTitle className="mb-4">
-          상세보기 (제품: {productDetailTitle})
+          상세보기 (제품: {productData?.model_number})
         </DialogTitle>
         <DialogContent sx={{ bgColor: 'background.paper' }}>
           <Grid container spacing={1} className="w-full flex">
