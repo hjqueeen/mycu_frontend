@@ -121,7 +121,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
     }
   }, [pageType]);
 
-  /********************/
+  /********************/f
   /*     CALLBACK     */
   /********************/
 
