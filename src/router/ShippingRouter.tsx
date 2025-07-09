@@ -7,13 +7,13 @@ export const ShippingRouter = () => {
     <Routes>
       <Route
         path="/"
-        element={<ShippingPage type={ShippingContentType.Edit} />}
-      />
-      {/* <Route
-        path="/add"
         element={<ShippingPage type={ShippingContentType.Add} />}
       />
       <Route
+        path="/add"
+        element={<ShippingPage type={ShippingContentType.Add} />}
+      />
+      {/*  <Route
         path="/all"
         element={<ShippingPage type={ShippingContentType.All} />}
       /> */}

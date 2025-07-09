@@ -1,5 +1,6 @@
 import { Layout, PageType } from '../../shared/components/Layout/Layout';
 import { ShippingContentType } from '../../shared/models/all.types';
+import ShippingAdd from './ShippingAdd';
 import ShippingEdit from './ShippingEdit';
 
 export type PageProps = {
@@ -10,8 +11,12 @@ export const ShippingPage = ({ type }: PageProps) => {
     switch (type) {
       // case ShippingContentType.All:
       //   return <InspectionAll />;
-      // case ShippingContentType.Add:
-      //   return <InspectionAdd />;
+      case ShippingContentType.Add:
+        return (
+          <>
+            <ShippingAdd />
+          </>
+        );
       case ShippingContentType.Edit:
         return <ShippingEdit />;
 

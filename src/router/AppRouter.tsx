@@ -26,7 +26,7 @@ export const AppRouter = () => {
   const { handleError, handleRetry } = useFetch();
   const { userGet } = useUsersHttp();
   // User store state
-  const { account, headerMenu, setAccount, setHeaderMenu } = useUserStore();
+  const { account, setAccount } = useUserStore();
   const { accessToken } = useAuthStore();
 
   // GET user data mutation
@@ -35,9 +35,6 @@ export const AppRouter = () => {
     onSettled: (data, error) => {
       if (data) {
         setAccount(data.account);
-        setHeaderMenu(data.headerMenu);
-        // setProfile(data.profile);
-        // setTheme(data.theme ?? Theme.Light);
       }
       if (error) {
         const errRes = error?.response;
@@ -71,93 +68,83 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" />} />
-      {headerMenu?.dashboard && (
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout pageType={PageType.Dashboard} mainGrid={<Dashboard />} />
-            </ProtectedRoute>
-          }
-        />
-      )}
+      <Route
+        path="/dashboard"
+        element={
+          // <ProtectedRoute>
+          <Layout pageType={PageType.Dashboard} mainGrid={<Dashboard />} />
+          // </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventory"
+        element={
+          // <ProtectedRoute>
+          <Layout pageType={PageType.Inventory} mainGrid={<Inventory />} />
+          // </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inspection/*"
+        element={
+          // <ProtectedRoute>
+          <InspectionRouter />
+          // </ProtectedRoute>
+        }
+      />
 
-      {headerMenu?.inventory && (
-        <Route
-          path="/inventory"
-          element={
-            <ProtectedRoute>
-              <Layout pageType={PageType.Inventory} mainGrid={<Inventory />} />
-            </ProtectedRoute>
-          }
-        />
-      )}
-      {headerMenu?.products && (
-        <Route
-          path="/inspection/*"
-          element={
-            <ProtectedRoute>
-              <InspectionRouter />
-            </ProtectedRoute>
-          }
-        />
-      )}
-      {headerMenu?.shipping && (
-        <Route
-          path="/shipping"
-          element={
-            <ProtectedRoute>
-              <ShippingRouter />
-            </ProtectedRoute>
-          }
-        />
-      )}
-      {headerMenu?.user_management && (
-        <Route
-          path="/user_management"
-          element={
-            <ProtectedRoute>
-              <Layout
-                pageType={PageType.UserManagement}
-                mainGrid={<UserManagement />}
-              />
-            </ProtectedRoute>
-          }
-        />
-      )}
+      <Route
+        path="/shipping/*"
+        element={
+          // <ProtectedRoute>
+          <ShippingRouter />
+          // </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user_management"
+        element={
+          // <ProtectedRoute>
+          <Layout
+            pageType={PageType.UserManagement}
+            mainGrid={<UserManagement />}
+          />
+          // </ProtectedRoute>
+        }
+      />
       <Route
         path="/cart"
         element={
-          <ProtectedRoute>
-            <Layout pageType={PageType.Cart} mainGrid={<Cart />} />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Layout pageType={PageType.Cart} mainGrid={<Cart />} />
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/checkout"
         element={
-          <ProtectedRoute>
-            <Layout pageType={PageType.Checkout} mainGrid={<Checkout />} />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Layout pageType={PageType.Checkout} mainGrid={<Checkout />} />
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/account"
         element={
-          <ProtectedRoute>
-            <Layout
-              pageType={PageType.Account}
-              mainGrid={<AccountPage defaultValue={account} />}
-            />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Layout
+            pageType={PageType.Account}
+            mainGrid={<AccountPage defaultValue={account} />}
+          />
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/password"
         element={
-          <ProtectedRoute>
-            <Layout pageType={PageType.Password} mainGrid={<Password />} />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Layout pageType={PageType.Password} mainGrid={<Password />} />
+          // </ProtectedRoute>
         }
       />
       <Route path="/signup" element={<SignUp />} />

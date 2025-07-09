@@ -121,7 +121,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
     }
   }, [pageType]);
 
-  /********************/f
+  /********************/
   /*     CALLBACK     */
   /********************/
 
@@ -142,11 +142,7 @@ const InspectionsList = ({ pageType }: { pageType: InspectionViewType }) => {
   };
 
   return (
-    <Grid
-      container
-      spacing={2}
-      className="flex flex-col p-5 w-full h-[calc(100vh-60px)]"
-    >
+    <Grid container spacing={2} className="flex flex-col p-5 w-full">
       <Grid container spacing={2} className="flex flex-row items-center">
         <Grid container spacing={1} className="flex flex-row items-center">
           <Typography variant="h6">검색기간설정: </Typography>

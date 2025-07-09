@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
-import { alpha, Box, Stack } from '@mui/material';
+import { alpha, Box, Grid2 as Grid, Stack } from '@mui/material';
 import Header from '../Header/Header';
-import ContentHeader from './ContentHeader';
 import { InspectionContentType } from '../../models/all.types';
 
 import { useUserStore } from '../../store/use-user.store';
@@ -61,20 +60,15 @@ export const Layout = ({
             backgroundColor: theme.vars
               ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
               : alpha(theme.palette.background.default, 1),
-            overflow: 'auto',
           })}
         >
           <Stack
-            spacing={2}
+            className="fixed h-[calc(100vh-64px)] top-[64px] w-[calc(100vw-240px)] min-w-[1360px]"
             sx={{
-              height: '100%',
               // alignItems: 'center',
-              mx: 3,
-              pb: 5,
-              mt: { xs: 8, md: 0 },
+              px: 3,
             }}
           >
-            <ContentHeader pageType={pageType} contentType={contentType} />
             {mainGrid}
           </Stack>
         </Box>

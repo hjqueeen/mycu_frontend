@@ -18,7 +18,7 @@ export enum InspectionContentType {
 }
 
 export enum ShippingContentType {
-  // Add = 'ADD',
+  Add = 'ADD',
   // All = 'ALL',
   // Default = 'HOME',
   Edit = 'EDIT',

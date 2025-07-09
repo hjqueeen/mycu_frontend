@@ -86,7 +86,7 @@ const DashboardNav = ({
     },
     {
       id: '1',
-      label: '출하관리',
+      label: '최종검사',
       children: [
         {
           id: '1.1',
@@ -103,7 +103,7 @@ const DashboardNav = ({
     },
     {
       id: '2',
-      label: '출고관리',
+      label: '물류출하',
       children: [
         { id: '2.1', label: '제품출고' },
         { id: '2.2', label: '출고이력수정' },
@@ -139,6 +139,8 @@ const DashboardNav = ({
   ];
 
   const onItemClick = (itemId: string) => {
+    console.log('itemId', itemId);
+
     switch (itemId) {
       case '0':
         navigate('/dashboard');
@@ -157,6 +159,9 @@ const DashboardNav = ({
         break;
       case '1.3':
         navigate('/inspection/template');
+        break;
+      case '2.1':
+        navigate('/shipping/add');
         break;
       case '2.2':
         navigate('/shipping/edit');

@@ -3,12 +3,10 @@ import {
   ICompany,
   GetProductDatailsResponse,
 } from '../models/all.types';
-import { useAuthStore } from '../store/use-auth.store';
 import { useFetch } from './use-fetch.hook';
 
 export const useHttp = () => {
   const { fetchData } = useFetch();
-  const { accessToken } = useAuthStore();
 
   const categoriesGet = async (): Promise<ICategory[]> => {
     return await fetchData(`category`);
@@ -19,9 +17,7 @@ export const useHttp = () => {
   };
 
   const addProductsPost = async (data: any): Promise<any> => {
-    if (accessToken) {
-      return await fetchData(`product/add`, { method: 'POST', body: data });
-    }
+    return await fetchData(`product/add`, { method: 'POST', body: data });
   };
 
   const inspectionsGet = async (): Promise<any[]> => {
@@ -37,28 +33,28 @@ export const useHttp = () => {
   };
 
   const inspectionsDetailsGet = async (rowId: string): Promise<any[]> => {
-    if (accessToken) {
-      return await fetchData(`product/inspections/details/${rowId}`);
-    }
-    return [];
+    return await fetchData(`product/inspections/details/${rowId}`);
   };
 
   const productDetailsGet = async (
     rowId: string
   ): Promise<GetProductDatailsResponse | undefined> => {
-    if (accessToken) {
-      return await fetchData(`product/details/${rowId}`);
-    }
-    return undefined;
+    return await fetchData(`product/details/${rowId}`);
   };
+
+  const inspectionsNotShippedGet = async (): Promise<any[] | undefined> => {
+    return await fetchData(`product/inspections/not_shipped`);
+  };
+
   return {
+    addProductsPost,
     categoriesGet,
     companiesGet,
-    addProductsPost,
-    inspectionsGet,
     inspectionsCountryGet,
-    inspectionsProductsGet,
     inspectionsDetailsGet,
+    inspectionsGet,
+    inspectionsNotShippedGet,
+    inspectionsProductsGet,
     productDetailsGet,
   };
 };

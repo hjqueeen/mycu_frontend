@@ -70,7 +70,7 @@ const columns: GridColDef[] = [
 
 const InspectionAddData = ({ rows }: { rows: any[] }) => {
   return (
-    <Grid className="w-full h-[calc(100vh-600px)]">
+    <Grid className="w-full h-[calc(100vh-800px)]">
       <DataGrid
         editMode="row"
         rows={rows}

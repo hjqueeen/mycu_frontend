@@ -15,6 +15,8 @@ import { firstAlphabetGet } from '../../utils/shared.util';
 import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
 import { useUserStore } from '../../store/use-user.store';
 import { faBell, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
+import ColorModeIconDropdown from '../../theme/ColorModeIconDropdown';
+import ColorModeSelect from '../../theme/ColorModeSelect';
 
 export type HeaderProps = {
   pageType: PageType;
@@ -88,6 +90,7 @@ const Header = ({ pageType, headerMenu }: HeaderProps) => {
             icon={['fas', 'cart-shopping']}
             onClick={() => setDrawer(true)}
           /> */}
+          <ColorModeIconDropdown />
           <OptionsMenu name={firstAlphabetGet(account)} />
           <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
             <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
@@ -113,17 +116,16 @@ const HeaderIcon = React.memo(
     return (
       <Link to={path}>
         <Box
-          className="py-5 px-4"
+          className="p-4 mt-1"
           sx={{
             color: 'text.primary',
-            fontWeight: activ ? 600 : undefined,
             '&:hover': {
               fontWeight: 600,
               bgcolor: 'bg.hover',
             },
           }}
         >
-          <FontAwesomeIcon className="text-lg" icon={icon} />
+          <FontAwesomeIcon className="text-xl" icon={icon} />
         </Box>
       </Link>
     );
