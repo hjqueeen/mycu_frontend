@@ -1,65 +1,16 @@
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
 import { TreeViewBaseItem } from '@mui/x-tree-view/models';
 import { styled, alpha } from '@mui/material/styles';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-import { ContentHeaderProps } from '../../../shared/components/Layout/ContentHeader';
-import { useEffect, useState } from 'react';
-import { PageType } from '../../../shared/components/Layout/Layout';
-import { ProductsContentType } from '../../../shared/models/all.types';
+import { useEffect } from 'react';
+import { ExtendedTreeItemProps } from '../../../shared/models/all.types';
 import { useNavigate } from 'react-router-dom';
-
-type Color = 'blue' | 'green';
-
-type ExtendedTreeItemProps = {
-  color?: Color;
-  id: string;
-  label: string;
-};
-
-const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
-  {
-    id: '1',
-    label: 'Products',
-    children: [
-      {
-        id: '1.1',
-        label: 'All Products',
-        color: 'green',
-        children: [
-          { id: '1.1.1', label: 'Category 1', color: 'blue' },
-          { id: '1.1.2', label: 'Category 2', color: 'blue' },
-          { id: '1.1.3', label: 'Category 3', color: 'blue' },
-          { id: '1.1.4', label: 'Category 4', color: 'blue' },
-        ],
-      },
-      { id: '1.2', label: 'Add Products', color: 'green' },
-      { id: '1.3', label: 'Edit Products', color: 'green' },
-    ],
-  },
-  {
-    id: '2',
-    label: 'Inventory',
-    children: [
-      { id: '2.1', label: 'All products', color: 'green' },
-      {
-        id: '2.2',
-        label: 'Categories',
-        children: [
-          { id: '2.2.1', label: 'Gadgets', color: 'blue' },
-          { id: '2.2.2', label: 'Phones', color: 'blue' },
-          { id: '2.2.3', label: 'Wearables', color: 'blue' },
-        ],
-      },
-      { id: '2.3', label: 'Bestsellers', color: 'green' },
-      { id: '2.4', label: 'Sales', color: 'green' },
-    ],
-  },
-  { id: '3', label: 'Shipping', color: 'blue' },
-  { id: '4', label: 'User Management', color: 'blue' },
-  { id: '5', label: 'Contact', color: 'blue' },
-  { id: '6', label: 'Help', color: 'blue' },
-];
+import { useMutation } from 'react-query';
+import { useUsersHttp } from '../../../shared/hooks/use-users-http.hook';
+import { useFetch } from '../../../shared/hooks/use-fetch.hook';
+import { useUserStore } from '../../../shared/store/use-user.store';
 
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   color: theme.palette.grey[200],
@@ -77,11 +28,9 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
     padding: theme.spacing(0, 1.2),
     ...theme.applyStyles('light', {
-      backgroundColor: alpha(theme.palette.warning.dark, 0.25),
-      color: theme.palette.background.paper,
+      backgroundColor: alpha(theme.palette.primary.main, 0.25),
     }),
     ...theme.applyStyles('dark', {
-      backgroundColor: alpha(theme.palette.warning.dark, 0.25),
       color: theme.palette.primary.contrastText,
     }),
   },
@@ -90,41 +39,132 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
     paddingLeft: 18,
     borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
   },
-  [`& .${treeItemClasses.selected} `]: {
-    backgroundColor: theme.palette.warning.dark,
-    color: theme.palette.primary.contrastText,
-    '&:hover': {
-      backgroundColor: theme.palette.warning.dark,
-      color: theme.palette.primary.contrastText,
-    },
-    '&:not(:focus)': {
-      backgroundColor: theme.palette.warning.dark,
-      color: theme.palette.primary.contrastText,
-    },
-  },
   ...theme.applyStyles('light', {
     color: theme.palette.grey[800],
   }),
 }));
-
 type DashboardNavProps = {
-  defaultExpandedItems: string[];
-  defaultSelectedItems: string;
+  defaultExpandedItems: string[] | undefined;
+  defaultSelectedItems: string | undefined;
 };
 
-const DashboardNav = ({ defaultExpandedItems, defaultSelectedItems }: any) => {
+const DashboardNav = ({
+  defaultExpandedItems,
+  defaultSelectedItems,
+}: DashboardNavProps) => {
   const navigate = useNavigate();
+  const { handleError, handleRetry } = useFetch();
+  const { userGroupsGet } = useUsersHttp();
+
+  const { navUserGroups, setNavUserGroups } = useUserStore();
+
+  const userGroupsGetMutation = useMutation(() => userGroupsGet(), {
+    retry: (failureCount, error: any) => handleRetry(failureCount, error),
+    onSuccess(data) {
+      if (data) {
+        setNavUserGroups(data);
+      }
+    },
+    onError(error) {
+      if (error) {
+        const errRes = error?.response;
+        if (errRes) {
+        }
+      }
+    },
+  });
+
+  useEffect(() => {
+    userGroupsGetMutation.mutate();
+  }, []);
+
+  const ITEMS: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
+    {
+      id: '0',
+      label: '대시보드',
+      children: [],
+    },
+    {
+      id: '1',
+      label: '최종검사',
+      children: [
+        {
+          id: '1.1',
+          label: '출하내역',
+          children: [
+            { id: '1.1.1', label: '국가별보기' },
+            { id: '1.1.2', label: '출고별보기' },
+            { id: '1.1.3', label: '제품별보기' },
+          ],
+        },
+        { id: '1.2', label: '출하검사' },
+        { id: '1.3', label: '출하검사서' },
+      ],
+    },
+    {
+      id: '2',
+      label: '물류출하',
+      children: [
+        { id: '2.1', label: '제품출고' },
+        { id: '2.2', label: '출고이력수정' },
+
+        // {
+        //   id: '2.2',
+        //   label: 'Categories',
+        //   children: [
+        //     { id: '2.2.1', label: 'Gadgets' },
+        //     { id: '2.2.2', label: 'Phones' },
+        //     { id: '2.2.3', label: 'Wearables' },
+        //   ],
+        // },
+        // { id: '2.3', label: 'Bestsellers' },
+        // { id: '2.4', label: 'Sales' },
+      ],
+    },
+    // { id: '3', label: 'Shipping' },
+    // { id: '4', label: 'User Management', children: navUserGroups },
+    // { id: '5', label: 'Contact' },
+    // { id: '6', label: 'Help' },
+    // {
+    //   id: '7',
+    //   label: 'Settings',
+    //   children: [
+    //     { id: '7.1', label: 'Profile' },
+    //     {
+    //       id: '7.2',
+    //       label: 'Account',
+    //     },
+    //   ],
+    // },
+  ];
 
   const onItemClick = (itemId: string) => {
+    console.log('itemId', itemId);
+
     switch (itemId) {
-      case '1.1':
-        navigate('/products/all');
+      case '0':
+        navigate('/dashboard');
+        break;
+      case '1.1.1':
+        navigate('/inspection/country');
+        break;
+      case '1.1.2':
+        navigate('/inspection/standard');
+        break;
+      case '1.1.3':
+        navigate('/inspection/products');
         break;
       case '1.2':
-        navigate('/products/add');
+        navigate('/inspection/add');
         break;
       case '1.3':
-        navigate('/products/edit');
+        navigate('/inspection/template');
+        break;
+      case '2.1':
+        navigate('/shipping/add');
+        break;
+      case '2.2':
+        navigate('/shipping/edit');
         break;
       default:
         break;
@@ -133,9 +173,6 @@ const DashboardNav = ({ defaultExpandedItems, defaultSelectedItems }: any) => {
 
   return (
     <>
-      <Typography component="h2" variant="subtitle2">
-        Dashboard
-      </Typography>
       <RichTreeView
         items={ITEMS}
         aria-label="pages"
@@ -156,4 +193,4 @@ const DashboardNav = ({ defaultExpandedItems, defaultSelectedItems }: any) => {
   );
 };
 
-export default DashboardNav;
+export default React.memo(DashboardNav);

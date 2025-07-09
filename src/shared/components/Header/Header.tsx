@@ -1,29 +1,36 @@
-import React, { memo, useState } from 'react';
-import { useEffect } from 'react';
-import { unstable_batchedUpdates } from 'react-dom';
-import { useTranslation } from 'react-i18next';
-import { useMutation } from 'react-query';
-import { Box, Button, Divider, AppBar, Toolbar } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import clsx from 'clsx';
-import styles from './Header.module.scss';
-import useResponsive from '../../hooks/use-responsive ';
-import { SharedState, useSharedStore } from '../../store/use-shared.store';
-import { Tooltip } from '../../ui/Tooltip/Tooltip';
-import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
+import React, { useState } from 'react';
+import { Box, AppBar, Toolbar, Drawer, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import {
+  IconDefinition,
+  IconName,
+  IconPrefix,
+} from '@fortawesome/fontawesome-svg-core';
 import { PageType } from '../Layout/Layout';
 import cuLogo from '../../../assets/logo/cropped-CU-LOGO-ohne-Titel.png';
-import cuBackgroud from '../../../assets/picture/cusp12.jpg';
+import { HeaderMenu } from '../../models/all.types';
+import Cart from '../../../modules/cart/Cart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { firstAlphabetGet } from '../../utils/shared.util';
+import OptionsMenu from '../../../modules/inspection/ProductAdd/OptionsMenu';
+import { useUserStore } from '../../store/use-user.store';
+import { faBell, faHouse, faUser } from '@fortawesome/free-solid-svg-icons';
+import ColorModeIconDropdown from '../../theme/ColorModeIconDropdown';
+import ColorModeSelect from '../../theme/ColorModeSelect';
 
 export type HeaderProps = {
   pageType: PageType;
+  headerMenu: HeaderMenu | undefined;
 };
 
-export const Header = memo(({ pageType }: HeaderProps) => {
+const Header = ({ pageType, headerMenu }: HeaderProps) => {
+  const [drawer, setDrawer] = useState(false);
+  const { account } = useUserStore();
+
   return (
     <AppBar position="fixed" elevation={0}>
       <Toolbar
-        className="flex flex-row justify-between"
+        className="flex flex-row justify-between pl-5 pr-8"
         sx={{
           bgcolor: 'background.default',
           borderBottom: '1px solid',
@@ -31,68 +38,133 @@ export const Header = memo(({ pageType }: HeaderProps) => {
           boxShadow: 0,
         }}
       >
-        <Box className={styles['header-container-logo']}>
-          <img src={cuLogo} alt="cu-logo" />
+        <Box className="flex p-2 flex-row items-center">
+          <img src={cuLogo} alt="cu-logo" className="w-8 mr-2" />
+          <Typography variant="h5" sx={{ color: 'text.secondary' }}>
+            CU Medical
+          </Typography>
         </Box>
+        <Box className="flex flex-row items-center">
+          {headerMenu?.dashboard && (
+            <HeaderIcon
+              path="/dashboard"
+              activ={pageType === PageType.Dashboard}
+              icon={faHouse}
+            />
+          )}
+          {headerMenu?.notification && (
+            <HeaderIcon
+              path="/notification"
+              activ={pageType === PageType.Alarm}
+              icon={faBell}
+            />
+          )}
+          {/* {headerMenu?.products && (
+            <HeaderIcon
+              path="/inspection"
+              activ={pageType === PageType.Products}
+            />
+          )}
+          {headerMenu?.inventory && (
+            <HeaderIcon
+              path="/inventory"
+              activ={pageType === PageType.Inventory}
+            />
+          )}
+          {headerMenu?.shipping && (
+            <HeaderIcon
+              path="/shipping"
+              activ={pageType === PageType.Shipping}
+            />
+          )}
+          {headerMenu?.user_management && (
+            <HeaderIcon
+              path="/user_management"
+              activ={pageType === PageType.UserManagement}
+            />
+          )} */}
 
-        <Box className="flex flex-row mr-24">
-          <HeaderIcon
-            path="/dashboard"
-            activ={pageType === PageType.Dashboard}
-            icon={['fal', 'objects-column']}
-          />
-          <HeaderIcon
-            path="/products"
-            activ={pageType === PageType.Products}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/inventory"
-            activ={pageType === PageType.Inventory}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/shipping"
-            activ={pageType === PageType.Shipping}
-            icon={['fal', 'chart-network']}
-          />
-          <HeaderIcon
-            path="/user_management"
-            activ={pageType === PageType.UserManagement}
-            icon={['fal', 'users']}
-          />
+          {/* <CartIcon
+            path="/cart"
+            activ={pageType === PageType.Cart}
+            icon={['fas', 'cart-shopping']}
+            onClick={() => setDrawer(true)}
+          /> */}
+          <ColorModeIconDropdown />
+          <OptionsMenu name={firstAlphabetGet(account)} />
+          <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
+            <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
+              <Cart />
+            </Stack>
+          </Drawer>
         </Box>
       </Toolbar>
     </AppBar>
   );
-});
+};
 
-const HeaderIcon = ({
-  activ,
-  path,
-  icon,
-}: {
-  activ: boolean;
-  path: string;
-  icon: [IconPrefix, IconName];
-}) => {
-  return (
-    <Link to={path}>
-      <Tooltip title="shipping">
+const HeaderIcon = React.memo(
+  ({
+    activ,
+    path,
+    icon,
+  }: {
+    activ: boolean;
+    path: string;
+    icon: IconDefinition;
+  }) => {
+    return (
+      <Link to={path}>
         <Box
-          className="mr-4 py-5 px-4"
+          className="p-4 mt-1"
           sx={{
             color: 'text.primary',
-            fontWeight: activ ? 600 : undefined,
             '&:hover': {
               fontWeight: 600,
               bgcolor: 'bg.hover',
             },
           }}
         >
-          {path.slice(1).toUpperCase()}
+          <FontAwesomeIcon className="text-xl" icon={icon} />
         </Box>
-      </Tooltip>
-    </Link>
-  );
-};
+      </Link>
+    );
+  }
+);
+
+// const CartIcon = ({
+//   activ,
+//   path,
+//   icon,
+//   onClick,
+// }: {
+//   activ: boolean;
+//   path: string;
+//   icon: [IconPrefix, IconName];
+//   onClick: () => void;
+// }) => {
+//   const { cart } = useCartStore();
+//   const calculateTotalQuantity = (cart: CartItem[]): number => {
+//     return cart.reduce((total, item) => total + item.quantity, 0);
+//   };
+
+//   const count = calculateTotalQuantity(cart);
+//   return (
+//     <Box
+//       className="mr-4 py-5 px-4 flex flex-row"
+//       onClick={onClick}
+//       sx={{
+//         color: 'text.primary',
+//         fontWeight: activ ? 600 : undefined,
+//         '&:hover': {
+//           fontWeight: 600,
+//           bgcolor: 'bg.hover',
+//         },
+//       }}
+//     >
+//       {`${path.slice(1).toUpperCase()} (${count})`}
+//     </Box>
+//   );
+// };
+
+export default React.memo(Header);

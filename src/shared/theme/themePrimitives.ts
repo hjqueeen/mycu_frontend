@@ -105,15 +105,15 @@ export const getDesignTokens = (mode: PaletteMode) => {
     palette: {
       mode,
       primary: {
-        light: brand[200],
-        main: brand[400],
-        dark: brand[700],
-        contrastText: brand[50],
+        light: orange[200],
+        main: orange[400],
+        dark: orange[700],
+        contrastText: orange[50],
         ...(mode === 'dark' && {
-          contrastText: brand[50],
-          light: brand[300],
-          main: brand[400],
-          dark: brand[700],
+          contrastText: orange[50],
+          light: orange[300],
+          main: orange[400],
+          dark: orange[700],
         }),
       },
       info: {
@@ -165,13 +165,19 @@ export const getDesignTokens = (mode: PaletteMode) => {
       background: {
         default: 'hsl(0, 0%, 99%)',
         paper: 'hsl(220, 35%, 97%)',
-        ...(mode === 'dark' && { default: gray[900], paper: 'hsl(220, 30%, 7%)' }),
+        ...(mode === 'dark' && {
+          default: gray[900],
+          paper: 'hsl(220, 30%, 7%)',
+        }),
       },
       text: {
-        primary: gray[800],
-        secondary: gray[600],
+        primary: gray[900],
+        secondary: gray[800],
         warning: orange[400],
-        ...(mode === 'dark' && { primary: 'hsl(0, 0%, 100%)', secondary: gray[400] }),
+        ...(mode === 'dark' && {
+          primary: 'hsl(0, 0%, 100%)',
+          secondary: gray[400],
+        }),
       },
       action: {
         hover: alpha(gray[200], 0.2),
@@ -242,15 +248,15 @@ export const colorSchemes = {
   light: {
     palette: {
       primary: {
-        light: brand[200],
-        main: brand[400],
-        dark: brand[700],
-        contrastText: brand[50],
+        light: '#C2B5B5',
+        main: '#AB9F9F',
+        dark: orange[800],
+        contrastText: orange[50],
       },
       info: {
-        light: brand[100],
+        light: '#e1eedd',
         main: brand[300],
-        dark: brand[600],
+        dark: '#183a1d',
         contrastText: gray[50],
       },
       warning: {
@@ -277,9 +283,9 @@ export const colorSchemes = {
         paper: 'hsl(220, 35%, 97%)',
       },
       text: {
-        primary: gray[800],
-        secondary: gray[600],
-        warning: orange[400],
+        primary: '#211901',
+        secondary: '#2E2302',
+        warning: red[400],
       },
       action: {
         hover: alpha(gray[200], 0.2),
@@ -292,10 +298,10 @@ export const colorSchemes = {
   dark: {
     palette: {
       primary: {
-        contrastText: brand[50],
-        light: brand[300],
-        main: brand[400],
-        dark: brand[700],
+        contrastText: orange[50],
+        light: orange[300],
+        main: orange[400],
+        dark: orange[700],
       },
       info: {
         contrastText: brand[300],

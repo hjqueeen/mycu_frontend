@@ -7,11 +7,11 @@ import ColorModeIconDropdown from '../../theme/ColorModeIconDropdown';
 
 import Search from './Search';
 import { PageType } from './Layout';
-import { ProductsContentType } from '../../models/all.types';
+import { InspectionContentType } from '../../models/all.types';
 
 export type ContentHeaderProps = {
   pageType: PageType;
-  contentType?: ProductsContentType;
+  contentType?: InspectionContentType;
 };
 
 export default function ContentHeader({
@@ -26,8 +26,8 @@ export default function ContentHeader({
         width: '100%',
         alignItems: { xs: 'flex-start', md: 'center' },
         justifyContent: 'space-between',
-        maxWidth: { sm: '100%', md: '1700px' },
-        pt: 1.5,
+        maxWidth: { sm: '100%', md: '1200px' },
+        // pt: 1.5,
       }}
       spacing={2}
     >

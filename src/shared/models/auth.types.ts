@@ -1,23 +1,5 @@
 import { UserEntity, UserRole } from '../../modules/user/models/user.types';
-
-export interface AccountSetupRequest {
-  token: string;
-  values: {
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    password: string;
-  };
-}
-
-export interface AccountUsers {
-  employees: string;
-  members: string;
-}
-
-export interface ShowName {
-  show_name_formular_at_registration: boolean;
-}
+import { Account, Profile } from './all.types';
 
 export interface LoginData {
   email: string;
@@ -31,19 +13,11 @@ export interface Payload {
   roles: UserRole[];
 }
 
-export interface RegistrationData {
-  code?: string;
-  disclaimer: boolean;
+export interface SignUpData {
+  first_name: string;
+  last_name: string;
   email: string;
-  leaflet?: boolean;
-  termsOfService: boolean;
-  token?: string;
-  toolPreviewId?: string;
-  linkId?: string;
-  communityLink?: string;
-  accessToken?: string;
-  toolId?: string;
-  groupinvite?: string;
+  password: string;
 }
 
 export interface TokenPayload {
@@ -57,5 +31,5 @@ export interface TokenPayload {
 
 export interface LoginResponse {
   accessToken: string;
-  user: UserEntity;
+  user: Account;
 }

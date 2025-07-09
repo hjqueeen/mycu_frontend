@@ -1,29 +1,11 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { alpha, Box, Stack, Typography } from '@mui/material';
+import { ReactNode } from 'react';
+import { alpha, Box, Grid2 as Grid, Stack } from '@mui/material';
+import Header from '../Header/Header';
+import { InspectionContentType } from '../../models/all.types';
 
-import { Header } from '../Header/Header';
-import ContentHeader from './ContentHeader';
-import { ProductsContentType } from '../../models/all.types';
+import { useUserStore } from '../../store/use-user.store';
 
-import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import avatar from '../../../assets/picture/avatar.jpg';
-import OptionsMenu from '../../../modules/products/OptionsMenu';
-import DashboardNav from '../../../modules/dashboard/components/DashboardNav';
-
-const drawerWidth = 240;
-
-const Drawer = styled(MuiDrawer)({
-  width: drawerWidth,
-  flexShrink: 0,
-  boxSizing: 'border-box',
-  mt: 10,
-  [`& .${drawerClasses.paper}`]: {
-    width: drawerWidth,
-    boxSizing: 'border-box',
-  },
-});
+import MainSideMenu from './MainSideMenu';
 
 export enum PageType {
   Dashboard = 'DASHBOARD', // 메인페이지
@@ -31,110 +13,44 @@ export enum PageType {
   Inventory = 'INVENTORY', // 재고관리
   Shipping = 'SHIPPING', // 출고관리
   UserManagement = 'USER_MANAGEMENT', //유저관리
+  Cart = 'CART',
+  Checkout = 'CHECKOUT',
+  Account = 'ACCOUNT',
+  Password = 'PASSWORD',
+  Alarm = 'ALARM',
 }
 
 export type LayoutProps = {
   pageType: PageType;
-  contentType?: ProductsContentType;
+  contentType?: InspectionContentType;
   appNavbar?: ReactNode;
-  navContent?: ReactNode;
   mainGrid: ReactNode;
 };
 
 export const Layout = ({
   pageType,
   contentType,
-  appNavbar,
-  navContent,
+  appNavbar, // for Mobile
   mainGrid,
 }: LayoutProps) => {
-  let defaultExpandedItems;
-  let defaultSelectedItems;
-  if (pageType === PageType.Dashboard) {
-    defaultExpandedItems = undefined;
-    defaultSelectedItems = undefined;
-  } else if (pageType === PageType.Products) {
-    switch (contentType) {
-      case ProductsContentType.All:
-        defaultExpandedItems = ['1', '1.1'];
-        defaultSelectedItems = '1.1';
-        break;
-      case ProductsContentType.Add:
-        defaultExpandedItems = ['1', '1.2'];
-        defaultSelectedItems = '1.2';
-        break;
-      case ProductsContentType.Edit:
-        defaultExpandedItems = ['1', '1.3'];
-        defaultSelectedItems = '1.3';
-        break;
-      default:
-        defaultExpandedItems = ['1'];
-        defaultSelectedItems = '1';
-        break;
-    }
-  } else if (pageType === PageType.Inventory) {
-    defaultExpandedItems = ['2'];
-    defaultSelectedItems = '2';
-  } else if (pageType === PageType.Shipping) {
-    defaultExpandedItems = ['3'];
-    defaultSelectedItems = '3';
-  } else if (pageType === PageType.UserManagement) {
-    defaultExpandedItems = ['4'];
-    defaultSelectedItems = '4';
-  }
+  // User store state
+  const { account, headerMenu } = useUserStore();
+  // User store state
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <Header pageType={pageType} />
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        minWidth: '1600px', // 스크롤바 생기는 시점
+        overflowY: 'hidden',
+        overflowX: 'auto',
+      }}
+    >
+      <Header pageType={pageType} headerMenu={headerMenu} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', md: 'block' },
-            [`& .${drawerClasses.paper}`]: {
-              top: '64px',
-              height: 'calc(100vh - 64px)',
-              backgroundColor: 'background.paper',
-            },
-          }}
-        >
-          <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
-            <DashboardNav
-              defaultExpandedItems={defaultExpandedItems}
-              defaultSelectedItems={defaultSelectedItems}
-            />
-          </Stack>
-          <Stack
-            direction="row"
-            sx={{
-              p: 2,
-              gap: 1,
-              alignItems: 'center',
-              borderTop: '1px solid',
-              borderColor: 'divider',
-            }}
-          >
-            <Avatar
-              sizes="small"
-              alt="Riley Carter"
-              src={avatar}
-              sx={{ width: 36, height: 36 }}
-            />
-            <Box sx={{ mr: 'auto' }}>
-              <Typography
-                variant="body2"
-                sx={{ fontWeight: 500, lineHeight: '16px' }}
-              >
-                Pyunggang Park
-              </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                ppg6530@email.com
-              </Typography>
-            </Box>
-            <OptionsMenu />
-          </Stack>
-        </Drawer>
-
+        <MainSideMenu contentType={contentType} pageType={pageType} />
         {appNavbar}
         {/* Main content */}
         <Box
@@ -144,19 +60,15 @@ export const Layout = ({
             backgroundColor: theme.vars
               ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
               : alpha(theme.palette.background.default, 1),
-            overflow: 'auto',
           })}
         >
           <Stack
-            spacing={2}
+            className="fixed h-[calc(100vh-64px)] top-[64px] w-[calc(100vw-240px)] min-w-[1360px]"
             sx={{
-              alignItems: 'center',
-              mx: 3,
-              pb: 5,
-              mt: { xs: 8, md: 0 },
+              // alignItems: 'center',
+              px: 3,
             }}
           >
-            <ContentHeader pageType={pageType} contentType={contentType} />
             {mainGrid}
           </Stack>
         </Box>

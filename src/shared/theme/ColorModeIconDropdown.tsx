@@ -6,6 +6,8 @@ import IconButton, { IconButtonOwnProps } from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useColorScheme } from '@mui/material/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
   const { mode, systemMode, setMode } = useColorScheme();
@@ -39,23 +41,24 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
   }
   const resolvedMode = (systemMode || mode) as 'light' | 'dark';
   const icon = {
-    light: <LightModeIcon />,
-    dark: <DarkModeIcon />,
+    light: <FontAwesomeIcon className="text-xl" icon={faSun} />,
+    dark: <FontAwesomeIcon className="text-xl" icon={faMoon} />,
   }[resolvedMode];
   return (
     <React.Fragment>
-      <IconButton
-        data-screenshot="toggle-mode"
+      <Box
         onClick={handleClick}
-        disableRipple
-        size="small"
-        aria-controls={open ? 'color-scheme-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        {...props}
+        className="p-4 mt-1 cursor-pointer"
+        sx={{
+          color: 'text.primary',
+          '&:hover': {
+            fontWeight: 600,
+            bgcolor: 'bg.hover',
+          },
+        }}
       >
         {icon}
-      </IconButton>
+      </Box>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
