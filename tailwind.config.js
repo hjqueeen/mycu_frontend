@@ -20,7 +20,6 @@ module.exports = {
         '48/100': '48%',
         'dashboard-nav-width': '350px',
       },
-
     },
   },
 };
